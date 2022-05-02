@@ -1,8 +1,8 @@
-#!bin/bash
+#!/bin/bash
 
 # THIS SCRIPT FOR DEVELOPMENT ENVIRONMENT
 
-pm2 stop next
+pm2 stop seed.mn
 
 # assuming you have a GitHub repository for the app
 git pull origin main
@@ -10,10 +10,10 @@ git pull origin main
 yarn install # install app dependencies (or yarn install)
 yarn build # build our app for production (or yarn build)
 
-yarn install -g pm2 # install pm2 for running our app detached
+yarn global add pm2 # install pm2 for running our app detached
 
 # run start/stop
-pm2 start npm --name "next" -- start # start next app
+pm2 start npm --name "seed.mn" -- start # start next app
 # pm2 stop next # for stopping app
 
 echo "MOVE BITCH GET OUT DA WAY!"

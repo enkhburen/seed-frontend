@@ -1,0 +1,54 @@
+{
+	"name": "seed-nextjs-version",
+	"version": "1.0.0",
+	"private": true,
+	"author": "Altanbagana & EKU",
+	"license": "MIT",
+	"keywords": [
+		"nextjs",
+		"starter",
+		"typescript"
+	],
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint",
+		"type-check": "tsc",
+		"eslint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\"",
+		"format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write"
+	},
+	"dependencies": {
+		"@emotion/cache": "^11.7.1",
+		"@emotion/react": "^11.9.0",
+		"@emotion/server": "^11.4.0",
+		"@emotion/styled": "^11.8.1",
+		"@mui/icons-material": "^5.6.1",
+		"@mui/lab": "^5.0.0-alpha.78",
+		"@mui/material": "^5.6.1",
+		"next": "12.1.5",
+		"react": "18.0.0",
+		"react-dom": "18.0.0",
+		"react-slick": "^0.28.1"
+	},
+	"devDependencies": {
+		"@types/node": "^16.3.1",
+		"@types/react": "17.0.14",
+		"@types/react-dom": "^17.0.9",
+		"@types/react-slick": "^0.23.8",
+		"@typescript-eslint/eslint-plugin": "^4.28.2",
+		"@typescript-eslint/parser": "^4.28.2",
+		"eslint": "^7.30.0",
+		"eslint-config-airbnb": "^18.2.1",
+		"eslint-config-next": "^11.0.1",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-import-resolver-typescript": "^2.4.0",
+		"eslint-plugin-import": "^2.23.4",
+		"eslint-plugin-jsx-a11y": "^6.4.1",
+		"eslint-plugin-prettier": "^3.4.0",
+		"eslint-plugin-react": "^7.24.0",
+		"eslint-plugin-react-hooks": "^4.2.0",
+		"prettier": "^2.3.2",
+		"typescript": "4.3.5"
+	}
+}

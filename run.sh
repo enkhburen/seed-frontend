@@ -2,6 +2,8 @@
 
 # THIS SCRIPT FOR DEVELOPMENT ENVIRONMENT
 
+pm2 stop next
+
 # assuming you have a GitHub repository for the app
 git pull origin main
 

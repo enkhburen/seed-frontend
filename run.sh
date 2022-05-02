@@ -15,3 +15,4 @@ pm2 start npm --name "next" -- start # start next app
 # pm2 stop next # for stopping app
 
 echo "MOVE BITCH GET OUT DA WAY!"
+echo "DONE"

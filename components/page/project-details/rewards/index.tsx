@@ -8,10 +8,8 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 
 export default function projectDetails() {
 	return (
-		<Grid
-			item
-			xs={12}
-			sx={{ p: 3, backgroundColor: '#edf9f3', textAlign: 'left', mt: 2 }}
+		<Box
+			sx={{ p: 3, backgroundColor: '#edf9f3', textAlign: 'left', mt: 0, mb: 2 }}
 		>
 			<Typography
 				variant="h4"
@@ -83,6 +81,6 @@ export default function projectDetails() {
 					}}
 				/>
 			</Button>
-		</Grid>
+		</Box>
 	)
 }

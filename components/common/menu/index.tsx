@@ -21,19 +21,19 @@ const menus = [
 	},
 	{
 		title: 'Төслүүд',
-		url: '/projects'
+		url: 'projects'
 	},
 	{
 		title: 'Блог',
-		url: '/blogs'
+		url: 'blogs'
 	},
 	{
 		title: 'Бидний тухай',
-		url: '/about-us'
+		url: 'about-us'
 	},
 	{
 		title: 'Холбогдох',
-		url: '/contact-us'
+		url: 'contact-us'
 	}
 ]
 
@@ -78,10 +78,16 @@ export default function Menu() {
 					<Grid item>
 						<Box>
 							{menus.map((item, index) => (
-								<Link key={index} href={item.url}>
+								<Link key={index} href={'/' + item.url}>
 									<a>
 										<MenuButton
-											className={router.pathname === item.url ? 'active' : ''}
+											className={
+												router.pathname.includes(item.url) && index !== 0
+													? 'active'
+													: router.pathname === item.url
+													? 'active'
+													: ''
+											}
 										>
 											{item.title}
 										</MenuButton>

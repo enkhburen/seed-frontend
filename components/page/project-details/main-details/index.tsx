@@ -1,7 +1,5 @@
 import Box from '@mui/material/Box'
 
-let text = '<div></div>'
-
 function mainDetailsInHtml(content: string) {
 	return { __html: content }
 }
@@ -18,7 +16,7 @@ export default function projectDetails(props: IProps) {
 			<Box>
 				<div
 					dangerouslySetInnerHTML={mainDetailsInHtml(
-						content ? content : '<div></div>'
+						content ? content : '<p>Мэдээлэл олдсонгүй.</p>'
 					)}
 				/>
 			</Box>

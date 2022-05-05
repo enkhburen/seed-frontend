@@ -21,7 +21,7 @@ interface IProps {
 	image?: string
 	alt?: string
 	href?: string
-	date?: string
+	endDate?: any
 	needed?: number
 	collected?: number
 }
@@ -35,7 +35,7 @@ export default function ProjectItem(props: IProps) {
 		authorLink,
 		image,
 		href,
-		date,
+		endDate,
 		needed,
 		collected
 	} = props
@@ -158,7 +158,7 @@ export default function ProjectItem(props: IProps) {
 
 					<Typography variant="caption">
 						<CalendarMonthIcon sx={{ fontSize: 13, mr: 1 }} />
-						{date ? date : 'Он сар байхгүй байна'}
+						{endDate ? endDate : 'Он сар байхгүй байна'}
 					</Typography>
 				</CardContent>
 			</Card>

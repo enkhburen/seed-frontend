@@ -17,6 +17,17 @@ export default function ProjectList() {
 			<Grid container sx={{ py: 8 }} rowSpacing={4}>
 				{Projects.map((Projects, index) => {
 					if (index + 1 <= totalProjects) {
+						let dateTemp = new Date(
+							Projects.endDate ? Projects.endDate : Date()
+						)
+
+						const dateFormatted =
+							new Date(dateTemp ? dateTemp : '1999-9-1').getFullYear() +
+							' оны ' +
+							(new Date(dateTemp ? dateTemp : '1999-9-1').getMonth() + 1) +
+							' сарын ' +
+							new Date(dateTemp ? dateTemp : '1999-9-1').getDate()
+
 						return (
 							<Grid item xs={4} key={index + 1}>
 								<ProjectItem
@@ -28,7 +39,7 @@ export default function ProjectList() {
 									image={Projects.image}
 									alt={Projects.title}
 									href={'/projects/' + Projects._id}
-									date={Projects.date}
+									endDate={dateFormatted}
 									needed={Projects.needed}
 									collected={Projects.collected}
 								/>

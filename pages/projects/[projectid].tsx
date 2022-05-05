@@ -47,7 +47,7 @@ export default function ProjectID() {
 			</Head>
 			<Container sx={{ mt: 3, mb: 10 }}>
 				<Box sx={{ display: 'flex', alignItems: 'center' }}>
-					<Grid container spacing={10}>
+					<Grid container spacing={5}>
 						<Grid item xs={6}>
 							<ProjectMainImage image={projectData.projectImg} />
 						</Grid>
@@ -68,20 +68,19 @@ export default function ProjectID() {
 								buttonFive={projectData.buttonFive}
 							/>
 						</Grid>
+
+						<Grid item xs={8}>
+							<MainDetails content={projectData.content} />
+						</Grid>
+						<Grid item xs={4}>
+							<Box sx={{ maxHeight: height, overflowY: 'scroll' }}>
+								<Rewards />
+								<Rewards />
+								<Rewards />
+							</Box>
+						</Grid>
 					</Grid>
 				</Box>
-				<Grid container spacing={5}>
-					<Grid item xs={8}>
-						<MainDetails content={projectData.content} />
-					</Grid>
-					<Grid item xs={4}>
-						<Box sx={{ maxHeight: height, overflowY: 'scroll' }}>
-							<Rewards />
-							<Rewards />
-							<Rewards />
-						</Box>
-					</Grid>
-				</Grid>
 			</Container>
 		</PageLayout>
 	)

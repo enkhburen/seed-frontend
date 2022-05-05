@@ -84,12 +84,10 @@ export default function projectDetails(props: IProps) {
 	return (
 		<Grid item xs={12}>
 			<Typography
-				className="text"
 				variant="h4"
 				sx={{
 					my: 3,
 					fontWeight: 'bold',
-					display: 'block',
 					lineHeight: '2.6rem'
 				}}
 			>

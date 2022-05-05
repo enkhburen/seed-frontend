@@ -69,7 +69,7 @@ export default function ProjectCarousel() {
 								author={Projects.author}
 								authorImg={Projects.authorImg}
 								authorLink={'/users/' + Projects.userId}
-								image={Projects.image}
+								image={Projects.thumbImage}
 								alt={Projects.title}
 								href={'/projects/' + Projects._id}
 								endDate={dateFormatted}

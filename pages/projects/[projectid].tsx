@@ -18,6 +18,12 @@ export default function ProjectID() {
 	const [projectData, setProjectData] = React.useState<any>([])
 	const { projectid } = router.query
 
+	React.useEffect(() => {
+		Projects.map((item: any) => {
+			if (item._id === projectid) setProjectData(item)
+		})
+	}, [projectid])
+
 	const [height, setHeight] = React.useState<string>('1191px')
 
 	React.useEffect(() => {
@@ -33,12 +39,6 @@ export default function ProjectID() {
 
 		setHeight(elementHeight.toString() + 'px')
 	}, [])
-
-	React.useEffect(() => {
-		Projects.map((item: any) => {
-			if (item._id === projectid) setProjectData(item)
-		})
-	}, [projectid])
 
 	return (
 		<PageLayout>

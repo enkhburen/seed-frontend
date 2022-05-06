@@ -13,24 +13,25 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 
 interface BlogItemProps {
+	href?: string
 	title: string
-	image?: StaticImageData
+	image?: string
 	author: string
 	createdDate: string
 }
 
 export default function BlogItem(props: BlogItemProps) {
-	const { title, image, author, createdDate } = props
+	const { href, title, image, author, createdDate } = props
 
 	return (
-		<Link href="/blog-details">
+		<Link href={href ? href : ''}>
 			<a>
 				<Card sx={{ boxShadow: 0 }}>
 					<CardMedia
 						sx={{
 							overflow: 'hidden',
 							height: '350px',
-							backgroundImage: `url('` + image?.src + `')`,
+							backgroundImage: `url('` + image + `')`,
 							backgroundAttachment: 'relative',
 							backgroundSize: 'cover',
 							backgroundPosition: 'center'

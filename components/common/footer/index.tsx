@@ -28,7 +28,7 @@ export default function Footer() {
 						/>
 						<br />
 						<Typography variant="caption" color="white" fontSize={12}>
-							© 2022{' '}
+							© {new Date().getFullYear()}{' '}
 							<Link href="#">
 								<a style={{ color: '#127F06' }}>Seed.mn.</a>
 							</Link>{' '}

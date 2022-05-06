@@ -1,16 +1,20 @@
 import {
 	Box,
 	FormControl,
-	FormGroup,
+	FormHelperText,
 	TextField,
 	Typography
 } from '@mui/material'
+import Image from 'next/image'
 import Link from 'next/link'
+import Checkbox from '@mui/material/Checkbox'
 import { useRouter } from 'next/router'
 import Grid from '@mui/material/Grid'
-import Divider from '@mui/material/Divider'
 import { Button } from '@mui/material'
-import { fontSize } from '@mui/system'
+import { useState } from 'react'
+import FacebookIcon from 'public/assets/cta/facebook-login.png'
+import GoogleIcon from 'public/assets/cta/google-login.png'
+import { color } from '@mui/system'
 
 export default function Register() {
 	const router = useRouter()
@@ -29,76 +33,123 @@ export default function Register() {
 				px: 5
 			}}
 		>
-			<Typography
-				color="text.secondary"
-				variant="body2"
-				sx={{
-					textAlign: 'center',
-					pb: 2
-				}}
-			/>
-			Хаяг үүсгэсэн бол
-			<Typography color="#2752ff">
-				<Link href="/login">
-					<a>Нэвтрэх</a>
-				</Link>
-			</Typography>
-			<Divider variant="middle" sx={{ width: '100%' }} />
-			<Typography
-				variant="h4"
-				sx={{
-					mt: '0.6rem',
-					fontSize: '1.4rem'
-				}}
-			>
+			<Typography variant="h4" component="h1" sx={{ mb: 4 }}>
 				Бүртгүүлэх
 			</Typography>
-			<FormControl sx={{ width: '100%' }}>
-				<FormGroup>
+			<Grid sx={{ mb: 2 }}>
+				<FormControl sx={{ mb: 2 }} fullWidth>
 					<TextField
-						required
 						id="name"
-						variant="outlined"
-						color="primary"
-						placeholder="Нэр"
-						size="small"
-						margin="normal"
-					></TextField>
-					<TextField
+						name="name"
+						label="Нэр"
+						variant="filled"
 						required
+					/>
+				</FormControl>
+				<FormControl sx={{ mb: 2 }} fullWidth>
+					<TextField
 						id="email"
-						type="email"
-						variant="outlined"
-						color="primary"
-						placeholder="И-мэйл"
-						size="small"
-						margin="normal"
-					></TextField>
+						name="email"
+						label="И мэйл"
+						variant="filled"
+						required
+					/>
+					<FormHelperText>И-мэйл хаягаа оруулна уу.</FormHelperText>
+				</FormControl>
+				<FormControl sx={{ mb: 2 }} fullWidth>
+					<TextField
+						inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+						id="number"
+						name="phone-number"
+						label="Утасны дугаар"
+						variant="filled"
+						required
+					/>
+					<FormHelperText>Утасны дугаараа оруулна уу.</FormHelperText>
+				</FormControl>
+				<FormControl sx={{ mb: 4 }} fullWidth>
 					<TextField
 						required
 						id="password"
-						variant="outlined"
-						placeholder="Нууц үг"
-						size="small"
-						margin="normal"
-						color="primary"
+						name="password"
 						type="password"
-					></TextField>
-					<Button
-						href="/loggedin"
-						variant="contained"
-						size="medium"
-						sx={{ width: '100%', my: 3 }}
-					>
-						Хаяг үүсгэх
-					</Button>
-					<Typography variant="caption" align="left">
+						label="Нууц үг"
+						variant="filled"
+					/>
+					<FormHelperText>
+						Таны нууц үг 4-60 үсэг агуулсан байх ёстой.
+					</FormHelperText>
+				</FormControl>
+				<Button
+					type="submit"
+					variant="contained"
+					size="large"
+					href="/auth/loggedin"
+					fullWidth
+					sx={{ fontSize: '14px' }}
+				>
+					Бүртгүүлэх
+				</Button>
+				<Grid sx={{ mt: 2 }}>
+					<Typography variant="caption" sx={{ fontSize: '11px' }}>
 						Бүртгүүлснээр та манай
-						<Link href="/home">үйлчилгээний нөхцлийг</Link>
-						зөвшөөрч байгаа болно.
+						<Typography
+							sx={{ fontSize: '11px' }}
+							variant="caption"
+							color="primary"
+							component="a"
+							href="#"
+						>
+							&nbsp;Үйлчилгээний Нөхцлийг&nbsp;
+						</Typography>
+						хүлээн зөвшөөрч байгаа болно.
 					</Typography>
-				</FormGroup>
-			</FormControl>
+				</Grid>
+			</Grid>
+			<Grid
+				container
+				alignItems="center"
+				sx={{ mb: 2, justifyContent: 'center' }}
+			>
+				<Button
+					variant="contained"
+					fullWidth
+					sx={{ backgroundColor: '#354e86' }}
+				>
+					<Image
+						src={FacebookIcon}
+						height={20}
+						width={20}
+						layout="fixed"
+						alt="Facebook нэвтрэх"
+					/>
+					<Typography
+						variant="caption"
+						component="a"
+						href="#"
+						sx={{ ml: 1, fontSize: '14px' }}
+					>
+						Facebook-р бүртгүүлэх
+					</Typography>
+				</Button>
+				<Button variant="outlined" fullWidth sx={{ mt: 1.5 }}>
+					<Image
+						src={GoogleIcon}
+						height={20}
+						width={20}
+						layout="fixed"
+						alt="Facebook нэвтрэх"
+					/>
+					<Typography
+						variant="caption"
+						component="a"
+						href="#"
+						sx={{ ml: 1, fontSize: '14px', color: '#5486ec' }}
+					>
+						&nbsp; Google-р бүртгүүлэх
+					</Typography>
+				</Button>
+			</Grid>
 		</Box>
 	)
 }

@@ -11,7 +11,7 @@ var sliderSettings = {
 	infinite: true,
 	autoplay: true,
 	speed: 500,
-	slidesToShow: 5,
+	slidesToShow: 4,
 	slidesToScroll: 1,
 	swipeToSlide: true,
 	responsive: [

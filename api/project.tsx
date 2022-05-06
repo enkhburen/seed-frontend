@@ -18,7 +18,7 @@ const Projects = [
 		buttonThree: '250k₮',
 		buttonFour: '500k₮',
 		buttonFive: '1сая₮',
-		content: '<p>Энэ бол Огтлолцол.</p>'
+		content: '<h1>Энэ бол Огтлолцол.</h1>'
 	},
 	{
 		_id: '02',

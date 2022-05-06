@@ -11,6 +11,8 @@ import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
 import TextField from '@mui/material/TextField'
 import facebookIcon from 'public/assets/cta/facebook-login.png'
+import GoogleIcon from 'public/assets/cta/google-login.png'
+import Divider from '@mui/material/Divider'
 
 export default function LoginForm() {
 	const router = useRouter()
@@ -29,12 +31,21 @@ export default function LoginForm() {
 				px: 5
 			}}
 		>
-			<Typography variant="h4" component="h1" sx={{ mb: 4 }}>
+			<Typography variant="h4" component="h1" sx={{ mb: 3 }}>
 				Нэвтрэх
 			</Typography>
 			<Grid sx={{ mb: 2 }}>
 				<FormControl sx={{ mb: 2 }} fullWidth>
-					<TextField id="email" name="email" label="И мэйл" variant="filled" />
+					<TextField
+						sx={{
+							fontSize: '9px'
+						}}
+						id="outlined-email"
+						name="email"
+						label="И мэйл"
+						variant="outlined"
+						size="small"
+					/>
 					<FormHelperText>И-мэйл хаягаа оруулна уу.</FormHelperText>
 				</FormControl>
 				<FormControl sx={{ mb: 4 }} fullWidth>
@@ -43,7 +54,8 @@ export default function LoginForm() {
 						name="password"
 						type="password"
 						label="Нууц үг"
-						variant="filled"
+						variant="outlined"
+						size="small"
 						InputProps={{}}
 					/>
 					<FormHelperText>
@@ -75,25 +87,53 @@ export default function LoginForm() {
 					Нууц үгээ мартсан уу?
 				</Typography>
 			</Grid>
-			<Grid container alignItems="center" sx={{ mb: 2 }}>
-				<Image
-					src="/assets/facebook.png"
-					height={20}
-					width={20}
-					layout="fixed"
-					alt="Facebook нэвтрэх"
-				/>
-				<Typography
-					variant="caption"
-					component="a"
-					href="#"
-					sx={{ ml: 1, fontSize: '16px' }}
+			<Divider sx={{ my: 2, fontSize: '14px' }}>Эсвэл</Divider>
+			<Grid
+				container
+				alignItems="center"
+				sx={{ mb: 2, justifyContent: 'center' }}
+			>
+				<Button
+					variant="contained"
+					fullWidth
+					sx={{ backgroundColor: '#354e86' }}
 				>
-					Facebook-р нэвтрэх
-				</Typography>
+					<Image
+						src={facebookIcon}
+						height={20}
+						width={20}
+						layout="fixed"
+						alt="Facebook нэвтрэх"
+					/>
+					<Typography
+						variant="caption"
+						component="a"
+						href="#"
+						sx={{ ml: 1, fontSize: '14px' }}
+					>
+						Facebook-р нэвтрэх
+					</Typography>
+				</Button>
+				<Button variant="outlined" fullWidth sx={{ mt: 1.5 }}>
+					<Image
+						src={GoogleIcon}
+						height={20}
+						width={20}
+						layout="fixed"
+						alt="Google нэвтрэх"
+					/>
+					<Typography
+						variant="caption"
+						component="a"
+						href="#"
+						sx={{ ml: 1, fontSize: '14px', color: '#5486ec' }}
+					>
+						&nbsp; Google-р нэвтрэх
+					</Typography>
+				</Button>
 			</Grid>
-			<Grid>
-				<Typography variant="body1" component="span">
+			<Grid textAlign="center">
+				<Typography variant="body1" component="span" sx={{ fontSize: '14px' }}>
 					Шинээр бүртгүүлэх бол?
 				</Typography>
 				<Typography
@@ -101,6 +141,7 @@ export default function LoginForm() {
 					color="primary"
 					component="a"
 					href="/auth/signup"
+					sx={{ fontSize: '14px' }}
 				>
 					&nbsp;Энд дар.
 				</Typography>

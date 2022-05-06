@@ -51,7 +51,7 @@ export default function Menu() {
 					background: '#fff',
 					boxShadow: 'none'
 				},
-				zIndex: 999
+				zIndex: 10
 			}}
 		>
 			<Container>

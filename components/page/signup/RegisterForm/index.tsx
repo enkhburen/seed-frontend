@@ -1,7 +1,9 @@
 import {
 	Box,
+	FilledInput,
 	FormControl,
 	FormHelperText,
+	InputAdornment,
 	TextField,
 	Typography
 } from '@mui/material'
@@ -15,13 +17,14 @@ import { useState } from 'react'
 import FacebookIcon from 'public/assets/cta/facebook-login.png'
 import GoogleIcon from 'public/assets/cta/google-login.png'
 import { color } from '@mui/system'
+import { Divider } from '@mui/material'
 
 export default function Register() {
 	const router = useRouter()
 
 	return (
 		<Box
-			width="35%"
+			width="37%"
 			component="form"
 			noValidate
 			autoComplete="off"
@@ -42,8 +45,9 @@ export default function Register() {
 						id="name"
 						name="name"
 						label="Нэр"
-						variant="filled"
+						variant="outlined"
 						required
+						size="small"
 					/>
 				</FormControl>
 				<FormControl sx={{ mb: 2 }} fullWidth>
@@ -51,10 +55,10 @@ export default function Register() {
 						id="email"
 						name="email"
 						label="И мэйл"
-						variant="filled"
+						variant="outlined"
 						required
+						size="small"
 					/>
-					<FormHelperText>И-мэйл хаягаа оруулна уу.</FormHelperText>
 				</FormControl>
 				<FormControl sx={{ mb: 2 }} fullWidth>
 					<TextField
@@ -62,10 +66,10 @@ export default function Register() {
 						id="number"
 						name="phone-number"
 						label="Утасны дугаар"
-						variant="filled"
+						variant="outlined"
 						required
+						size="small"
 					/>
-					<FormHelperText>Утасны дугаараа оруулна уу.</FormHelperText>
 				</FormControl>
 				<FormControl sx={{ mb: 4 }} fullWidth>
 					<TextField
@@ -74,11 +78,9 @@ export default function Register() {
 						name="password"
 						type="password"
 						label="Нууц үг"
-						variant="filled"
+						variant="outlined"
+						size="small"
 					/>
-					<FormHelperText>
-						Таны нууц үг 4-60 үсэг агуулсан байх ёстой.
-					</FormHelperText>
 				</FormControl>
 				<Button
 					type="submit"
@@ -105,6 +107,7 @@ export default function Register() {
 						хүлээн зөвшөөрч байгаа болно.
 					</Typography>
 				</Grid>
+				<Divider sx={{ fontSize: '12px', mt: 1 }}>Эсвэл</Divider>
 			</Grid>
 			<Grid
 				container
@@ -121,7 +124,7 @@ export default function Register() {
 						height={20}
 						width={20}
 						layout="fixed"
-						alt="Facebook нэвтрэх"
+						alt="Facebook бүртгүүлэх"
 					/>
 					<Typography
 						variant="caption"
@@ -138,7 +141,7 @@ export default function Register() {
 						height={20}
 						width={20}
 						layout="fixed"
-						alt="Facebook нэвтрэх"
+						alt="Google бүртгүүлэх"
 					/>
 					<Typography
 						variant="caption"
@@ -149,6 +152,16 @@ export default function Register() {
 						&nbsp; Google-р бүртгүүлэх
 					</Typography>
 				</Button>
+				<Grid sx={{ mt: 2 }}>
+					<Divider sx={{ fontSize: '12px', my: 1 }}></Divider>
+					<Typography variant="caption">
+						Таныг робот биш болохыг батлахын тулд энэ хуудас reCAPTCHA-р
+						хамгаалагдсан.
+					</Typography>
+					<Typography variant="caption" color="primary" component="a" href="#">
+						&nbsp;Дэлгэрэнгүй.
+					</Typography>
+				</Grid>
 			</Grid>
 		</Box>
 	)

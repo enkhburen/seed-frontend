@@ -25,9 +25,9 @@ export default function Blogs() {
 						</Grid>
 						<Grid item xs={4}>
 							<Grid container rowSpacing={4}>
-								<Grid item xs={12}>
+								{/* <Grid item xs={12}>
 									<NewsLatest />
-								</Grid>
+								</Grid> */}
 								<Grid item xs={12}>
 									<PopularTags />
 								</Grid>

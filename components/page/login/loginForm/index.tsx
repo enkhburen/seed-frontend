@@ -1,14 +1,16 @@
-import Box from '@mui/material/Box'
-import FormControl from '@mui/material/FormControl'
-import FormGroup from '@mui/material/FormGroup'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Typography from '@mui/material/Typography'
-import TextField from '@mui/material/TextField'
-import Button from '@mui/material/Button'
-import Checkbox from '@mui/material/Checkbox'
-
-import Link from 'next/link'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
+import Button from '@mui/material/Button'
+
+import Checkbox from '@mui/material/Checkbox'
+import Typography from '@mui/material/Typography'
+import InputAdornment from '@mui/material/InputAdornment'
+import FormControl from '@mui/material/FormControl'
+import FormHelperText from '@mui/material/FormHelperText'
+import TextField from '@mui/material/TextField'
+import facebookIcon from 'public/assets/cta/facebook-login.png'
 
 export default function LoginForm() {
 	const router = useRouter()
@@ -27,64 +29,82 @@ export default function LoginForm() {
 				px: 5
 			}}
 		>
-			<Typography variant="h4">Нэвтрэх</Typography>
-			<FormControl sx={{ width: '100%' }}>
-				<FormGroup>
+			<Typography variant="h4" component="h1" sx={{ mb: 4 }}>
+				Нэвтрэх
+			</Typography>
+			<Grid sx={{ mb: 2 }}>
+				<FormControl sx={{ mb: 2 }} fullWidth>
+					<TextField id="email" name="email" label="И мэйл" variant="filled" />
+					<FormHelperText>И-мэйл хаягаа оруулна уу.</FormHelperText>
+				</FormControl>
+				<FormControl sx={{ mb: 4 }} fullWidth>
 					<TextField
-						required
-						id="email"
-						type="email"
-						variant="outlined"
-						color="primary"
-						placeholder="И-мэйл"
-						size="small"
-						margin="normal"
-					></TextField>
-					<TextField
-						required
 						id="password"
+						name="password"
 						type="password"
-						variant="outlined"
-						color="primary"
-						placeholder="Нууц үг"
-						size="small"
-						margin="normal"
-					></TextField>
-					<Typography variant="caption" color="#2752ff" align="right">
-						<Link href="/auth/forgot">
-							<a>Нууц үг сэргээх</a>
-						</Link>
-					</Typography>
-					<Typography variant="caption" color="#2752ff" align="right">
-						<Link href="/auth/register">
-							<a>Шинээр бүртгүүлэх</a>
-						</Link>
-					</Typography>
-					<Button
-						href="/auth/loggedin"
-						variant="contained"
-						size="medium"
-						sx={{ width: '100%', my: 1 }}
-					>
-						Нэвтрэх
-					</Button>
-					<FormControlLabel
-						control={
-							<Checkbox
-								defaultChecked
-								size="small"
-								sx={{
-									color: '#2752ff',
-									'&.Mui-checked': {
-										color: '#2752ff'
-									}
-								}}
-							/>
-						}
-						label="Сануулах"
+						label="Нууц үг"
+						variant="filled"
+						InputProps={{}}
 					/>
-				</FormGroup>
-			</FormControl>
+					<FormHelperText>
+						Таны нууц үг 4-60 үсэг агуулсан байх ёстой.
+					</FormHelperText>
+				</FormControl>
+				<Button
+					type="submit"
+					variant="contained"
+					size="large"
+					href="/auth/loggedin"
+					fullWidth
+					sx={{ fontSize: '12px' }}
+				>
+					Нэвтрэх
+				</Button>
+			</Grid>
+			<Grid
+				container
+				alignItems="center"
+				justifyContent="space-between"
+				sx={{ mb: 1 }}
+			>
+				<Box>
+					<Checkbox />
+					<Typography variant="caption">Сануулах</Typography>
+				</Box>
+				<Typography variant="caption" component="a" href="">
+					Нууц үгээ мартсан уу?
+				</Typography>
+			</Grid>
+			<Grid container alignItems="center" sx={{ mb: 2 }}>
+				<Image
+					src="/assets/facebook.png"
+					height={20}
+					width={20}
+					layout="fixed"
+					alt="Facebook нэвтрэх"
+				/>
+				<Typography
+					variant="caption"
+					component="a"
+					href="#"
+					sx={{ ml: 1, fontSize: '16px' }}
+				>
+					Facebook-р нэвтрэх
+				</Typography>
+			</Grid>
+			<Grid>
+				<Typography variant="body1" component="span">
+					Шинээр бүртгүүлэх бол?
+				</Typography>
+				<Typography
+					variant="body1"
+					color="primary"
+					component="a"
+					href="/auth/signup"
+				>
+					&nbsp;Энд дар.
+				</Typography>
+			</Grid>
 		</Box>
 	)
 }

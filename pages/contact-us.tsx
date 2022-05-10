@@ -1,9 +1,7 @@
 import Head from 'next/head'
 
 import Container from '@mui/material/Container'
-
 import PageLayout from 'layout/page-layout'
-
 import Form from 'components/page/contact-us/form'
 
 export default function ContactUsPage() {

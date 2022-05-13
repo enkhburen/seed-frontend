@@ -23,7 +23,7 @@ const style = {
 	transform: 'translate(-50%, -50%)',
 	width: 400,
 	bgcolor: 'background.paper',
-	border: '2px solid #127F06',
+	border: '1px solid #127F06',
 	boxShadow: 24,
 	pt: 2,
 	px: 4,
@@ -32,13 +32,7 @@ const style = {
 
 export default function LoginForm() {
 	const router = useRouter()
-	const [open, setOpen] = React.useState(false)
-	const handleOpen = () => {
-		setOpen(true)
-	}
-	const handleClose = () => {
-		setOpen(false)
-	}
+
 	return (
 		<Box
 			width="35%"
@@ -105,43 +99,9 @@ export default function LoginForm() {
 					<Checkbox />
 					<Typography variant="caption">Сануулах</Typography>
 				</Box>
-				<Typography variant="caption" onClick={handleOpen}>
+				<Typography href="/auth/forgot" component="a" sx={{ fontSize: '12px' }}>
 					Нууц үгээ мартсан уу?
 				</Typography>
-				<Modal
-					open={open}
-					onClose={handleClose}
-					aria-labelledby="parent-modal-title"
-					aria-describedby="parent-modal-description"
-				>
-					<Box sx={{ ...style, width: '30%' }}>
-						<h2 id="parent-modal-title">Нууц үг шинэчлэх</h2>
-						<p id="parent-modal-description">
-							Бид танд нууц үг шинэчлэх холбоосыг бүртгэлтэй имэйл хаягаар тань
-							илгээх болно
-						</p>
-						<FormControl sx={{ mb: 3 }} fullWidth>
-							<TextField
-								id="email"
-								name="emai"
-								type="email"
-								label="И мэйл"
-								size="small"
-							/>
-						</FormControl>
-						<Button
-							type="submit"
-							variant="contained"
-							size="large"
-							href="#"
-							sx={{
-								fontSize: '12px'
-							}}
-						>
-							Шинэ нууц үг авах
-						</Button>
-					</Box>
-				</Modal>
 			</Grid>
 			<Divider sx={{ my: 2, fontSize: '14px' }}>Эсвэл</Divider>
 			<Grid

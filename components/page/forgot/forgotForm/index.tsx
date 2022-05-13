@@ -59,9 +59,22 @@ export default function forgotForm() {
 					variant="contained"
 					size="large"
 					href="#"
-					sx={{ fontSize: '12px', align: 'Right' }}
+					fullWidth
+					sx={{ fontSize: '12px' }}
 				>
 					Шинэ нууц үг авах
+				</Button>
+			</Grid>
+			<Grid sx={{ mt: 1 }}>
+				<Button
+					type="submit"
+					variant="outlined"
+					size="large"
+					href="/auth/login"
+					fullWidth
+					sx={{ fontSize: '12px' }}
+				>
+					Буцах
 				</Button>
 			</Grid>
 		</Box>

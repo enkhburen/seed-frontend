@@ -9,7 +9,7 @@ export default function forgot() {
 			<Head>
 				<title>Нууц үг сэргээх | Seed.mn</title>
 			</Head>
-			<Container sx={{ my: 4 }}>
+			<Container sx={{ my: 14 }}>
 				<ForgotForm />
 			</Container>
 		</PageLayout>

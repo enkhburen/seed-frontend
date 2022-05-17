@@ -90,7 +90,7 @@ export default function Verify() {
 				{values.map((value: string, index: number) => (
 					<OutlinedInput
 						key={index}
-						placeholder="_"
+						placeholder=" - "
 						value={value}
 						onChange={(event) => handleChange(event, index)}
 						inputRef={inputRefs[index]}
@@ -99,7 +99,6 @@ export default function Verify() {
 							maxWidth: '48px',
 							display: 'inline-block',
 							mr: 1,
-							textAlign: 'center',
 							overflow: 'hidden'
 						}}
 					/>
@@ -110,7 +109,7 @@ export default function Verify() {
 				fullWidth
 				type="submit"
 				size="small"
-				sx={{ backgroundColor: '#127f06' }}
+				sx={{ backgroundColor: '#127f06', py: 2 }}
 				onClick={(e) => handleVerify()}
 			>
 				Баталгаажуулах

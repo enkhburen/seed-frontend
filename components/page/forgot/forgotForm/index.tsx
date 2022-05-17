@@ -45,7 +45,8 @@ export default function forgotForm() {
 				<FormControl sx={{ mb: 2 }} fullWidth>
 					<TextField
 						sx={{
-							fontSize: '9px'
+							fontSize: '9px',
+							mb: 2
 						}}
 						id="outlined-email"
 						name="email"
@@ -53,17 +54,17 @@ export default function forgotForm() {
 						variant="outlined"
 						size="small"
 					/>
+					<Button
+						type="submit"
+						variant="contained"
+						size="large"
+						href="/auth/verify"
+						fullWidth
+						sx={{ fontSize: '12px' }}
+					>
+						Шинэ нууц үг авах
+					</Button>
 				</FormControl>
-				<Button
-					type="submit"
-					variant="contained"
-					size="large"
-					href="#"
-					fullWidth
-					sx={{ fontSize: '12px' }}
-				>
-					Шинэ нууц үг авах
-				</Button>
 			</Grid>
 			<Grid sx={{ mt: 1 }}>
 				<Button

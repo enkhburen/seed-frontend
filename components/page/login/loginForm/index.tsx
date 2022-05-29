@@ -13,6 +13,22 @@ import TextField from '@mui/material/TextField'
 import facebookIcon from 'public/assets/cta/facebook-login.png'
 import GoogleIcon from 'public/assets/cta/google-login.png'
 import Divider from '@mui/material/Divider'
+import * as React from 'react'
+import Modal from '@mui/material/Modal'
+
+const style = {
+	position: 'absolute' as 'absolute',
+	top: '50%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)',
+	width: 400,
+	bgcolor: 'background.paper',
+	border: '1px solid #127F06',
+	boxShadow: 24,
+	pt: 2,
+	px: 4,
+	pb: 3
+}
 
 export default function LoginForm() {
 	const router = useRouter()
@@ -83,7 +99,7 @@ export default function LoginForm() {
 					<Checkbox />
 					<Typography variant="caption">Сануулах</Typography>
 				</Box>
-				<Typography variant="caption" component="a" href="">
+				<Typography href="/auth/forgot" component="a" sx={{ fontSize: '12px' }}>
 					Нууц үгээ мартсан уу?
 				</Typography>
 			</Grid>

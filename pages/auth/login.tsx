@@ -1,6 +1,5 @@
 import PageLayout from 'layout/page-layout'
 import LoginForm from '../../components/page/login/loginForm'
-
 import Container from '@mui/material/Container'
 
 export default function Login() {

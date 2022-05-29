@@ -9,7 +9,7 @@ export default function location() {
 			<Head>
 				<title>Байршил сонгох - Seed.mn</title>
 			</Head>
-			<Container sx={{ my: 10 }}>
+			<Container maxWidth={false} sx={{ my: 10 }}>
 				<Campaignlocation />
 			</Container>
 		</PageLayout>

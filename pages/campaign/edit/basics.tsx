@@ -1,17 +1,15 @@
 import PageLayout from 'layout/page-layout'
 import Head from 'next/head'
-import ProjectHeader from 'components/page/project-edit-basics/project-review'
+import EditBasics from 'components/page/project-edit-basics/component/title-basics'
 import { Container } from '@mui/material'
 
-export default function juststartedproject() {
+export default function ProjectBasics() {
 	return (
 		<PageLayout>
 			<Head>
 				<title>Төсөл засварлах - Seed.mn</title>
 			</Head>
-			<Container>
-				<ProjectHeader />
-			</Container>
+			<EditBasics />
 		</PageLayout>
 	)
 }

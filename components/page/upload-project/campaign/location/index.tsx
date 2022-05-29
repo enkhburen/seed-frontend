@@ -81,24 +81,28 @@ export default function Campaignlocation() {
 					)}
 				/>
 
-				<Grid>
-					<Divider sx={{ pt: 10 }}></Divider>
-					<Box
-						display="flex"
-						alignItems="flex-end"
-						justifyContent="flex-end"
-						sx={{ mb: 15, my: 3 }}
-					>
-						<Button variant="contained">Үргэжлүүлэх</Button>
-					</Box>
-				</Grid>
+				<Divider sx={{ my: 5 }} />
 				<Grid
 					container
-					direction="column-reverse"
-					justifyContent="space-evenly"
+					direction="row"
+					justifyContent="space-between"
 					alignItems="flex-start"
 				>
-					<KeyboardBackspaceIcon fontSize="small" />
+					<Button
+						variant="text"
+						sx={{ fontSize: '12px' }}
+						startIcon={<KeyboardBackspaceIcon />}
+						href="/campaign/category"
+					>
+						Ангилал
+					</Button>
+					<Button
+						variant="contained"
+						href="/campaign/edit/basics"
+						sx={{ fontSize: '12px' }}
+					>
+						Үргэлжлүүлэх
+					</Button>
 				</Grid>
 			</Container>
 		</Box>

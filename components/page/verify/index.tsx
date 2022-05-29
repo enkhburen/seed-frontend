@@ -90,8 +90,9 @@ export default function Verify() {
 				{values.map((value: string, index: number) => (
 					<OutlinedInput
 						key={index}
-						placeholder=" - "
+						placeholder="-"
 						value={value}
+						error
 						onChange={(event) => handleChange(event, index)}
 						inputRef={inputRefs[index]}
 						sx={{
@@ -109,7 +110,8 @@ export default function Verify() {
 				fullWidth
 				type="submit"
 				size="small"
-				sx={{ backgroundColor: '#127f06', py: 2 }}
+				href="/auth/reset"
+				sx={{ backgroundColor: '#127f06' }}
 				onClick={(e) => handleVerify()}
 			>
 				Баталгаажуулах

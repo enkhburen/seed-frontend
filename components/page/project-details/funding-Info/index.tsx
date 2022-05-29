@@ -103,7 +103,7 @@ export default function projectDetails(props: IProps) {
 			<Box justifyItems="center" alignItems="center" sx={{ display: 'flex' }}>
 				<Image
 					alt={author ? author : 'Зочин'}
-					src={authorImg ? '/' + authorImg : '/assets/author-thumbs/01.jpg'}
+					src={authorImg ? authorImg : '/assets/author-thumbs/01.jpg'}
 					width="48"
 					height="48"
 				/>

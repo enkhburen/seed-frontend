@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -38,8 +38,8 @@ const menus = [
 ]
 
 export default function Menu() {
+	const [isLogged, setIsLogged] = useState(false)
 	const router = useRouter()
-
 	return (
 		<AppBar
 			position="fixed"
@@ -100,7 +100,8 @@ export default function Menu() {
 					<Grid item xs={3} sx={{ textAlign: 'right' }}>
 						<Button
 							sx={{ dislay: 'block' }}
-							href="/auth/login"
+							// href="/auth/login"
+
 							color="primary"
 							variant="outlined"
 						>

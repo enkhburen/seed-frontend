@@ -39,7 +39,6 @@ const menus = [
 
 export default function Menu() {
 	const router = useRouter()
-
 	return (
 		<AppBar
 			position="fixed"

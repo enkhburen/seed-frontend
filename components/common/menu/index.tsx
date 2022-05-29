@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -38,8 +38,40 @@ const menus = [
 ]
 
 export default function Menu() {
-	const router = useRouter()
+	const [isLogged, setIsLogged] = useState(false)
 
+	const changeLoginButton = () => {
+		if (isLogged == false) {
+			return (
+				<Button
+					sx={{ dislay: 'block' }}
+					// href="/auth/login"
+					onClick={() => handleClick(true)}
+					color="primary"
+					variant="outlined"
+				>
+					Нэвтрэх
+				</Button>
+			)
+		} else {
+			return (
+				<Button
+					sx={{ dislay: 'block' }}
+					// href="/auth/login"
+					onClick={() => handleClick(false)}
+					color="primary"
+					variant="outlined"
+				>
+					Гарах
+				</Button>
+			)
+		}
+	}
+
+	const handleClick = (value: any) => {
+		setIsLogged(value)
+	}
+	const router = useRouter()
 	return (
 		<AppBar
 			position="fixed"
@@ -98,14 +130,7 @@ export default function Menu() {
 					</Grid>
 
 					<Grid item xs={3} sx={{ textAlign: 'right' }}>
-						<Button
-							sx={{ dislay: 'block' }}
-							href="/auth/login"
-							color="primary"
-							variant="outlined"
-						>
-							Нэвтрэх
-						</Button>
+						{changeLoginButton()}
 					</Grid>
 				</Grid>
 			</Container>

@@ -66,7 +66,6 @@ export default function projectDetails(props: IProps) {
 	let percent = Math.round(
 		((collected ? collected : 0) / (needed ? needed : 100)) * 100
 	)
-	if (percent > 100) percent = 100
 
 	var today = new Date()
 	var estimated = new Date(`${endDate ? endDate : '2022-6-1'}`)
@@ -104,7 +103,7 @@ export default function projectDetails(props: IProps) {
 			<Box justifyItems="center" alignItems="center" sx={{ display: 'flex' }}>
 				<Image
 					alt={author ? author : 'Зочин'}
-					src={authorImg ? '/' + authorImg : '/assets/author-thumbs/01.jpg'}
+					src={authorImg ? authorImg : '/assets/author-thumbs/01.jpg'}
 					width="48"
 					height="48"
 				/>
@@ -197,7 +196,11 @@ export default function projectDetails(props: IProps) {
 			<Grid textAlign={'right'}>
 				<Typography>{percent}%</Typography>
 			</Grid>
-			<LinearProgress variant="determinate" value={60} sx={{ mb: 5 }} />
+			<LinearProgress
+				variant="determinate"
+				value={percent >= 100 ? 100 : percent}
+				sx={{ mb: 5 }}
+			/>
 
 			<Grid container sx={{ my: 5 }} justifyContent="space-between">
 				<Button

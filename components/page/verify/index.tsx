@@ -100,7 +100,6 @@ export default function Verify() {
 							maxWidth: '48px',
 							display: 'inline-block',
 							mr: 1,
-							textAlign: 'center',
 							overflow: 'hidden'
 						}}
 					/>

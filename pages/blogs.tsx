@@ -7,7 +7,7 @@ import Grid from '@mui/material/Grid'
 import PageLayout from 'layout/page-layout'
 
 import BlogList from 'components/page/blogs/blog-list'
-import NewsLatest from 'components/page/blogs/news-latest'
+// import NewsLatest from 'components/page/blogs/news-latest'
 import PopularTags from 'components/page/blogs/popular-tags'
 import CTA from 'components/page/blogs/cta'
 
@@ -25,9 +25,9 @@ export default function Blogs() {
 						</Grid>
 						<Grid item xs={4}>
 							<Grid container rowSpacing={4}>
-								<Grid item xs={12}>
+								{/* <Grid item xs={12}>
 									<NewsLatest />
-								</Grid>
+								</Grid> */}
 								<Grid item xs={12}>
 									<PopularTags />
 								</Grid>

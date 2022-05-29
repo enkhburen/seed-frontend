@@ -1,30 +1,53 @@
 import React, { useState } from 'react'
 import Container from '@mui/material/Container'
+import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
 import Button from '@mui/material/Button'
+import Skeleton from '@mui/material/Skeleton'
+import Stack from '@mui/material/Stack'
+import Grid from '@mui/material/Grid'
+
+import ProjectList from 'components/page/projects/projects-list/'
 
 function ProfileDashboard() {
+	const array = Array(9).fill(undefined)
 	return (
-		<Typography
-			variant="h4"
-			textAlign="center"
-			sx={{ mt: 3, fontWeight: 'bold' }}
-		>
-			Төслүүд
-		</Typography>
+		<Box>
+			<Typography
+				variant="h4"
+				textAlign="center"
+				sx={{ my: 3, fontWeight: 'bold' }}
+			>
+				Хянах самбар
+			</Typography>
+			<Grid container justifyContent="center">
+				{array.map((_) => (
+					<Grid item lg={3} md={3} sx={{ display: 'inline-block', m: 2 }}>
+						<Stack spacing={1}>
+							<Skeleton variant="text" width={210} />
+							<Skeleton variant="circular" width={40} height={40} />
+							<Skeleton variant="rectangular" width={210} height={118} />
+						</Stack>
+					</Grid>
+				))}
+			</Grid>
+		</Box>
 	)
 }
 
 function ProfileProjects() {
 	return (
-		<Typography
-			variant="h4"
-			textAlign="center"
-			sx={{ mt: 3, fontWeight: 'bold' }}
-		>
-			Төслүүд hiij bn
-		</Typography>
+		<Box>
+			<Typography
+				variant="h4"
+				textAlign="center"
+				sx={{ mt: 3, fontWeight: 'bold' }}
+			>
+				Төслүүд
+			</Typography>
+			<ProjectList />
+		</Box>
 	)
 }
 
@@ -50,7 +73,7 @@ export default function ProfileDatas() {
 					variant="outlined"
 					sx={{ mr: 2 }}
 				>
-					Dashboard
+					Хянах самбар
 				</Button>
 				<Button onClick={() => handleClick(true)} variant="outlined">
 					Төслүүд

@@ -7,7 +7,7 @@ import Grid from '@mui/material/Grid'
 import PageLayout from 'layout/page-layout'
 
 import BlogList from 'components/page/blogs/blog-list'
-import NewsLatest from 'components/page/blogs/news-latest'
+// import NewsLatest from 'components/page/blogs/news-latest'
 import PopularTags from 'components/page/blogs/popular-tags'
 import CTA from 'components/page/blogs/cta'
 

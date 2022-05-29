@@ -39,6 +39,38 @@ const menus = [
 
 export default function Menu() {
 	const [isLogged, setIsLogged] = useState(false)
+
+	const changeLoginButton = () => {
+		if (isLogged == false) {
+			return (
+				<Button
+					sx={{ dislay: 'block' }}
+					// href="/auth/login"
+					onClick={() => handleClick(true)}
+					color="primary"
+					variant="outlined"
+				>
+					Нэвтрэх
+				</Button>
+			)
+		} else {
+			return (
+				<Button
+					sx={{ dislay: 'block' }}
+					// href="/auth/login"
+					onClick={() => handleClick(false)}
+					color="primary"
+					variant="outlined"
+				>
+					Гарах
+				</Button>
+			)
+		}
+	}
+
+	const handleClick = (value: any) => {
+		setIsLogged(value)
+	}
 	const router = useRouter()
 	return (
 		<AppBar
@@ -98,15 +130,7 @@ export default function Menu() {
 					</Grid>
 
 					<Grid item xs={3} sx={{ textAlign: 'right' }}>
-						<Button
-							sx={{ dislay: 'block' }}
-							// href="/auth/login"
-
-							color="primary"
-							variant="outlined"
-						>
-							Нэвтрэх
-						</Button>
+						{changeLoginButton()}
 					</Grid>
 				</Grid>
 			</Container>

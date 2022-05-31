@@ -11,6 +11,9 @@ import TextareaAutosize from '@mui/material/TextareaAutosize'
 import * as React from 'react'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 
+const description =
+	'Та юу хийхээр хөрөнгө босгож байгаа, яагаад үүнд санаа тавьдаг, үүнийг хэрхэн хэрэгжүүлхээр төлөвлөж байгаа, мөн өөрийгөө хэн бэ гэдгээ тайлбарла. Таны тодорхойлолт дэмжигчдэд мэдэх ёстой бүх зүлийг хэлэх ёстой. Боломжтой бол таны төсөл юу болохыг, ямар шагнал урамшуулалтай болохыг харуулахын тулд зураг оруулаарай.'
+
 export default function CampaignStory() {
 	return (
 		<>
@@ -29,11 +32,7 @@ export default function CampaignStory() {
 							Төслийн тайлбар
 						</Typography>
 						<Typography variant="body2" sx={{ mt: 3, color: '#545454' }}>
-							Та юу хийхээр хөрөнгө босгож байгаа, яагаад үүнд санаа тавьдаг,
-							үүнийг хэрхэн хэрэгжүүлэхээр төлөвлөж байгаа, мөн өөрийгөө хэн бэ
-							гэдгээ тайлбарла. Таны тодорхойлолт дэмжигчдэд мэдэх ёстой бүх
-							зүйлийг хэлэх ёстой. Боломжтой бол таны төсөл юу болохыг, ямар
-							шагнал урамшуулалтай болохыг харуулахын тулд зураг оруулаарай.
+							{description}
 						</Typography>
 					</Grid>
 					<Grid item xs={12}>

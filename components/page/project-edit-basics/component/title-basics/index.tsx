@@ -14,8 +14,6 @@ import {
 import * as React from 'react'
 import ImageIcon from '@mui/icons-material/Image'
 
-import NumberFormat, { NumberFormatProps } from 'react-number-format'
-
 interface CustomProps {
 	onChange: (event: { target: { name: string; value: string } }) => void
 	name: string

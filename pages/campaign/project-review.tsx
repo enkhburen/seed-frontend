@@ -9,9 +9,7 @@ export default function juststartedproject() {
 			<Head>
 				<title>Төсөл засварлах - Seed.mn</title>
 			</Head>
-			<Container>
-				<ProjectHeader />
-			</Container>
+			<ProjectHeader />
 		</PageLayout>
 	)
 }

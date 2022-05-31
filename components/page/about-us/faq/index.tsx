@@ -20,18 +20,22 @@ export default function FAQ() {
 	return (
 		<Container sx={{ my: 8 }}>
 			<TabContext value={value}>
-				<TabList onChange={handleChange} aria-label="lab API tabs example" centered>
-					<Tab label="Төсөл хэрэгжүүлэгчид" value='1' />
-					<Tab label="Төсөл дэмжигчид" value='2' />
-					<Tab label="Ерөнхий" value='3' />
+				<TabList
+					onChange={handleChange}
+					aria-label="lab API tabs example"
+					centered
+				>
+					<Tab label="Төсөл хэрэгжүүлэгчид" value="1" />
+					<Tab label="Төсөл дэмжигчид" value="2" />
+					<Tab label="Ерөнхий" value="3" />
 				</TabList>
-				<TabPanel value='1'>
+				<TabPanel value="1">
 					<ProjectImplementer />
 				</TabPanel>
-				<TabPanel value='2'>
+				<TabPanel value="2">
 					<ProjectSupporter />
 				</TabPanel>
-				<TabPanel value='3'>
+				<TabPanel value="3">
 					<General />
 				</TabPanel>
 			</TabContext>

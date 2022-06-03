@@ -6,7 +6,7 @@ import ProfileDatas from 'components/page/profile/profile-datas'
 import PageLayout from 'layout/page-layout'
 
 export default function Profile() {
-	const username = 'Sample SEED User Profile'
+	const username = 'Guest SEED User Profile'
 	return (
 		<PageLayout>
 			<Head>

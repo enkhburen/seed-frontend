@@ -10,15 +10,19 @@ import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
-import Button from '@mui/material/Button'
 import Avatar from '@mui/material/Avatar'
-import Tooltip from '@mui/material/Tooltip'
+import Popper from '@mui/material/Popper'
 import IconButton from '@mui/material/IconButton'
+import ClickAwayListener from '@mui/material/ClickAwayListener'
+import Grow from '@mui/material/Grow'
+import Paper from '@mui/material/Paper'
 import MenuItem from '@mui/material/MenuItem'
+import MenuList from '@mui/material/MenuList'
 
 import MenuButton from './components/MenuButton'
 
 import SeedLogoBlack from 'public/assets/logo/seed_logo_black.svg'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 
 const menus = [
 	{
@@ -43,30 +47,43 @@ const menus = [
 	}
 ]
 
-const settings = [
-	{
-		title: 'Профайл',
-		url: '/user/'
-	},
-	{
-		title: 'Тохиргоо',
-		url: '/settings'
-	},
-	{
-		title: 'Гарах',
-		url: '/auth/logout'
-	}
-]
-
 export default function Menu() {
-	const [anchorElUser, setAnchorElUser] = useState(null)
-	const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-		setAnchorElUser(event.currentTarget)
+	const [open, setOpen] = React.useState(false)
+	const anchorRef = React.useRef<HTMLButtonElement>(null)
+
+	const handleToggle = () => {
+		setOpen((prevOpen) => !prevOpen)
 	}
 
-	const handleCloseUserMenu = () => {
-		setAnchorElUser(null)
+	const handleClose = (event: Event | React.SyntheticEvent) => {
+		if (
+			anchorRef.current &&
+			anchorRef.current.contains(event.target as HTMLElement)
+		) {
+			return
+		}
+
+		setOpen(false)
 	}
+
+	function handleListKeyDown(event: React.KeyboardEvent) {
+		if (event.key === 'Tab') {
+			event.preventDefault()
+			setOpen(false)
+		} else if (event.key === 'Escape') {
+			setOpen(false)
+		}
+	}
+
+	// return focus to the button when we transitioned from !open -> open
+	const prevOpen = React.useRef(open)
+	React.useEffect(() => {
+		if (prevOpen.current === true && open === false) {
+			anchorRef.current!.focus()
+		}
+
+		prevOpen.current = open
+	}, [open])
 
 	const cookies = new Cookies()
 
@@ -143,33 +160,70 @@ export default function Menu() {
 
 					<Grid item xs={3} sx={{ textAlign: 'right' }}>
 						<Box sx={{ flexGrow: 0 }}>
-							<Tooltip title="Open settings">
-								<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-									<Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-								</IconButton>
-							</Tooltip>
-							<Menu
-								sx={{ mt: '45px' }}
-								id="menu-appbar"
-								anchorEl={anchorElUser}
-								anchorOrigin={{
-									vertical: 'top',
-									horizontal: 'right'
-								}}
-								keepMounted
-								transformOrigin={{
-									vertical: 'top',
-									horizontal: 'right'
-								}}
-								open={Boolean(anchorElUser)}
-								onClose={handleCloseUserMenu}
+							<IconButton
+								ref={anchorRef}
+								id="composition-button"
+								aria-controls={open ? 'composition-menu' : undefined}
+								aria-expanded={open ? 'true' : undefined}
+								aria-haspopup="true"
+								onClick={handleToggle}
 							>
-								{settings.map((setting, index) => (
-									<MenuItem key={index} onClick={handleCloseUserMenu}>
-										<Typography textAlign="center">{setting.title}</Typography>
-									</MenuItem>
-								))}
-							</Menu>
+								<Avatar
+									alt="Sample profile"
+									src="/assets/author-thumbs/14.jpg"
+								/>
+								<ArrowDropDownIcon />
+							</IconButton>
+							<Popper
+								open={open}
+								anchorEl={anchorRef.current}
+								role={undefined}
+								placement="bottom-start"
+								transition
+								disablePortal
+							>
+								{({ TransitionProps, placement }) => (
+									<Grow
+										{...TransitionProps}
+										style={{
+											transformOrigin:
+												placement === 'bottom-start'
+													? 'left top'
+													: 'left bottom'
+										}}
+									>
+										<Paper>
+											<ClickAwayListener onClickAway={handleClose}>
+												<MenuList
+													autoFocusItem={open}
+													id="composition-menu"
+													aria-labelledby="composition-button"
+													onKeyDown={handleListKeyDown}
+												>
+													<MenuItem
+														onClick={handleClose}
+														sx={{ fontSize: '14px', width: '150px' }}
+													>
+														Профайл
+													</MenuItem>
+													<MenuItem
+														onClick={handleClose}
+														sx={{ fontSize: '14px', width: '150px' }}
+													>
+														Тохиргоо
+													</MenuItem>
+													<MenuItem
+														onClick={handleClose}
+														sx={{ fontSize: '14px', width: '150px' }}
+													>
+														Гарах
+													</MenuItem>
+												</MenuList>
+											</ClickAwayListener>
+										</Paper>
+									</Grow>
+								)}
+							</Popper>
 						</Box>
 					</Grid>
 				</Grid>

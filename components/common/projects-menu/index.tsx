@@ -25,7 +25,7 @@ export default function ProjectsMenu() {
 					alignItems="center"
 					spacing={3}
 				>
-					<Link>
+					<Link href="#">
 						<a>
 							<Image width="160" src={SeedLogoBlack} alt="Seedlogoblack" />
 						</a>

@@ -1,3 +1,5 @@
+import Link from 'next/link'
+import Image from 'next/image'
 import { AppBar, Container, Grid, Typography } from '@mui/material'
 import SeedLogoBlack from 'public/assets/logo/seed_logo_black.svg'
 
@@ -23,7 +25,7 @@ export default function ProjectsMenu() {
 					alignItems="center"
 					spacing={3}
 				>
-					<Link>
+					<Link href="#">
 						<a>
 							<Image width="160" src={SeedLogoBlack} alt="Seedlogoblack" />
 						</a>

@@ -14,39 +14,6 @@ import {
 import * as React from 'react'
 import ImageIcon from '@mui/icons-material/Image'
 
-interface CustomProps {
-	onChange: (event: { target: { name: string; value: string } }) => void
-	name: string
-}
-
-const NumberFormatCustom = React.forwardRef<NumberFormatProps, CustomProps>(
-	function NumberFormatCustom(props, ref) {
-		const { onChange, ...other } = props
-
-		return (
-			<NumberFormat
-				{...other}
-				getInputRef={ref}
-				onValueChange={(values: { value: any }) => {
-					onChange({
-						target: {
-							name: props.name,
-							value: values.value
-						}
-					})
-				}}
-				thousandSeparator
-				isNumericString
-				prefix="₮"
-			/>
-		)
-	}
-)
-
-{
-	/* TItle, subtitle section */
-}
-
 export default function EditBasics() {
 	return (
 		<>
@@ -158,9 +125,7 @@ export default function EditBasics() {
 						name="numberformat"
 						id="formatted-numberformat-input"
 						fullWidth
-						InputProps={{
-							inputComponent: NumberFormatCustom as any
-						}}
+						type="number"
 						variant="outlined"
 					/>
 				</Grid>

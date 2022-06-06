@@ -76,6 +76,8 @@ export default function CategoryPage() {
 										{...params}
 										sx={{ mt: 7 }}
 										label="Ангилал сонгох"
+										required
+										error
 									/>
 								)}
 							/>
@@ -94,6 +96,8 @@ export default function CategoryPage() {
 										{...params}
 										sx={{ mt: 7 }}
 										label="Ангилал сонгох"
+										required
+										error
 									/>
 								)}
 							/>

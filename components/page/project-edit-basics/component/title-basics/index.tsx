@@ -14,8 +14,6 @@ import {
 import * as React from 'react'
 import ImageIcon from '@mui/icons-material/Image'
 
-/* TItle, subtitle section */
-
 export default function EditBasics() {
 	return (
 		<>

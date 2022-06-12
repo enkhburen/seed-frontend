@@ -22,7 +22,7 @@ const states = [
 	},
 	{
 		value: 'USA',
-		label: 'Америк'
+		label: 'АНУ'
 	},
 	{
 		value: 'Germany',

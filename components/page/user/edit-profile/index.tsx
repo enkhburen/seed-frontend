@@ -41,6 +41,9 @@ export default function User() {
 					<TabPanel value="2">
 						<Securities />
 					</TabPanel>
+					<TabPanel value="3">
+						<PaymentMethod />
+					</TabPanel>
 					<TabPanel value="4">
 						<ShippingAddress />
 					</TabPanel>

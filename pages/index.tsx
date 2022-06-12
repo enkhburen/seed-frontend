@@ -1,7 +1,7 @@
 import Head from 'next/head'
 
 import PageLayout from 'layout/page-layout'
-
+import Grid from '@mui/material/Grid'
 import LandingCarousel from 'components/page/home/landing-carousel'
 import ProjectCarousel from 'components/page/home/project-carousel'
 import AboutUs from 'components/page/home/about-us'

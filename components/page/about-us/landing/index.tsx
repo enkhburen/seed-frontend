@@ -11,7 +11,7 @@ export default function Landing() {
 	return (
 		<Container sx={{ my: 8 }}>
 			<Grid container alignItems="center">
-				<Grid item xs={5} sx={{ pr: 3 }}>
+				<Grid item xs={12} md={6} sm={8} sx={{ pr: 3 }}>
 					<Typography
 						variant="h6"
 						color="#127F06"
@@ -93,7 +93,7 @@ export default function Landing() {
 						</Grid>
 					</Grid>
 				</Grid>
-				<Grid item xs={7} sx={{ pl: 5 }}>
+				<Grid item xs={12} md={6} sm={12} lg={6} sx={{ pt: 5 }}>
 					<Image src={AboutGalleryImage2} className="rounded-corner" />
 				</Grid>
 			</Grid>

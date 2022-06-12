@@ -8,7 +8,6 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 
 import ProjectItem from 'components/common/project-item'
 
-
 export default function ProjectList() {
 	const [totalProjects, changeTotalProjects] = React.useState<number>(9)
 
@@ -51,7 +50,7 @@ export default function ProjectList() {
 				{(() => {
 					if (totalProjects < 18) {
 						return (
-							<Grid item xs={12} textAlign="center">
+							<Grid item xs={12} md={12} sm={4} textAlign="center">
 								<Button
 									variant="contained"
 									onClick={() => {

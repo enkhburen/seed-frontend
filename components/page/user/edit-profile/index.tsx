@@ -19,12 +19,12 @@ export default function User() {
 	}
 	return (
 		<>
-			<Container sx={{ my: 2 }}>
-				<Typography sx={{ my: 5, fontWeight: 'medium' }} variant="h4">
-					Хэрэглэгчийн Тохиргоо
-				</Typography>
-			</Container>
-			<Container>
+			<Container sx={{ minHeight: '80vh' }}>
+				<Box sx={{ my: 2 }}>
+					<Typography sx={{ my: 5, fontWeight: 'medium' }} variant="h4">
+						Хэрэглэгчийн Тохиргоо
+					</Typography>
+				</Box>
 				<TabContext value={value}>
 					<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
 						<TabList onChange={handleChange} aria-label="lab API tabs example">

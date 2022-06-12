@@ -1,9 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
 import Slider from 'react-slick'
-import Box from '@mui/material/Box'
+import { Grid, Box } from '@mui/material'
 // import CircularProgress from '@mui/material/CircularProgress'
-
 import Slider1 from 'public/assets/slider/slider1.jpg'
 import Slider2 from 'public/assets/slider/slider2.jpg'
 import Slider3 from 'public/assets/slider/slider3.jpg'
@@ -28,17 +27,34 @@ export default function LandingCarousel() {
 
 	return (
 		<Box>
-			<Slider {...sliderSettings}>
-				<div>
-					<Image src={Slider1} width="1900" height="580" alt="Slider 1"></Image>
-				</div>
-				<div>
-					<Image src={Slider2} width="1900" height="580" alt="Slider 2"></Image>
-				</div>
-				<div>
-					<Image src={Slider3} width="1900" height="580" alt="Slider 3"></Image>
-				</div>
-			</Slider>
+			<Grid item xs={12} sm={6} md={8}>
+				<Slider {...sliderSettings}>
+					<div>
+						<Image
+							src={Slider1}
+							width="1900"
+							height="580"
+							alt="Slider 1"
+						></Image>
+					</div>
+					<div>
+						<Image
+							src={Slider2}
+							width="1900"
+							height="580"
+							alt="Slider 2"
+						></Image>
+					</div>
+					<div>
+						<Image
+							src={Slider3}
+							width="1900"
+							height="580"
+							alt="Slider 3"
+						></Image>
+					</div>
+				</Slider>
+			</Grid>
 		</Box>
 	)
 }

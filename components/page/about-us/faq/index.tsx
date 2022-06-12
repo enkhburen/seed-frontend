@@ -5,6 +5,7 @@ import Tab from '@mui/material/Tab'
 import TabContext from '@mui/lab/TabContext'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
+import Grid from '@mui/material/Grid'
 
 import ProjectImplementer from './components/ProjectImplementer'
 import ProjectSupporter from './components/ProjectSupporters'

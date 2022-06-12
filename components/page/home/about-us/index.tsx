@@ -14,18 +14,19 @@ import MunkhtulgaImage from 'public/assets/author-thumbs/01.jpg'
 
 export default function AboutUs() {
 	return (
-		<Container>
+		<Container component="main">
 			<Grid
 				container
 				justifyContent="space-between"
 				alignItems="center"
 				sx={{ py: 8 }}
+				item
 			>
-				<Grid item xs={6}>
+				<Grid item xs={12} md={4} sm={12}>
 					<Image src={AboutGallery2} alt="about-us" />
 				</Grid>
-				<Grid item xs={5}>
-					<Typography variant="h4" gutterBottom>
+				<Grid item xs={12} md={6} lg={6}>
+					<Typography variant="h4" gutterBottom sx={{ pt: 5 }}>
 						<b>Бидний тухай</b>
 					</Typography>
 					<Typography variant="body1">

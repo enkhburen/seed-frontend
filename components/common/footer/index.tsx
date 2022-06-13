@@ -19,7 +19,7 @@ export default function Footer() {
 		>
 			<Container>
 				<Grid container alignItems="top">
-					<Grid item xs={3} sx={{ textAlign: 'center' }}>
+					<Grid item xs={12} md={4} sx={{ textAlign: 'center' }}>
 						<Image
 							src={SeedLogoWhite}
 							alt="Seed Logo Black"
@@ -35,8 +35,8 @@ export default function Footer() {
 							Бүх эрх хуулиар хамгаалагдсан
 						</Typography>
 					</Grid>
-					<Grid item xs={3} sx={{ textAlign: 'center' }}>
-						<Link href="/terms-and-conditions">
+					<Grid item xs={12} md={2} sx={{ textAlign: 'center' }}>
+						<Link href="/terms-of-service">
 							<a>
 								<Typography
 									variant="caption"
@@ -56,7 +56,7 @@ export default function Footer() {
 							</a>
 						</Link>
 					</Grid>
-					<Grid item xs={6}>
+					<Grid item xs={12} md={6} sm={4}>
 						<Grid container>
 							<ContactWidgetCard title="Утасны дугаар" icon="phone">
 								+976-8888-8888

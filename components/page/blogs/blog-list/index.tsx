@@ -11,7 +11,7 @@ export default function BlogList() {
 			<Grid container rowSpacing={4}>
 				{Blogs.map((blogs: any) => {
 					return (
-						<Grid item xs={12}>
+						<Grid item xs={12} md={12}>
 							<BlogItem
 								href={blogs.url}
 								image={blogs.thumbImg}

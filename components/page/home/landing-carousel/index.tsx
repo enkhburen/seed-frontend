@@ -27,7 +27,7 @@ export default function LandingCarousel() {
 
 	return (
 		<Box>
-			<Grid item xs={12} sm={6} md={8}>
+			<Grid item xs={12} md={6}>
 				<Slider {...sliderSettings}>
 					<div>
 						<Image

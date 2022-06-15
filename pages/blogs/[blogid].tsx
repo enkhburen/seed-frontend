@@ -29,7 +29,7 @@ export default function blogDetails() {
 			<Box sx={{ backgroundColor: '#edf9f3', py: 8 }}>
 				<Container>
 					<Grid container spacing={4}>
-						<Grid item xs={8}>
+						<Grid item xs={12} md={8}>
 							<BlogDetails
 								title={blogData.title}
 								image={blogData.img}
@@ -39,15 +39,15 @@ export default function blogDetails() {
 								relatedTags={blogData.relatedTags}
 							/>
 						</Grid>
-						<Grid item xs={4}>
+						<Grid item xs={12} md={4}>
 							<Grid container rowSpacing={4}>
 								{/* <Grid item xs={12}>
 									<NewsLatest />
 								</Grid> */}
-								<Grid item xs={12}>
+								<Grid item xs={12} md={12}>
 									<PopularTags />
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item xs={12} md={12}>
 									<CTA />
 								</Grid>
 							</Grid>

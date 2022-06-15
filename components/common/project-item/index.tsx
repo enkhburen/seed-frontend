@@ -128,6 +128,7 @@ export default function ProjectItem(props: IProps) {
 										</Typography>
 									</Typography>
 								</Grid>
+
 								<Grid
 									item
 									xs={3}

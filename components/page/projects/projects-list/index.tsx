@@ -28,7 +28,7 @@ export default function ProjectList() {
 							new Date(dateTemp ? dateTemp : '1999-9-1').getDate()
 
 						return (
-							<Grid item xs={4} key={index + 1}>
+							<Grid item xs={12} md={6} lg={4} sm={6} key={index + 1}>
 								<ProjectItem
 									title={Projects.title}
 									category={Projects.category}
@@ -50,7 +50,7 @@ export default function ProjectList() {
 				{(() => {
 					if (totalProjects < 18) {
 						return (
-							<Grid item xs={12} md={12} sm={4} textAlign="center">
+							<Grid item xs={12} md={12} textAlign="center">
 								<Button
 									variant="contained"
 									onClick={() => {
@@ -64,7 +64,7 @@ export default function ProjectList() {
 						)
 					} else {
 						return (
-							<Grid item xs={12} textAlign="center">
+							<Grid item xs={12} md={12} textAlign="center">
 								<Button
 									variant="contained"
 									onClick={() => {

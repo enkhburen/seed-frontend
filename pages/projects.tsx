@@ -1,5 +1,5 @@
 import Head from 'next/head'
-
+import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import PageLayout from 'layout/page-layout'
@@ -22,6 +22,7 @@ export default function ProjectsPage() {
 						<Button href="/projects/other">Бусад</Button>
 					</Box>
 				</Container> */}
+
 				<ProjectsList />
 			</Box>
 		</PageLayout>

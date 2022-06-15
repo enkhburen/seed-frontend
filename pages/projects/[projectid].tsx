@@ -47,11 +47,11 @@ export default function ProjectID() {
 			</Head>
 			<Container sx={{ mt: 3, mb: 10 }}>
 				<Box sx={{ display: 'flex', alignItems: 'center' }}>
-					<Grid container spacing={5}>
-						<Grid item xs={6}>
+					<Grid container spacing={4}>
+						<Grid item xs={12} md={6} sm={12}>
 							<ProjectMainImage image={projectData.projectImg} />
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={12} md={6}>
 							<FundingInfo
 								category={projectData.category}
 								title={projectData.title}
@@ -69,10 +69,10 @@ export default function ProjectID() {
 							/>
 						</Grid>
 
-						<Grid item xs={8}>
+						<Grid item xs={12} md={8}>
 							<MainDetails content={projectData.content} />
 						</Grid>
-						<Grid item xs={4}>
+						<Grid item xs={12} md={4}>
 							<Box sx={{ maxHeight: height, overflowY: 'scroll' }}>
 								<Rewards />
 								<Rewards />

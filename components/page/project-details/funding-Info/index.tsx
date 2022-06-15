@@ -10,6 +10,7 @@ import LinearProgress from '@mui/material/LinearProgress'
 
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
+import Stack from '@mui/material/Stack'
 
 interface IProps {
 	category?: string
@@ -27,6 +28,7 @@ interface IProps {
 	buttonFive?: string
 }
 
+/* Туслаарай! */
 var SI_SYMBOL = ['', ' мянга', ' сая', ' тэрбум', ' их наяд']
 
 function abbreviateNumber(number: number) {
@@ -119,7 +121,7 @@ export default function projectDetails(props: IProps) {
 				</Typography>
 			</Box>
 
-			<Grid container sx={{ mt: 2 }} spacing={2}>
+			<Stack direction="row" spacing={2} sx={{ mt: 3 }}>
 				<Grid item xs={4}>
 					<Card
 						sx={{
@@ -185,7 +187,7 @@ export default function projectDetails(props: IProps) {
 						</CardContent>
 					</Card>
 				</Grid>
-			</Grid>
+			</Stack>
 
 			<Typography
 				variant="h4"
@@ -239,8 +241,7 @@ export default function projectDetails(props: IProps) {
 				variant="contained"
 				sx={{
 					fontWeight: 'bold',
-					borderRadius: '0px',
-					width: '35%'
+					borderRadius: '0px'
 				}}
 			>
 				Төсөл дэмжих

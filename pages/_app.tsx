@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { CacheProvider } from '@emotion/react'
+import Script from 'next/script'
 import { ThemeProvider, CssBaseline } from '@mui/material'
 
 import createEmotionCache from '../utils/createEmotionCache'
@@ -50,6 +51,21 @@ const MyApp = (props: any) => {
 
 	return (
 		<>
+			<Script
+				strategy="lazyOnload"
+				src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+			/>
+
+			<Script strategy="lazyOnload">
+				{`
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+		page_path: window.location.pathname,
+		});
+	`}
+			</Script>
 			<Loading />
 			<CacheProvider value={emotionCache}>
 				<ThemeProvider theme={lightTheme}>

@@ -11,7 +11,7 @@ export default function Landing() {
 	return (
 		<Container sx={{ my: 8 }}>
 			<Grid container alignItems="center">
-				<Grid item xs={12} md={6} sm={8} sx={{ pr: 3 }}>
+				<Grid item xs={12} md={6} sm={12} sx={{ pr: 3 }}>
 					<Typography
 						variant="h6"
 						color="#127F06"

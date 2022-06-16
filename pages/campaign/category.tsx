@@ -9,7 +9,7 @@ export default function category() {
 	return (
 		<PageLayout>
 			<Head>
-				<title>Төсөл бүтээх - Seed.mn</title>
+				<title>Төсөл хэрэгжүүлэх - Seed.mn</title>
 			</Head>
 			<Container>
 				{loggedIn == false ? 'no page found' : <CategoryPage />}

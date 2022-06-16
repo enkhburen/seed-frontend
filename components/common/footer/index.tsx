@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-
-import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
@@ -12,12 +11,12 @@ import SeedLogoWhite from 'public/assets/logo/seed_logo_white.svg'
 
 export default function Footer() {
 	return (
-		<AppBar
-			position="static"
+		<Box
+			component="footer"
 			color="default"
-			sx={{ backgroundColor: '#001d23', py: 3 }}
+			sx={{ backgroundColor: '#001d23', py: 3, px: 2, mt: 'auto' }}
 		>
-			<Container>
+			<Container maxWidth="lg">
 				<Grid container alignItems="top">
 					<Grid item xs={12} md={4} sx={{ textAlign: 'center' }}>
 						<Image
@@ -35,6 +34,7 @@ export default function Footer() {
 							Бүх эрх хуулиар хамгаалагдсан
 						</Typography>
 					</Grid>
+
 					<Grid item xs={12} md={2} sx={{ textAlign: 'center' }}>
 						<Link href="/terms-of-service">
 							<a>
@@ -56,7 +56,8 @@ export default function Footer() {
 							</a>
 						</Link>
 					</Grid>
-					<Grid item xs={12} md={6} sm={4}>
+
+					<Grid item xs={12} md={6} sm={12}>
 						<Grid container>
 							<ContactWidgetCard title="Утасны дугаар" icon="phone">
 								+976-8888-8888
@@ -71,6 +72,6 @@ export default function Footer() {
 					</Grid>
 				</Grid>
 			</Container>
-		</AppBar>
+		</Box>
 	)
 }

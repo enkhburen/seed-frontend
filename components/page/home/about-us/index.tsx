@@ -17,17 +17,22 @@ export default function AboutUs() {
 		<Container component="main">
 			<Grid
 				container
+				spacing={7}
 				justifyContent="space-between"
 				alignItems="center"
-				sx={{ py: 8 }}
+				sx={{ py: 10 }}
 				item
 			>
-				<Grid item xs={12} md={4} sm={12}>
-					<Image src={AboutGallery2} alt="about-us" />
+				<Grid item xs={12} md={6} sm={12}>
+					<Image
+						src={AboutGallery2}
+						alt="about-us"
+						className="rounded-corner"
+					/>
 				</Grid>
-				<Grid item xs={12} md={6} lg={6}>
-					<Typography variant="h4" gutterBottom sx={{ pt: 5 }}>
-						<b>Бидний тухай</b>
+				<Grid item xs={12} md={6} sm={12}>
+					<Typography variant="h4" gutterBottom>
+						<b>Бид хэн бэ?</b>
 					</Typography>
 					<Typography variant="body1">
 						Хүмүүсийн оюун санааг тэтгэж урам зориг бэлэглэх уран бүтээлийн
@@ -45,11 +50,10 @@ export default function AboutUs() {
 					>
 						<CardContent>
 							<Typography variant="body1" sx={{ mb: 4 }}>
-								<DoneIcon sx={{ fontSize: '14px' }} /> (Энэ дээр Мөнхтулга ахын
-								quote нтр байвал зүгээр юм уу гэж бодсон. Kickstarter дээр бол
-								founder нь нэг театр үзэх гэсэн чинь санхүүжилт аваагүйгээс
-								болоод үзэж чадаагүй үүнийг шийдэхийг хүссэн гэсэн утгатай quote
-								байсан.)
+								<DoneIcon sx={{ fontSize: '14px' }} /> "Авьяас бол төрөлхийн ур
+								чадвар. Хэн ч авьяастай төрдөггүй ч зарим нь үүнийгээ хөгжүүлэх
+								чин хүсэл эрмэлзэлтэй байдаг. Харин тэднийг зөв хүмүүжүүлэх л
+								хэрэгтэй"
 							</Typography>
 							<Grid container alignItems="center">
 								<Grid item>

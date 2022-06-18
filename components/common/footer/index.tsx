@@ -16,7 +16,7 @@ export default function Footer() {
 			color="default"
 			sx={{ backgroundColor: '#001d23', py: 3, px: 2, mt: 'auto' }}
 		>
-			<Container maxWidth="lg">
+			<Container>
 				<Grid container alignItems="top">
 					<Grid item xs={12} md={4} sx={{ textAlign: 'center' }}>
 						<Image
@@ -57,7 +57,7 @@ export default function Footer() {
 						</Link>
 					</Grid>
 
-					<Grid item xs={12} md={6} sm={12}>
+					<Grid xs={12} md={6} sm={12}>
 						<Grid container>
 							<ContactWidgetCard title="Утасны дугаар" icon="phone">
 								+976-8888-8888

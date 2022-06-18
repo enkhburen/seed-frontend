@@ -1,11 +1,8 @@
-import { Box, Button, colors, Grid, Typography } from '@mui/material'
-import Image from 'next/image'
+import { Box, Button, Typography } from '@mui/material'
 
-import ProjectRewards from 'public/assets/project/project-rewards.jpg'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
-import { BorderColorRounded } from '@mui/icons-material'
 
 const commonStyles = {
 	p: 3,
@@ -42,10 +39,7 @@ export default function projectDetails() {
 			>
 				Биет цомог
 			</Typography>
-			<Typography variant="body2">
-				<li>CD</li>
-				<li>Гарын үсэгтэй постер</li>
-			</Typography>
+			<Typography>CD</Typography>
 			<Typography sx={{ fontWeight: 'bold', fontSize: '16px', mt: 2 }}>
 				2022 оны 5 сарын 2
 			</Typography>

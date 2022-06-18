@@ -52,8 +52,8 @@ export default function UserInfo() {
 
 	return (
 		<Container sx={{ my: 3 }}>
-			<Grid container spacing={4}>
-				<Grid item xs={4}>
+			<Grid container spacing={3}>
+				<Grid item xs={12} md={4} sm={12}>
 					<Card>
 						<CardContent>
 							<Box
@@ -84,7 +84,7 @@ export default function UserInfo() {
 						</CardActions>
 					</Card>
 				</Grid>
-				<Grid item xs={8}>
+				<Grid item xs={12} md={8} sm={12}>
 					<form autoComplete="off" noValidate>
 						<Card>
 							<CardHeader
@@ -98,7 +98,7 @@ export default function UserInfo() {
 										<TextField
 											fullWidth
 											helperText="Нэрээ оруулна уу."
-											label="First name"
+											label="Нэр"
 											name="Нэр"
 											onChange={handleChange}
 											required
@@ -144,7 +144,7 @@ export default function UserInfo() {
 											variant="outlined"
 										/>
 									</Grid>
-									<Grid item md={6} xs={12}>
+									{/* <Grid item md={6} xs={12}>
 										<TextField
 											fullWidth
 											label="Улс"
@@ -154,8 +154,8 @@ export default function UserInfo() {
 											value={values.state}
 											variant="outlined"
 										/>
-									</Grid>
-									<Grid item md={6} xs={12}>
+									</Grid> */}
+									{/* <Grid item md={6} xs={12}>
 										<TextField
 											fullWidth
 											label="Байршилаа сонгоно уу."
@@ -174,7 +174,7 @@ export default function UserInfo() {
 												</option>
 											))}
 										</TextField>
-									</Grid>
+									</Grid> */}
 								</Grid>
 							</CardContent>
 							<Divider />

@@ -39,6 +39,21 @@ interface IProps {
 	collected?: number
 }
 
+var SI_SYMBOL = ['', ' мянга', ' сая', ' тэрбум', ' их наяд']
+
+function abbreviateNumber(number: number) {
+	var tier = (Math.log10(Math.abs(number)) / 3) | 0
+
+	if (tier == 0) return number
+
+	var suffix = SI_SYMBOL[tier]
+	var scale = Math.pow(10, tier * 3)
+
+	var scaled = number / scale
+
+	return scaled.toFixed(1) + suffix
+}
+
 export default function ProjectItem(props: IProps) {
 	const {
 		title,
@@ -153,7 +168,8 @@ export default function ProjectItem(props: IProps) {
 											fontWeight: 'bold'
 										}}
 									>
-										{`${formatter.format(collected ? collected : 0)} ₮`}
+										{/* {`${formatter.format(collected ? collected : 0)} ₮`} */}
+										{abbreviateNumber(collected ? collected : 0)} ₮
 										<Typography variant="caption" sx={{ ml: 1 }}>
 											дэмжлэг авсан
 										</Typography>

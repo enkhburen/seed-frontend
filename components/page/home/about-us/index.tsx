@@ -24,11 +24,7 @@ export default function AboutUs() {
 				item
 			>
 				<Grid item xs={12} md={6} sm={12}>
-					<Image
-						src={AboutGallery2}
-						alt="about-us"
-						className="rounded-corner"
-					/>
+					<Image src={AboutGallery2} alt="about-us" />
 				</Grid>
 				<Grid item xs={12} md={6} sm={12}>
 					<Typography variant="h4" gutterBottom>

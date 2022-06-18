@@ -11,6 +11,19 @@ import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
 
+import Menu from '@mui/material/Menu'
+import Toolbar from '@mui/material/Toolbar'
+import IconButton from '@mui/material/IconButton'
+import MenuIcon from '@mui/icons-material/Menu'
+import Avatar from '@mui/material/Avatar'
+import Tooltip from '@mui/material/Tooltip'
+import MenuItem from '@mui/material/MenuItem'
+import PersonIcon from '@mui/icons-material/Person'
+import SettingsIcon from '@mui/icons-material/Settings'
+import WorkIcon from '@mui/icons-material/Work'
+import AddIcon from '@mui/icons-material/Add'
+import LogoutIcon from '@mui/icons-material/Logout'
+
 import LoggedInButton from './loggedButton'
 import MenuButton from './components/MenuButton'
 
@@ -39,7 +52,54 @@ const menus = [
 	}
 ]
 
-export default function Menu() {
+const dropDownMenu = [
+	{
+		url: '/user/profile',
+		icon: <PersonIcon sx={{ color: '#555', mr: 1 }} />,
+		text: 'Профайл'
+	},
+	{
+		url: '/user/profile/edit',
+		icon: <SettingsIcon sx={{ color: '#555', mr: 1 }} />,
+		text: 'Тохиргоо'
+	},
+	{
+		url: '/campaign/category',
+		icon: <AddIcon sx={{ color: '#555', mr: 1 }} />,
+		text: 'Төсөл үүсгэх'
+	},
+	{
+		url: '#',
+		icon: <WorkIcon sx={{ color: '#555', mr: 1 }} />,
+		text: 'Миний төслүүд'
+	},
+	{
+		url: '#',
+		icon: <LogoutIcon sx={{ color: '#555', mr: 1 }} />,
+		text: 'Гарах'
+	}
+]
+
+export default function NavigationMenu() {
+	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
+	const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
+		null
+	)
+
+	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+		setAnchorElNav(event.currentTarget)
+	}
+	const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+		setAnchorElUser(event.currentTarget)
+	}
+
+	const handleCloseNavMenu = () => {
+		setAnchorElNav(null)
+	}
+
+	const handleCloseUserMenu = () => {
+		setAnchorElUser(null)
+	}
 	const cookies = new Cookies()
 
 	cookies.set(
@@ -62,37 +122,29 @@ export default function Menu() {
 			color="default"
 			sx={{
 				display: {
-					xs: 'none',
-					md: 'block',
 					background: '#fff',
-					boxShadow: 'none'
+					boxShadow: '0px 0px 2px 1px rgba(0, 0, 0, 0.2)'
 				},
 				zIndex: 10
 			}}
 		>
-			<Container>
+			<Container sx={{ display: { xs: 'none', md: 'block' }, zIndex: 10 }}>
 				<Grid
 					container
 					justifyContent="space-between"
 					alignItems="center"
 					spacing={3}
 				>
-					<Grid item xs={3}>
-						<Typography variant="h6" noWrap component="div">
-							<Link href={menus[0].url}>
-								<a>
-									<Image
-										width="160"
-										src={SeedLogoBlack}
-										alt="Seed Logo Black"
-									/>
-								</a>
-							</Link>
-						</Typography>
+					<Grid item xs={2} md={2} sx={{ textAlign: 'center' }}>
+						<Link href={menus[0].url}>
+							<a>
+								<Image width="160" src={SeedLogoBlack} alt="Seed Logo Black" />
+							</a>
+						</Link>
 					</Grid>
 
-					<Grid item>
-						<Box>
+					<Grid item xs={8}>
+						<Box textAlign="center">
 							{menus.map((item, index) => (
 								<Link key={index} href={item.url}>
 									<a>
@@ -113,93 +165,127 @@ export default function Menu() {
 						</Box>
 					</Grid>
 
-					<Grid item xs={3} sx={{ textAlign: 'right' }}>
+					<Grid item xs={1} sx={{ textAlign: 'right' }}>
 						<Box sx={{ flexGrow: 0 }}>
 							<LoggedInButton />
 						</Box>
 					</Grid>
 				</Grid>
 			</Container>
+
+			{/* mobile */}
+			<Container maxWidth="xl">
+				<Box sx={{ display: { xs: 'block', md: 'none' } }}>
+					<Toolbar disableGutters>
+						<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+							<IconButton
+								size="large"
+								aria-label="account of current user"
+								aria-controls="menu-appbar"
+								aria-haspopup="true"
+								onClick={handleOpenNavMenu}
+								color="inherit"
+							>
+								<MenuIcon sx={{ color: '#000' }} />
+							</IconButton>
+							<Menu
+								id="menu-appbar"
+								anchorEl={anchorElNav}
+								anchorOrigin={{
+									vertical: 'bottom',
+									horizontal: 'left'
+								}}
+								keepMounted
+								transformOrigin={{
+									vertical: 'top',
+									horizontal: 'left'
+								}}
+								open={Boolean(anchorElNav)}
+								onClose={handleCloseNavMenu}
+								sx={{
+									display: { xs: 'block', md: 'none' }
+								}}
+							>
+								{menus.map((menus) => (
+									<Link href={menus.url} key={menus.title}>
+										<a>
+											<MenuItem onClick={handleCloseNavMenu}>
+												<Typography
+													textAlign="center"
+													sx={{ fontSize: '14px' }}
+												>
+													{menus.title}
+												</Typography>
+											</MenuItem>
+										</a>
+									</Link>
+								))}
+							</Menu>
+						</Box>
+						<Typography
+							variant="h6"
+							noWrap
+							component="div"
+							sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, flexGrow: 1 }}
+						>
+							<Link href={menus[0].url}>
+								<a>
+									<Image
+										width="160"
+										src={SeedLogoBlack}
+										alt="Seed Logo Black"
+									/>
+								</a>
+							</Link>
+						</Typography>
+
+						<Box sx={{ flexGrow: 0 }}>
+							<Tooltip title="Хувийн тохиргоо">
+								<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+									<Avatar
+										alt="Sample User"
+										src="/assets/author-thumbs/post-author.jpg"
+									/>
+								</IconButton>
+							</Tooltip>
+							<Menu
+								sx={{ mt: '45px' }}
+								id="menu-appbar"
+								anchorEl={anchorElUser}
+								anchorOrigin={{
+									vertical: 'top',
+									horizontal: 'right'
+								}}
+								keepMounted
+								transformOrigin={{
+									vertical: 'top',
+									horizontal: 'right'
+								}}
+								open={Boolean(anchorElUser)}
+								onClose={handleCloseUserMenu}
+							>
+								{dropDownMenu.map((setting) => {
+									return (
+										<Link href={setting.url} key={setting.text}>
+											<a>
+												<MenuItem
+													onClick={handleCloseUserMenu}
+													sx={{ fontSize: '14px', width: '200px' }}
+												>
+													{setting.icon}
+													<Typography variant="body2">
+														{setting.text}
+													</Typography>
+												</MenuItem>
+											</a>
+										</Link>
+									)
+								})}
+							</Menu>
+						</Box>
+					</Toolbar>
+				</Box>
+			</Container>
 		</AppBar>
-
-		// {/* MOBILE -- START */}
-
-		// {/* <Typography
-		//     variant='h6'
-		//     noWrap
-		//     component='div'
-		//     sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
-		//   >
-		//     Mobile
-		//   </Typography>
-
-		//   <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-		//     <IconButton
-		//       size='large'
-		//       aria-label='account of current user'
-		//       aria-controls='menu-appbar'
-		//       aria-haspopup='true'
-		//       onClick={handleOpenNavMenu}
-		//       color='inherit'
-		//     >
-		//       <MenuIcon />
-		//     </IconButton>
-		//     <Menu
-		//       id='menu-appbar'
-		//       anchorEl={anchorElNav}
-		//       anchorOrigin={{
-		//         vertical: 'bottom',
-		//         horizontal: 'left',
-		//       }}
-		//       keepMounted
-		//       transformOrigin={{
-		//         vertical: 'top',
-		//         horizontal: 'left',
-		//       }}
-		//       open={Boolean(anchorElNav)}
-		//       onClose={handleCloseNavMenu}
-		//       sx={{
-		//         display: { xs: 'block', md: 'none' },
-		//       }}
-		//     >
-		//       {pages.map((page) => (
-		//         <MenuItem key={page} onClick={handleCloseNavMenu}>
-		//           <Typography textAlign='center'>{page}</Typography>
-		//         </MenuItem>
-		//       ))}
-		//     </Menu>
-		//   </Box> */}
-
-		// 		{/* MOBILE -- END */}
-
-		// 		{/* <Box sx={{ flexGrow: 0 }}>
-		//     <Tooltip title='Open settings'>
-		//       <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-		//         <Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' />
-		//       </IconButton>
-		//     </Tooltip>
-		//     <Menu
-		//       sx={{ mt: '45px' }}
-		//       id='menu-appbar'
-		//       anchorEl={anchorElUser}
-		//       anchorOrigin={{
-		//         vertical: 'top',
-		//         horizontal: 'right',
-		//       }}
-		//       keepMounted
-		//       transformOrigin={{
-		//         vertical: 'top',
-		//         horizontal: 'right',
-		//       }}
-		//       open={Boolean(anchorElUser)}
-		//       onClose={handleCloseUserMenu}
-		//     >
-		//       {settings.map((setting) => (
-		//         <MenuItem key={setting} onClick={handleCloseUserMenu}>
-		//           <Typography textAlign='center'>{setting}</Typography>
-		//         </MenuItem>
-		//       ))}
-		//     </Menu> */}
-		// {/* </Box> */}
 	)
 }

@@ -1,10 +1,12 @@
 import {
 	Container,
 	MenuItem,
-	TextField,
+	InputLabel,
 	Typography,
 	Grid,
 	Box,
+	Select,
+	SelectChangeEvent,
 	Button
 } from '@mui/material'
 import * as React from 'react'
@@ -12,33 +14,35 @@ import { Divider, FormControl } from '@mui/material'
 
 const categories = [
 	{
-		title: 'Дуу',
-		label: 'Бусад'
+		title: 'Дуу'
 	},
 	{
-		title: 'Кино',
-		label: 'Бусад'
+		title: 'Кино'
 	},
 	{
-		title: 'Технологи',
-		label: 'Бусад'
+		title: 'Технологи'
 	},
 	{
-		title: 'Бусад',
-		label: 'Бусад'
+		title: 'Бусад'
 	}
 ]
 export default function CategoryPage() {
-	const [category, setCategory] = React.useState('Бусад')
-	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setCategory(event.target.value)
-	}
+	const [category, setCategory] = React.useState('')
 
+	const handleChange = (event: SelectChangeEvent) => {
+		setCategory(event.target.value as string)
+	}
 	return (
-		<>
-			<Container disableGutters maxWidth="sm" component="main" sx={{ my: 10 }}>
+		<Box
+			sx={{
+				minHeight: '80vh',
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'center'
+			}}
+		>
+			<Container maxWidth="sm">
 				<Typography
-					component="h1"
 					variant="h4"
 					align="center"
 					gutterBottom
@@ -46,41 +50,34 @@ export default function CategoryPage() {
 				>
 					Краудфандинг аялалаа эхлүүлцгээе.
 				</Typography>
+
 				<Typography variant="h5" align="center" sx={{ mt: 3 }}>
 					Шинэ төслийнхөө ангиллыг сонгоно уу.
 				</Typography>
+
 				<Typography variant="body2" align="center" sx={{ mt: 2 }}>
 					Эдгээр нь дэмжигчдэд таны төслийг олоход туслах бөгөөд хэрэв
 					шаардлагатай бол дараа нь өөрчлөх боломжтой.
 				</Typography>
-				<Box
-					component="form"
-					sx={{
-						'& .MuiTextField-root': {
-							mt: 7
-						}
-					}}
-					noValidate
-					autoComplete="off"
-				>
-					<TextField
-						id="outlined-select-category"
-						select
-						label="Ангилал сонгох"
-						value={category}
-						onChange={handleChange}
-						fullWidth
-						required
-						helperText="Төслийнхөө ангилалыг сонгоно уу"
-					>
-						{categories.map((option) => (
-							<MenuItem key={option.title} value={option.title}>
-								{option.title}
-							</MenuItem>
-						))}
-					</TextField>
-				</Box>
 
+				<Box sx={{ mt: 7 }}>
+					<FormControl fullWidth>
+						<InputLabel id="demo-simple-select-label">Ангилал</InputLabel>
+						<Select
+							labelId="outlined-select-category"
+							label="Ангилал"
+							value={category}
+							inputProps={{ MenuProps: { disableScrollLock: true } }}
+							onChange={handleChange}
+						>
+							{categories.map((option, index) => (
+								<MenuItem key={index} value={option.title}>
+									{option.title}
+								</MenuItem>
+							))}
+						</Select>
+					</FormControl>
+				</Box>
 				<Divider sx={{ pt: 2 }}></Divider>
 				<Box
 					display="flex"
@@ -93,11 +90,15 @@ export default function CategoryPage() {
 					</Button>
 				</Box>
 
-				<Typography align="center" sx={{ fontSize: '12px', mt: 12 }}>
+				<Typography
+					align="center"
+					variant="body2"
+					sx={{ fontSize: '12px', mt: 12 }}
+				>
 					Анхаар: Та төслөө засварлах, нуух, устгах тохиолдолд төслийг
 					эхлүүлсний дараа хязгаарлагдана.
 				</Typography>
 			</Container>
-		</>
+		</Box>
 	)
 }

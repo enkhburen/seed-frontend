@@ -26,35 +26,20 @@ export default function LandingCarousel() {
 	// setTimeout(() => {  console.log("World!"); }, 5000);
 
 	return (
-		<Box>
-			<Grid item xs={12} md={6}>
-				<Slider {...sliderSettings}>
-					<div>
-						<Image
-							src={Slider1}
-							width="1900"
-							height="580"
-							alt="Slider 1"
-						></Image>
-					</div>
-					<div>
-						<Image
-							src={Slider2}
-							width="1900"
-							height="580"
-							alt="Slider 2"
-						></Image>
-					</div>
-					<div>
-						<Image
-							src={Slider3}
-							width="1900"
-							height="580"
-							alt="Slider 3"
-						></Image>
-					</div>
-				</Slider>
-			</Grid>
+		<Box
+			sx={{ display: { xs: 'none', md: 'block', lg: 'block', xl: 'block' } }}
+		>
+			<Slider {...sliderSettings}>
+				<Box>
+					<Image src={Slider1} width="1900" height="580" alt="Slider 1"></Image>
+				</Box>
+				<Box>
+					<Image src={Slider2} width="1900" height="580" alt="Slider 2"></Image>
+				</Box>
+				<Box>
+					<Image src={Slider3} width="1900" height="580" alt="Slider 3"></Image>
+				</Box>
+			</Slider>
 		</Box>
 	)
 }

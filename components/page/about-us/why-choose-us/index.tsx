@@ -49,7 +49,8 @@ export default function WhyChooseUs() {
 								mt: 4,
 								p: 2,
 								boxShadow: '0px 0px 0px rgba(255,255,255,0)',
-								textAlign: 'center'
+								textAlign: 'center',
+								height: '100%'
 							}}
 						>
 							<CardContent>
@@ -72,7 +73,8 @@ export default function WhyChooseUs() {
 								mt: 4,
 								p: 2,
 								boxShadow: '0px 0px 0px rgba(255,255,255,0)',
-								textAlign: 'center'
+								textAlign: 'center',
+								height: '100%'
 							}}
 						>
 							<CardContent>
@@ -96,7 +98,8 @@ export default function WhyChooseUs() {
 								mt: 4,
 								p: 2,
 								boxShadow: '0px 0px 0px rgba(255,255,255,0)',
-								textAlign: 'center'
+								textAlign: 'center',
+								height: '100%'
 							}}
 						>
 							<CardContent>

@@ -94,7 +94,7 @@ export default function Landing() {
 					</Grid>
 				</Grid>
 				<Grid item xs={12} md={6} sm={12} lg={6} sx={{ pt: 5 }}>
-					<Image src={AboutGalleryImage2} className="rounded-corner" />
+					<Image src={AboutGalleryImage2} />
 				</Grid>
 			</Grid>
 		</Container>

@@ -9,9 +9,9 @@ export default function BlogList() {
 	return (
 		<Box>
 			<Grid container rowSpacing={4}>
-				{Blogs.map((blogs: any) => {
+				{Blogs.map((blogs: any, index) => {
 					return (
-						<Grid item xs={12} md={12}>
+						<Grid item xs={12} md={12} key={index}>
 							<BlogItem
 								href={blogs.url}
 								image={blogs.thumbImg}

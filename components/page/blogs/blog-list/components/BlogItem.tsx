@@ -30,6 +30,7 @@ export default function BlogItem(props: BlogItemProps) {
 				<a>
 					<Card sx={{ boxShadow: 0 }}>
 						<CardMedia
+							children="node"
 							sx={{
 								overflow: 'hidden',
 								height: '350px',

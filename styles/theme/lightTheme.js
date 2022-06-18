@@ -6,12 +6,12 @@ const lightTheme = createTheme({
 		primary: {
 			main: '#127f06',
 			light: '#51af3d',
-			dark: '#005100',
+			dark: '#005100'
 		},
 		secondary: {
 			main: '#e5e8e9',
 			light: '#ffffff',
-			dark: '#b3b6b7',
+			dark: '#b3b6b7'
 		}
 	},
 	typography: {
@@ -20,24 +20,34 @@ const lightTheme = createTheme({
 		},
 		h5: {
 			fontSize: '1.25rem'
-		}, 
+		},
 		h6: {
 			fontSize: '1rem'
 		}
 	},
 	shape: {
-        borderRadius: 0,
-    },
+		borderRadius: 0
+	},
 	components: {
-        MuiButton: {
-            defaultProps: {
-                disableRipple: true,
-            },
-        },
+		MuiButton: {
+			defaultProps: {
+				disableRipple: true
+			}
+		},
+		MuiIconButton: {
+			defaultProps: {
+				disableRipple: true
+			}
+		},
+		MuiMenuItem: {
+			defaultProps: {
+				disableRipple: true
+			}
+		},
 		MuiChip: {
 			defaultProps: {
-                disableRipple: true,
-            },
+				disableRipple: true
+			},
 			styleOverrides: {
 				root: {
 					borderRadius: '0px',
@@ -45,7 +55,7 @@ const lightTheme = createTheme({
 				}
 			}
 		}
-    },
+	}
 })
 
 export default lightTheme

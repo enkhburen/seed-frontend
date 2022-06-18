@@ -11,9 +11,7 @@ export default function category() {
 			<Head>
 				<title>Төсөл хэрэгжүүлэх - Seed.mn</title>
 			</Head>
-			<Container>
-				{loggedIn == false ? 'no page found' : <CategoryPage />}
-			</Container>
+			{loggedIn == false ? 'no page found' : <CategoryPage />}
 		</PageLayout>
 	)
 }

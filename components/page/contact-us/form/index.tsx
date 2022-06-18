@@ -12,7 +12,12 @@ export default function Form() {
 		/* Default Map */
 		<Box sx={{ my: 4 }}>
 			<Grid container alignItems="center">
-				<Grid item xs={12} md={6}>
+				<Grid
+					item
+					xs={12}
+					md={6}
+					sx={{ display: { xs: 'none', lg: 'block', xl: 'none' } }}
+				>
 					<iframe
 						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2675.188540309885!2d106.90404931599491!3d47.8940359792048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3c4700548aac03!2zNDfCsDUzJzM4LjUiTiAxMDbCsDU0JzIyLjUiRQ!5e0!3m2!1sen!2smn!4v1650267273768!5m2!1sen!2smn"
 						loading="lazy"

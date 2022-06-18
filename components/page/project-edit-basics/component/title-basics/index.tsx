@@ -17,14 +17,14 @@ import ImageIcon from '@mui/icons-material/Image'
 export default function EditBasics() {
 	return (
 		<>
-			<Container sx={{ my: 10, textAlign: 'center' }}>
+			<Container sx={{ my: 6, textAlign: 'center' }}>
 				<Typography variant="h4">Төсөл засварлах</Typography>
 				<p>Хүмүүс таны төслийн талаар сурахад хялбар болго.</p>
 			</Container>
 			<Divider sx={{ my: 5 }} />
 			<Container>
 				<Grid container spacing={4}>
-					<Grid item xs={4} sx={{ pr: 5 }}>
+					<Grid item xs={12} md={4} sm={12} sx={{ pr: 5 }}>
 						<Typography variant="h5" sx={{ textAlign: 'justify' }}>
 							Төслийн гарчиг
 						</Typography>
@@ -37,32 +37,33 @@ export default function EditBasics() {
 							нээлтийн өмнөх хуудсан дээр гарч ирхэх болно.
 						</Typography>
 					</Grid>
-					<Grid item xs={8}>
+					<Grid item xs={12} md={8}>
 						<TextField
 							sx={{ mt: 2 }}
 							required
 							id="outlined-campaign-title"
-							label="Нэр"
-							size="small"
+							label="Төслийн нэр"
 							fullWidth
 						></TextField>
 						<TextField
 							sx={{ mt: 5 }}
-							required
-							size="small"
-							id="outlined-campaign-title"
-							label="Тайлбар"
+							id="outlined-multiline-static"
+							label="Богино тайлбар"
+							multiline
 							fullWidth
-						></TextField>
+							rows={3}
+							defaultValue="Default Value"
+						/>
 					</Grid>
 				</Grid>
 			</Container>
+
 			{/* Upload Image Section */}
 
 			<Divider sx={{ my: 6 }} />
 			<Container>
 				<Grid container spacing={4}>
-					<Grid item xs={4} sx={{ pr: 5 }}>
+					<Grid item xs={12} md={4} sm={12} sx={{ pr: 5 }}>
 						<Typography variant="h5" sx={{ textAlign: 'justify' }}>
 							Төслийн зураг
 						</Typography>
@@ -78,8 +79,8 @@ export default function EditBasics() {
 							зураг 16:9 харьцаатай гарч ирэх болно.
 						</Typography>
 					</Grid>
-					<Grid item xs={6} sx={{ mt: 3 }}>
-						<Card sx={{ width: 730, height: 165 }}>
+					<Grid item xs={12} md={8} sm={12}>
+						<Card>
 							<CardContent sx={{ textAlign: 'center' }}>
 								<label htmlFor="contained-button-file">
 									<Input id="contained-button-file" type="file" />
@@ -105,7 +106,7 @@ export default function EditBasics() {
 			<Divider sx={{ my: 6 }} />
 			<Container>
 				<Grid container spacing={4}>
-					<Grid item xs={12} sx={{ pr: 5 }}>
+					<Grid item xs={12} md={4} sm={12} sx={{ pr: 5 }}>
 						<Typography variant="h5" sx={{ textAlign: 'justify' }}>
 							Санхүүжилтын зорилго
 						</Typography>
@@ -118,22 +119,23 @@ export default function EditBasics() {
 							боломжгүй.
 						</Typography>
 					</Grid>
-				</Grid>
-				<Grid item xs={4} sx={{ mt: 3 }}>
-					<TextField
-						label="₮ Зорилгын хэмжээ"
-						name="numberformat"
-						id="formatted-numberformat-input"
-						fullWidth
-						type="number"
-						variant="outlined"
-					/>
+					<Grid item xs={12} md={8} sx={{ mt: 3 }}>
+						<TextField
+							label="₮ Зорилгын хэмжээ"
+							name="numberformat"
+							id="formatted-numberformat-input"
+							type="number"
+							required
+							fullWidth
+							variant="outlined"
+						/>
+					</Grid>
 				</Grid>
 			</Container>
-			<Divider sx={{ my: 8 }} />
+			<Divider sx={{ my: 5.8 }} />
 			<Container>
 				<Grid container spacing={4}>
-					<Grid item xs={4} sx={{ pr: 5 }}>
+					<Grid item xs={12} md={4} sm={12} sx={{ pr: 5 }}>
 						<Typography variant="h5" sx={{ textAlign: 'justify' }}>
 							Кампанит ажлын үргэлжлэх хугацаа
 						</Typography>
@@ -145,10 +147,10 @@ export default function EditBasics() {
 							дараа өөрчлөх боломжгүй.
 						</Typography>
 					</Grid>
-					<Grid item xs={8}></Grid>
+					{/* <Grid item xs={8}></Grid> */}
 				</Grid>
 			</Container>
-			<Container sx={{ mt: 10 }}>
+			<Container sx={{ mt: 5 }}>
 				<Grid
 					container
 					justifyContent="flex-end"

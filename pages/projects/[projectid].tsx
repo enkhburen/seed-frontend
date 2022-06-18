@@ -72,7 +72,7 @@ export default function ProjectID() {
 						<Grid item xs={12} md={8}>
 							<MainDetails content={projectData.content} />
 						</Grid>
-						<Grid item xs={12} md={4}>
+						<Grid item xs={12} md={4} sm={12}>
 							<Box sx={{ maxHeight: height, overflowY: 'scroll' }}>
 								<Rewards />
 								<Rewards />

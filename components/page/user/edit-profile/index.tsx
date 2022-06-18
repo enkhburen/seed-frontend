@@ -19,7 +19,7 @@ export default function User() {
 	}
 	return (
 		<>
-			<Container sx={{ minHeight: '80vh' }}>
+			<Container sx={{ my: 5 }}>
 				<Box sx={{ my: 2 }}>
 					<Typography sx={{ my: 5, fontWeight: 'medium' }} variant="h4">
 						Хэрэглэгчийн Тохиргоо
@@ -30,8 +30,8 @@ export default function User() {
 						<TabList onChange={handleChange} aria-label="lab API tabs example">
 							<Tab label="Ерөнхий" value="1" />
 							<Tab label="Нууцлал" value="2" />
-							<Tab label="Төлбөр" value="3" />
-							<Tab label="Хаяг" value="4" />
+							{/* <Tab label="Төлбөр" value="3" /> */}
+							{/* 		<Tab label="Хаяг" value="4" /> */}
 							<Tab label="Мэдэгдлүүд" value="5" />
 						</TabList>
 					</Box>
@@ -41,12 +41,12 @@ export default function User() {
 					<TabPanel value="2">
 						<Securities />
 					</TabPanel>
-					<TabPanel value="3">
+					{/* <TabPanel value="3">
 						<PaymentMethod />
-					</TabPanel>
-					<TabPanel value="4">
+					</TabPanel> */}
+					{/* 	<TabPanel value="4">
 						<ShippingAddress />
-					</TabPanel>
+					</TabPanel> */}
 					<TabPanel value="5">
 						<Notifications />
 					</TabPanel>

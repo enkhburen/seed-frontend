@@ -1,80 +1,92 @@
-import { Box, Button, Grid, Typography } from '@mui/material'
+import { Box, Button, colors, Grid, Typography } from '@mui/material'
 import Image from 'next/image'
 
 import ProjectRewards from 'public/assets/project/project-rewards.jpg'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
+import { BorderColorRounded } from '@mui/icons-material'
+
+const commonStyles = {
+	p: 3,
+	textAlign: 'left',
+	mt: 0,
+	mb: 2,
+	border: 1
+}
 
 export default function projectDetails() {
 	return (
 		<Box
-			sx={{ p: 3, backgroundColor: '#edf9f3', textAlign: 'left', mt: 0, mb: 2 }}
+			sx={{
+				...commonStyles,
+				borderColor: '#127f06'
+			}}
 		>
-			<Typography
-				variant="h4"
-				sx={{ fontWeight: 'bold', fontSize: '24px', pb: 2, pr: 5 }}
-			>
-				Шагнал, урамшуулал
-			</Typography>
-			<Image src={ProjectRewards} alt="RewardsZurag" />
-			<Box sx={{ fontWeight: 'bold', my: 1, fontSize: '18px' }}>
+			<Box sx={{ my: 1, fontSize: '16px' }}>
 				<Typography
 					variant="h5"
-					sx={{ color: '#127F06', display: 'inline-block', fontWeight: 'bold' }}
+					sx={{
+						color: '#127F06',
+						display: 'inline-block',
+						fontWeight: 'medium'
+					}}
 				>
-					200k₮
+					80,000₮
 				</Typography>{' '}
-				ба түүнээс дээш
+				ба түүнээс дээш бол
 			</Box>
-			<Typography variant="caption">
-				Хэрэв та энэ төслийг дэмжсэн тохиолдолд танд урамшуулал бэлэглэх болно
+			<Typography
+				variant="h4"
+				sx={{ fontWeight: 'bold', fontSize: '20px', pb: 2, pr: 5 }}
+			>
+				Биет цомог
 			</Typography>
-			<Typography sx={{ fontWeight: 'bold', fontSize: '18px', mt: 2 }}>
+			<Typography variant="body2">
+				<li>CD</li>
+				<li>Гарын үсэгтэй постер</li>
+			</Typography>
+			<Typography sx={{ fontWeight: 'bold', fontSize: '16px', mt: 2 }}>
 				2022 оны 5 сарын 2
 			</Typography>
 			<Typography
 				variant="caption"
-				sx={{ display: 'block', mb: 2, fontSize: '15px', color: '#888' }}
+				sx={{ display: 'block', mb: 2, fontSize: '14px', color: '#888' }}
 			>
-				Хүргэгдэх хугацаа
+				Танд хүргэгдэх хугацаа
 			</Typography>
 
-			<Typography sx={{ display: 'inline-block' }}>
+			<Typography>
 				<AccountCircleIcon
 					sx={{
-						display: 'inline-block',
 						color: '#127F06',
-						fontSize: '16px',
+						fontSize: '14px',
 						mr: 1
 					}}
 				/>
 				10 дэмжигчид
 			</Typography>
 
-			<Typography sx={{ display: 'inline-block' }}>
+			<Typography>
 				<EmojiEventsIcon
 					sx={{
-						display: 'inline-block',
 						color: '#127F06',
-						fontSize: '16px',
+						fontSize: '14px',
 						mr: 1
 					}}
 				/>
-				42 урамшуулал үлдсэн
+				8/15 үлдсэн
 			</Typography>
 			<Button
 				sx={{
-					backgroundColor: '#127f06',
-					px: 2,
+					backgroundColor: '#2e7d32',
 					my: 3,
 					fontSize: '12px',
-					fontWeight: 'bold',
 					textTransform: 'none'
 				}}
 				variant="contained"
 			>
-				Урамшууллаа сонгох
+				Энэ Урамшууллыг Сонгох
 				<ArrowRightAltIcon
 					sx={{
 						fontSize: '22px'

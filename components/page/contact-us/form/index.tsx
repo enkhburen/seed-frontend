@@ -25,7 +25,6 @@ export default function Form() {
 						style={{ width: '100%', height: '695px', border: 'none' }}
 					></iframe>
 				</Grid>
-
 				{/* Input Section */}
 
 				<Grid item xs={12} md={6} sx={{ bgcolor: '#ecf9f3', p: 5 }}>

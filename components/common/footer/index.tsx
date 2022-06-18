@@ -83,6 +83,7 @@ export default function Footer() {
 						</Link>
 					</Grid>
 
+
 					<Grid
 						item
 						xs={12}
@@ -90,6 +91,7 @@ export default function Footer() {
 						sm={12}
 						sx={{ display: { xs: 'none', lg: 'block', xl: 'none' } }}
 					>
+
 						<Grid container>
 							<ContactWidgetCard title="Утасны дугаар" icon="phone">
 								+976-8888-8888

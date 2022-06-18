@@ -1,3 +1,4 @@
+import * as React from 'react'
 import {
 	Container,
 	Divider,
@@ -11,18 +12,20 @@ import {
 	Input,
 	Button
 } from '@mui/material'
-import * as React from 'react'
+
 import ImageIcon from '@mui/icons-material/Image'
 
 export default function EditBasics() {
 	return (
-		<>
-			<Container sx={{ my: 6, textAlign: 'center' }}>
+		<Container>
+			<Box sx={{ my: 6, textAlign: 'center' }}>
 				<Typography variant="h4">Төсөл засварлах</Typography>
-				<p>Хүмүүс таны төслийн талаар сурахад хялбар болго.</p>
-			</Container>
+				<Typography variant="body2">
+					Хүмүүс таны төслийн талаар сурахад хялбар болго.
+				</Typography>
+			</Box>
 			<Divider sx={{ my: 5 }} />
-			<Container>
+			<Box>
 				<Grid container spacing={4}>
 					<Grid item xs={12} md={4} sm={12} sx={{ pr: 5 }}>
 						<Typography variant="h5" sx={{ textAlign: 'justify' }}>
@@ -52,16 +55,16 @@ export default function EditBasics() {
 							multiline
 							fullWidth
 							rows={3}
-							defaultValue="Default Value"
+							defaultValue=""
 						/>
 					</Grid>
 				</Grid>
-			</Container>
+			</Box>
 
 			{/* Upload Image Section */}
 
 			<Divider sx={{ my: 6 }} />
-			<Container>
+			<Box>
 				<Grid container spacing={4}>
 					<Grid item xs={12} md={4} sm={12} sx={{ pr: 5 }}>
 						<Typography variant="h5" sx={{ textAlign: 'justify' }}>
@@ -102,9 +105,9 @@ export default function EditBasics() {
 						</Card>
 					</Grid>
 				</Grid>
-			</Container>
+			</Box>
 			<Divider sx={{ my: 6 }} />
-			<Container>
+			<Box>
 				<Grid container spacing={4}>
 					<Grid item xs={12} md={4} sm={12} sx={{ pr: 5 }}>
 						<Typography variant="h5" sx={{ textAlign: 'justify' }}>
@@ -121,7 +124,7 @@ export default function EditBasics() {
 					</Grid>
 					<Grid item xs={12} md={8} sx={{ mt: 3 }}>
 						<TextField
-							label="₮ Зорилгын хэмжээ"
+							label="Зорилгын хэмжээ (₮)"
 							name="numberformat"
 							id="formatted-numberformat-input"
 							type="number"
@@ -131,9 +134,9 @@ export default function EditBasics() {
 						/>
 					</Grid>
 				</Grid>
-			</Container>
+			</Box>
 			<Divider sx={{ my: 5.8 }} />
-			<Container>
+			<Box>
 				<Grid container spacing={4}>
 					<Grid item xs={12} md={4} sm={12} sx={{ pr: 5 }}>
 						<Typography variant="h5" sx={{ textAlign: 'justify' }}>
@@ -149,8 +152,8 @@ export default function EditBasics() {
 					</Grid>
 					{/* <Grid item xs={8}></Grid> */}
 				</Grid>
-			</Container>
-			<Container sx={{ mt: 5 }}>
+			</Box>
+			<Box sx={{ mt: 5 }}>
 				<Grid
 					container
 					justifyContent="flex-end"
@@ -160,13 +163,13 @@ export default function EditBasics() {
 					<Button
 						variant="contained"
 						href="/campaign/edit/story"
-						sx={{ fontSize: '12px' }}
+						sx={{ fontSize: '14px' }}
 					>
 						Дараагийнх: Гол сэдэв
 					</Button>
 				</Grid>
-			</Container>
+			</Box>
 			<Divider sx={{ my: 8 }} />
-		</>
+		</Container>
 	)
 }

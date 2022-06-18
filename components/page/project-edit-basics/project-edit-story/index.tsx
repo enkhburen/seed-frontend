@@ -16,20 +16,23 @@ const description =
 
 export default function CampaignStory() {
 	return (
-		<>
-			<Container sx={{ my: 4, textAlign: 'center' }}>
+		<Container>
+			<Box sx={{ my: 4, textAlign: 'center' }}>
 				<Typography variant="h4">Гол сэдэв</Typography>
 				<Typography variant="body1" sx={{ mt: 2 }}>
 					Хүмүүс яагаад таны төсөлд сэтгэл догдлох ёстойг илэрхийлнэ үү. Энгийн
 					бөгөөд товч байгаарай.
 				</Typography>
-			</Container>
+			</Box>
 			<Divider sx={{ my: 5, mb: 2.3 }} />
-			<Container sx={{ mt: 5 }}>
+			<Box sx={{ mt: 5 }}>
 				<Grid container spacing={2}>
-					<Grid item xs={12} md={8} sm={4} sx={{ mb: 3 }}>
-						<Typography variant="h5">Төслийн тайлбар</Typography>
-						<Typography variant="h6" sx={{ mt: 3, color: '#545454' }}>
+					<Grid item xs={12} md={12} sm={4} sx={{ mb: 3 }}>
+						<Typography variant="h4">Төслийн тайлбар</Typography>
+						<Typography
+							variant="body2"
+							sx={{ mt: 3, color: '#545454', textAlign: 'justify' }}
+						>
 							{description}
 						</Typography>
 					</Grid>
@@ -43,9 +46,9 @@ export default function CampaignStory() {
 						/>
 					</Grid>
 				</Grid>
-			</Container>
+			</Box>
 			<Divider sx={{ my: 5 }} />
-			<Container sx={{ my: 5 }}>
+			<Box sx={{ my: 5 }}>
 				<Grid
 					container
 					direction="row"
@@ -54,17 +57,17 @@ export default function CampaignStory() {
 				>
 					<Button
 						variant="text"
-						sx={{ fontSize: '12px' }}
+						sx={{ fontSize: '14px' }}
 						startIcon={<ArrowBackIosNewIcon />}
 						href="/campaign/edit/basics"
 					>
 						Буцах
 					</Button>
-					<Button variant="contained" href="#" sx={{ fontSize: '12px' }}>
+					<Button variant="contained" href="#" sx={{ fontSize: '14px' }}>
 						Шалгуулах
 					</Button>
 				</Grid>
-			</Container>
-		</>
+			</Box>
+		</Container>
 	)
 }

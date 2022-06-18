@@ -37,10 +37,13 @@ export default function ProfileInfo() {
 					</Typography>
 				</Grid>
 			</Grid>
-			<Box sx={{ width: '300px', margin: '0 auto', my: 2 }}>
-				<Skeleton animation="wave" />
-				<Skeleton animation="wave" />
-				<Skeleton animation="wave" />
+			<Box sx={{ width: '300px', margin: '0 auto', my: 3 }}>
+				<Typography variant="body2" sx={{ textAlign: 'justify' }}>
+					I used to spend hours writing creative copy, but now all I do is tell
+					Rytr what I need and it writes everything for me. It's the ultimate AI
+					content writer, and a must-have tool for bloggers, marketers, &
+					entrepreneurs.
+				</Typography>
 			</Box>
 		</Box>
 	)

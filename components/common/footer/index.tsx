@@ -14,9 +14,16 @@ export default function Footer() {
 		<Box
 			component="footer"
 			color="default"
-			sx={{ backgroundColor: '#001d23', py: 3, px: 2, mt: 'auto' }}
+			position="static"
+			sx={{
+				backgroundColor: '#001d23',
+				py: 3,
+				px: 2,
+				mt: 'auto',
+				width: '100%'
+			}}
 		>
-			<Container maxWidth="lg">
+			<Container>
 				<Grid container alignItems="top">
 					<Grid item xs={12} md={4} sx={{ textAlign: 'center' }}>
 						<Image
@@ -35,14 +42,25 @@ export default function Footer() {
 						</Typography>
 					</Grid>
 
-					<Grid item xs={12} md={2} sx={{ textAlign: 'center' }}>
+					<Grid
+						item
+						xs={12}
+						md={2}
+						sx={{
+							textAlign: 'center'
+						}}
+					>
 						<Link href="/terms-of-service">
 							<a>
 								<Typography
 									variant="caption"
 									display="block"
 									color="white"
-									sx={{ mb: 2 }}
+									sx={{
+										my: 2,
+										textDecoration: { xs: 'underline' },
+										textUnderlineOffset: '5px'
+									}}
 								>
 									Үйлчилгээний нөхцөл
 								</Typography>
@@ -50,14 +68,28 @@ export default function Footer() {
 						</Link>
 						<Link href="/contact-us">
 							<a>
-								<Typography variant="caption" display="block" color="white">
+								<Typography
+									variant="caption"
+									display="block"
+									color="white"
+									sx={{
+										textDecoration: { xs: 'underline' },
+										textUnderlineOffset: '5px'
+									}}
+								>
 									Бидэнтэй холбогдох
 								</Typography>
 							</a>
 						</Link>
 					</Grid>
 
-					<Grid item xs={12} md={6} sm={12}>
+					<Grid
+						item
+						xs={12}
+						md={6}
+						sm={12}
+						sx={{ display: { xs: 'none', lg: 'block', xl: 'none' } }}
+					>
 						<Grid container>
 							<ContactWidgetCard title="Утасны дугаар" icon="phone">
 								+976-8888-8888

@@ -12,7 +12,7 @@ export default function Profile() {
 			<Head>
 				<title>{username}</title>
 			</Head>
-			<Container sx={{ py: 4 }}>
+			<Container sx={{ py: 6 }}>
 				<Box sx={{ minHeight: '100vh' }}>
 					<ProfileInfo />
 					<ProfileDatas />

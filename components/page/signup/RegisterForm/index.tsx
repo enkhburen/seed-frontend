@@ -1,3 +1,7 @@
+import NextLink from 'next/link'
+import { useRouter } from 'next/router'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
 import {
 	Box,
 	FormControl,
@@ -9,19 +13,39 @@ import {
 } from '@mui/material'
 
 export default function Register() {
+	const router = useRouter()
+	const formik = useFormik({
+		initialValues: {
+			fullName: '',
+			email: '',
+			password: ''
+		},
+		validationSchema: Yup.object({
+			email: Yup.string()
+				.email('Имэйл буруу байна')
+				.max(255)
+				.required('Имэйл оруулах шаардлагатай'),
+			fullName: Yup.string().max(255).required('Нэрээ оруулна уу'),
+			password: Yup.string().max(255).required('Нууц үг оруулна уу.')
+		}),
+		onSubmit: () => {
+			router.push('/user/profile')
+		}
+	})
+
 	return (
-		<Container maxWidth="xs">
+		<Container maxWidth="xs" sx={{ minHeight: '70.7vh' }}>
 			<Box
 				component="form"
 				noValidate
 				autoComplete="off"
 				sx={{
 					border: '1px solid rgba(0,0,0,0.1)',
-					borderRadius: '2px',
 					mx: 'auto',
 					py: 3,
-					px: 5
+					px: 4
 				}}
+				onSubmit={formik.handleSubmit}
 			>
 				<Typography variant="h4" component="h1" sx={{ mb: 4 }}>
 					Бүртгүүлэх
@@ -29,8 +53,12 @@ export default function Register() {
 
 				<FormControl sx={{ mb: 2 }} fullWidth>
 					<TextField
-						id="name"
-						name="name"
+						error={Boolean(formik.touched.fullName && formik.errors.fullName)}
+						helperText={formik.touched.fullName && formik.errors.fullName}
+						onBlur={formik.handleBlur}
+						onChange={formik.handleChange}
+						value={formik.values.fullName}
+						name="fullName"
 						label="Нэр"
 						variant="outlined"
 						required
@@ -39,6 +67,11 @@ export default function Register() {
 				</FormControl>
 				<FormControl sx={{ mb: 2 }} fullWidth>
 					<TextField
+						error={Boolean(formik.touched.email && formik.errors.email)}
+						helperText={formik.touched.email && formik.errors.email}
+						onBlur={formik.handleBlur}
+						onChange={formik.handleChange}
+						value={formik.values.email}
 						id="email"
 						label="И мэйл"
 						variant="outlined"
@@ -54,13 +87,17 @@ export default function Register() {
 						name="phone-number"
 						label="Утасны дугаар"
 						variant="outlined"
-						required
 						type="number"
 						size="small"
 					/>
 				</FormControl>
 				<FormControl sx={{ mb: 4 }} fullWidth>
 					<TextField
+						error={Boolean(formik.touched.password && formik.errors.password)}
+						helperText={formik.touched.password && formik.errors.password}
+						onBlur={formik.handleBlur}
+						value={formik.values.password}
+						onChange={formik.handleChange}
 						required
 						id="password"
 						name="password"
@@ -72,9 +109,9 @@ export default function Register() {
 				</FormControl>
 				<Button
 					type="submit"
+					disabled={formik.isSubmitting}
 					variant="contained"
 					size="large"
-					href="/auth/loggedin"
 					fullWidth
 					sx={{ fontSize: '14px' }}
 				>
@@ -87,7 +124,7 @@ export default function Register() {
 						variant="caption"
 						color="primary"
 						component="a"
-						href="#"
+						href="/terms-of-use"
 					>
 						&nbsp;Үйлчилгээний Нөхцлийг&nbsp;
 					</Typography>

@@ -3,14 +3,7 @@ import AddIcon from '@mui/icons-material/Add'
 import PeopleIcon from '@mui/icons-material/People'
 import HandshakeIcon from '@mui/icons-material/Handshake'
 import MoreTimeIcon from '@mui/icons-material/MoreTime'
-import {
-	Stack,
-	Box,
-	Container,
-	Card,
-	CardContent,
-	Typography
-} from '@mui/material'
+import { Box, Container, Card, CardContent, Typography } from '@mui/material'
 
 const text1 = [
 	'Олны хүч оломгүй далай гэж үг байдаг. Олон нийтээс санхүүжилт татах нь хөрөнгө ихтэй цөөн тооны хөрөнгө оруулагчдаас санхүүжилт авснаас илүү их хөрөнгийг татан төвлөрүүлж чаддаг бөгөөд Seed.mn ашиглан олон нийтээс хөрөнгө оруулалт татсанаар 100 гаруй хуудастай санхүүжилтийн өргөдөл бичих, хөрөнгө оруулагчийн шаардлагаар уран бүтээлийнхээ санааг эцсийн мөчид яаруу сандруу гэх мэт зүйлстэй нүүр тулгарах шаардлагагүй болох юм'

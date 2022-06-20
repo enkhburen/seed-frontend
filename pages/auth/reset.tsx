@@ -9,7 +9,7 @@ export default function reset() {
 			<Head>
 				<title>Нууц үг шинэчлэх</title>
 			</Head>
-			<Container sx={{ my: 11 }}>
+			<Container sx={{ my: 4, mt: 14, minHeight: '56.5vh' }}>
 				<ResetForm />
 			</Container>
 		</PageLayout>

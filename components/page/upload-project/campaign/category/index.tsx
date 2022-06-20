@@ -1,3 +1,5 @@
+import * as React from 'react'
+import * as Yup from 'yup'
 import {
 	Container,
 	MenuItem,
@@ -6,10 +8,12 @@ import {
 	Box,
 	Select,
 	SelectChangeEvent,
-	Button
+	Button,
+	FormControl
 } from '@mui/material'
-import * as React from 'react'
 import { Divider } from '@mui/material'
+import { useRouter } from 'next/router'
+import { useFormik } from 'formik'
 
 const categories = [
 	{
@@ -31,6 +35,19 @@ export default function CategoryPage() {
 	const handleChange = (event: SelectChangeEvent) => {
 		setCategory(event.target.value as string)
 	}
+
+	const router = useRouter()
+	const formik = useFormik({
+		initialValues: {
+			chooseCategory: ''
+		},
+		validationSchema: Yup.object().shape({
+			password: Yup.string().required('Сонгох шаардлагатай')
+		}),
+		onSubmit: () => {
+			router.push('/')
+		}
+	})
 	return (
 		<Box
 			sx={{
@@ -66,6 +83,10 @@ export default function CategoryPage() {
 							labelId="outlined-select-category"
 							label="Ангилал"
 							value={category}
+							error={Boolean(
+								formik.touched.chooseCategory && formik.errors.chooseCategory
+							)}
+							onBlur={formik.handleBlur}
 							inputProps={{ MenuProps: { disableScrollLock: true } }}
 							onChange={handleChange}
 						>

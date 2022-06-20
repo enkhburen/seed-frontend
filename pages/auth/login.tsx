@@ -5,7 +5,7 @@ import Container from '@mui/material/Container'
 export default function Login() {
 	return (
 		<PageLayout>
-			<Container sx={{ my: 5 }}>
+			<Container sx={{ my: 10}}>
 				<LoginForm />
 			</Container>
 		</PageLayout>

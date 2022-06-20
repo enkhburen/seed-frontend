@@ -9,7 +9,7 @@ export default function VerifyPassword() {
 			<Head>
 				<title>Баталгаажуулалт| Seed.mn</title>
 			</Head>
-			<Container sx={{ my: 21 }}>
+			<Container sx={{ my: 10 }}>
 				<Verify />
 			</Container>
 		</PageLayout>

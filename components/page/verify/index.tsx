@@ -1,4 +1,6 @@
 import React from 'react'
+import { useRouter } from 'next/router'
+import { Formik, useFormik } from 'formik'
 import {
 	Box,
 	Button,
@@ -42,17 +44,16 @@ export default function Verify() {
 	}, [])
 
 	return (
-		<Container maxWidth="sm">
+		<Container maxWidth="sm" sx={{ minHeight: '58.5vh' }}>
 			<Box
 				component="form"
 				noValidate
 				autoComplete="off"
 				sx={{
 					border: '1px solid rgba(0,0,0,0.1)',
-					borderRadius: '2px',
 					mx: 'auto',
 					py: 3,
-					px: 5
+					px: 2
 				}}
 			>
 				<Typography
@@ -78,31 +79,29 @@ export default function Verify() {
 							key={index}
 							placeholder="-"
 							value={value}
-							error
 							onChange={(event) => handleChange(event, index)}
 							inputRef={inputRefs[index]}
 							sx={{
-								maxHeight: '48px',
-								maxWidth: '48px',
+								maxHeight: '40px',
+								maxWidth: '40px',
 								display: 'inline-block',
 								mr: 1,
-								overflow: 'hidden'
+								overflow: 'hidden',
+								mt: 2
 							}}
 						/>
 					))}
 				</FormControl>
-				<Button
-					variant="contained"
-					fullWidth
-					type="submit"
-					size="medium"
-					href="/auth/reset"
-					sx={{ mb: 2, mt: 1 }}
-					onClick={(e) => handleVerify()}
-				>
-					Баталгаажуулах
-				</Button>
 			</Box>
+			<Button
+				variant="contained"
+				fullWidth
+				type="submit"
+				size="medium"
+				sx={{ mb: 2, mt: 1 }}
+			>
+				Баталгаажуулах
+			</Button>
 		</Container>
 	)
 }

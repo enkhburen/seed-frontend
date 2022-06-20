@@ -5,7 +5,7 @@ import RegisterForm from '../../components/page/signup/RegisterForm'
 export default function Register() {
 	return (
 		<PageLayout>
-			<Container sx={{ my: 5 }}>
+			<Container sx={{ my: 3, mt: 7 }}>
 				<RegisterForm />
 			</Container>
 		</PageLayout>

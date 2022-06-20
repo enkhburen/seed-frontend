@@ -26,7 +26,7 @@ const NumberFormatCustom = React.forwardRef<
 		<NumberFormat
 			{...other}
 			getInputRef={ref}
-			onValueChange={(values) => {
+			onValueChange={(values: { value: any }) => {
 				onChange({
 					target: {
 						name: props.name,

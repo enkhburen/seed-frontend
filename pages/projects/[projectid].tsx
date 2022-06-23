@@ -36,7 +36,6 @@ export default function ProjectID() {
 		} else {
 			elementHeight = elementHeight
 		}
-
 		setHeight(elementHeight.toString() + 'px')
 	}, [])
 
@@ -73,7 +72,13 @@ export default function ProjectID() {
 							<MainDetails content={projectData.content} />
 						</Grid>
 						<Grid item xs={12} md={4} sm={12}>
-							<Box sx={{ maxHeight: height, overflowY: 'scroll' }}>
+							<Box
+								sx={{
+									maxHeight: height,
+									overflowY: 'scroll',
+									overflowStyle: 'none'
+								}}
+							>
 								<Rewards />
 								<Rewards />
 								<Rewards />

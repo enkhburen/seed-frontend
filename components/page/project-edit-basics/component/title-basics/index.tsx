@@ -1,6 +1,8 @@
+import { useRouter } from 'next/router'
 import * as React from 'react'
+import { useState } from 'react'
+
 import {
-	Container,
 	Divider,
 	Typography,
 	Grid,
@@ -9,16 +11,43 @@ import {
 	Card,
 	CardContent,
 	IconButton,
-	Input,
-	Button
+	Input
 } from '@mui/material'
+import Button from '@mui/material/Button'
+import Container from '@mui/material/Container'
 
 import ImageIcon from '@mui/icons-material/Image'
 
 export default function EditBasics() {
+	const router = useRouter()
+
+	const [title, setTitle] = useState('')
+	const [subtitle, setSubtitle] = useState('')
+	const [titleError, setTitleError] = useState('false')
+	const [subtitleError, setSubtitleError] = useState('false')
+
+	const handleSubmit = (e: { preventDefault: () => void }) => {
+		e.preventDefault()
+		setTitleError
+		setSubtitleError
+
+		if (title == '') {
+			setTitleError
+		}
+		if (subtitle == '') {
+			setSubtitleError
+		}
+	}
+
 	return (
 		<Container>
-			<Box sx={{ my: 6, textAlign: 'center' }}>
+			<Box
+				sx={{ my: 6, textAlign: 'center' }}
+				component="form"
+				noValidate
+				autoComplete="off"
+				onSubmit={handleSubmit}
+			>
 				<Typography variant="h4">Төсөл засварлах</Typography>
 				<Typography variant="body2">
 					Хүмүүс таны төслийн талаар сурахад хялбар болго.
@@ -40,17 +69,19 @@ export default function EditBasics() {
 							нээлтийн өмнөх хуудсан дээр гарч ирхэх болно.
 						</Typography>
 					</Grid>
+
 					<Grid item xs={12} md={8}>
 						<TextField
 							sx={{ mt: 2 }}
-							required
-							id="outlined-campaign-title"
 							label="Төслийн нэр"
 							fullWidth
-						></TextField>
+							required
+							onChange={(e) => setTitle(e.target.value)}
+						/>
 						<TextField
 							sx={{ mt: 5 }}
-							id="outlined-multiline-static"
+							onChange={(e) => setSubtitle(e.target.value)}
+							required
 							label="Богино тайлбар"
 							multiline
 							fullWidth
@@ -162,10 +193,11 @@ export default function EditBasics() {
 				>
 					<Button
 						variant="contained"
-						href="/campaign/edit/story"
+						href="/campaign/edit/rewards"
 						sx={{ fontSize: '14px' }}
+						type="submit"
 					>
-						Дараагийнх: Гол сэдэв
+						Дараагийн алхам: Урамшуулал сонгох
 					</Button>
 				</Grid>
 			</Box>

@@ -25,7 +25,7 @@ export default function Footer() {
 		>
 			<Container>
 				<Grid container alignItems="top">
-					<Grid item xs={12} md={4} sx={{ textAlign: 'center' }}>
+					<Grid item xs={12} md={3} sx={{ textAlign: 'center' }}>
 						<Image
 							src={SeedLogoWhite}
 							alt="Seed Logo Black"
@@ -45,9 +45,10 @@ export default function Footer() {
 					<Grid
 						item
 						xs={12}
-						md={2}
+						md={3}
 						sx={{
-							textAlign: 'center'
+							textAlign: 'center',
+							alignItems: 'top'
 						}}
 					>
 						<Link href="/terms-of-service">
@@ -57,8 +58,14 @@ export default function Footer() {
 									display="block"
 									color="white"
 									sx={{
-										my: 2,
-										textDecoration: { xs: 'underline' },
+										mt: { xs: 2, md: 0, lg: 0, xl: 0 },
+										mb: 2,
+										textDecoration: {
+											xs: 'underline',
+											md: 'none',
+											lg: 'none',
+											xl: ' none'
+										},
 										textUnderlineOffset: '5px'
 									}}
 								>
@@ -73,7 +80,12 @@ export default function Footer() {
 									display="block"
 									color="white"
 									sx={{
-										textDecoration: { xs: 'underline' },
+										textDecoration: {
+											xs: 'underline',
+											md: 'none',
+											lg: 'none',
+											xl: ' none'
+										},
 										textUnderlineOffset: '5px'
 									}}
 								>
@@ -83,15 +95,14 @@ export default function Footer() {
 						</Link>
 					</Grid>
 
-
 					<Grid
 						item
 						xs={12}
 						md={6}
-						sm={12}
-						sx={{ display: { xs: 'none', lg: 'block', xl: 'none' } }}
+						sx={{
+							display: { xs: 'none', md: 'block', lg: 'block', xl: 'block' }
+						}}
 					>
-
 						<Grid container>
 							<ContactWidgetCard title="Утасны дугаар" icon="phone">
 								+976-8888-8888

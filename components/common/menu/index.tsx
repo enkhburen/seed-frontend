@@ -177,7 +177,9 @@ export default function NavigationMenu() {
 			<Container maxWidth="xl">
 				<Box sx={{ display: { xs: 'block', md: 'none' } }}>
 					<Toolbar disableGutters>
-						<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+						<Box
+							sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, py: 0 }}
+						>
 							<IconButton
 								size="large"
 								aria-label="account of current user"
@@ -212,7 +214,11 @@ export default function NavigationMenu() {
 											<MenuItem onClick={handleCloseNavMenu}>
 												<Typography
 													textAlign="center"
-													sx={{ fontSize: '14px' }}
+													sx={{
+														fontSize: '14px',
+														width: '150px',
+														textAlign: 'left'
+													}}
 												>
 													{menus.title}
 												</Typography>
@@ -231,7 +237,7 @@ export default function NavigationMenu() {
 							<Link href={menus[0].url}>
 								<a>
 									<Image
-										width="160"
+										width="120"
 										src={SeedLogoBlack}
 										alt="Seed Logo Black"
 									/>

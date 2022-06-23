@@ -41,7 +41,9 @@ var sliderSettings = {
 			breakpoint: 700,
 			settings: {
 				slidesToShow: 1,
-				slidesToScroll: 1
+				slidesToScroll: 1,
+				arrows: false
+				// dots: true
 			}
 		}
 	]
@@ -51,7 +53,14 @@ export default function ProjectCarousel() {
 	// Backend data fetch
 
 	return (
-		<Box sx={{ backgroundColor: '#001d23', py: 7, px: 5, marginTop: '-7px' }}>
+		<Box
+			sx={{
+				backgroundColor: '#001d23',
+				py: 7,
+				px: { xs: 2, md: 5 },
+				mt: { xs: '0', md: '-7px' }
+			}}
+		>
 			<Slider {...sliderSettings}>
 				{Projects.map((Projects, index) => {
 					if (index + 1 <= 10) {

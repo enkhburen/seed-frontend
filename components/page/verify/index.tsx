@@ -1,16 +1,32 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import { Formik, useFormik } from 'formik'
+import * as Yup from 'yup'
 import {
 	Box,
 	Button,
 	FormControl,
 	OutlinedInput,
 	Typography,
-	Container
+	Container,
+	TextField
 } from '@mui/material'
 
 export default function Verify() {
+	const router = useRouter()
+	const formik = useFormik({
+		initialValues: {
+			OTP: ''
+		},
+		validationSchema: Yup.object({
+			OTP: Yup.string().required(
+				'Имэйл дээр тань ирсэн 6 оронтой тоог оруулна уу'
+			)
+		}),
+		onSubmit: () => {
+			router.push('/user/profile')
+		}
+	})
 	const [inputRefs, setInputRefs] = React.useState<any[]>([])
 	const [values, setValues] = React.useState<string[]>([])
 	const inputLength: number = 6
@@ -55,6 +71,7 @@ export default function Verify() {
 					py: 3,
 					px: 2
 				}}
+				onSubmit={formik.handleSubmit}
 			>
 				<Typography
 					variant="h4"
@@ -75,7 +92,7 @@ export default function Verify() {
 					sx={{ widht: '300px', display: 'block', textAlign: 'center', py: 2 }}
 				>
 					{values.map((value: string, index: number) => (
-						<OutlinedInput
+						<TextField
 							key={index}
 							placeholder="-"
 							value={value}

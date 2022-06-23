@@ -151,8 +151,8 @@ export default function RewardsEdit() {
 				justifyContent="center"
 				sx={{ my: 2 }}
 			>
-				<Button fullWidth variant="contained">
-					Хадгалах
+				<Button fullWidth variant="contained" href="/campaign/edit/story">
+					Дараагийн алхам: Гол сэдэв
 				</Button>
 			</Box>
 			<Box sx={{ my: 2 }}>

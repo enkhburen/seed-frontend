@@ -57,10 +57,12 @@ export default function LoginForm() {
 		},
 		validationSchema: Yup.object({
 			email: Yup.string()
-				.email('Имэйл буруу байна')
 				.max(255)
-				.required('Имэйл оруулах шаардлагатай'),
-			password: Yup.string().max(255).required('Нууц үг оруулна уу')
+				.required('Имэйл оруулах шаардлагатай')
+				.email('Имэйл буруу байна'),
+			password: Yup.string()
+				.required('Нууц үг оруулна уу')
+				.min(8, 'Дор хаяж 8 тэмдэгт агуулсан байх ёстой')
 		}),
 		onSubmit: () => {
 			router.push('/user/profile')
@@ -82,7 +84,7 @@ export default function LoginForm() {
 						px: 4,
 						mt: 'auto'
 					}}
-					onSubmit={handleSubmit}
+					onSubmit={formik.handleSubmit}
 				>
 					<Typography variant="h4" sx={{ my: 2 }}>
 						Нэвтрэх
@@ -91,8 +93,8 @@ export default function LoginForm() {
 						<TextField
 							id="email"
 							{...getFieldProps('email')}
-							error={Boolean(touched.email && errors.email)}
-							helperText={touched.email && errors.email}
+							error={Boolean(formik.touched.email && formik.errors.email)}
+							helperText={formik.touched.email && formik.errors.email}
 							onChange={formik.handleChange}
 							onBlur={formik.handleBlur}
 							value={formik.values.email}
@@ -103,24 +105,13 @@ export default function LoginForm() {
 					</FormControl>
 					<FormControl sx={{ mb: 4 }} fullWidth>
 						<TextField
-							id="password"
-							value={values.password}
-							onChange={revealPassword('password')}
-							InputProps={{
-								endAdornment: (
-									<InputAdornment position="end">
-										<IconButton
-											edge="end"
-											onClick={handleClickShowPassword}
-											onMouseDown={handleMouseDownPassword}
-										>
-											{values.showPassword ? <VisibilityOff /> : <Visibility />}
-										</IconButton>
-									</InputAdornment>
-								)
-							}}
-							error={Boolean(touched.password && errors.password)}
-							helperText={touched.password && errors.password}
+							name="password"
+							value={formik.values.password}
+							error={Boolean(formik.touched.password && formik.errors.password)}
+							helperText={formik.touched.password && formik.errors.password}
+							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
+							required
 							size="small"
 							label="Нууц үг"
 							variant="outlined"

@@ -36,18 +36,6 @@ export default function CategoryPage() {
 		setCategory(event.target.value as string)
 	}
 
-	const router = useRouter()
-	const formik = useFormik({
-		initialValues: {
-			chooseCategory: ''
-		},
-		validationSchema: Yup.object().shape({
-			password: Yup.string().required('Сонгох шаардлагатай')
-		}),
-		onSubmit: () => {
-			router.push('/')
-		}
-	})
 	return (
 		<Box
 			sx={{
@@ -83,10 +71,6 @@ export default function CategoryPage() {
 							labelId="outlined-select-category"
 							label="Ангилал"
 							value={category}
-							error={Boolean(
-								formik.touched.chooseCategory && formik.errors.chooseCategory
-							)}
-							onBlur={formik.handleBlur}
 							inputProps={{ MenuProps: { disableScrollLock: true } }}
 							onChange={handleChange}
 						>

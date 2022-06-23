@@ -21,12 +21,12 @@ export default function forgotForm() {
 		},
 		validationSchema: Yup.object({
 			email: Yup.string()
-				.email('Имэйл буруу байна')
-				.max(255)
 				.required('Имэйл оруулах шаардлагатай')
+				.max(255)
+				.email('Имэйл буруу байна')
 		}),
 		onSubmit: () => {
-			router.push('auth/verify')
+			router.push('/auth/verify')
 		}
 	})
 
@@ -42,6 +42,7 @@ export default function forgotForm() {
 					py: 3,
 					px: 4
 				}}
+				onSubmit={formik.handleSubmit}
 			>
 				<Typography
 					variant="h5"

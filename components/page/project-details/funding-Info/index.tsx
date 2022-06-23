@@ -6,11 +6,14 @@ import Image from 'next/image'
 import Card from '@mui/material/Card'
 import Chip from '@mui/material/Chip'
 import CardContent from '@mui/material/CardContent'
+import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles'
+
 import LinearProgress from '@mui/material/LinearProgress'
 
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import Stack from '@mui/material/Stack'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 interface IProps {
 	category?: string
@@ -45,6 +48,8 @@ function abbreviateNumber(number: number) {
 }
 
 export default function projectDetails(props: IProps) {
+	const theme = useTheme()
+	const isFullWidth = useMediaQuery(theme.breakpoints.only('md'))
 	const {
 		category,
 		title,
@@ -89,7 +94,8 @@ export default function projectDetails(props: IProps) {
 				sx={{
 					my: 3,
 					fontWeight: 'bold',
-					lineHeight: '2.6rem'
+					lineHeight: '2.6rem',
+					fontSize: '21px'
 				}}
 			>
 				<Chip
@@ -110,10 +116,16 @@ export default function projectDetails(props: IProps) {
 					height="48"
 				/>
 
-				<Typography variant="h6" sx={{ ml: 2, fontWeight: 'bold' }}>
+				<Typography
+					variant="h6"
+					sx={{ ml: 2, fontWeight: 'bold', fontSize: '14px' }}
+				>
 					{author ? author : 'Зочин'}
 				</Typography>
-				<Typography variant="h6" sx={{ color: '#333', ml: 3 }}>
+				<Typography
+					variant="h6"
+					sx={{ color: '#333', ml: 3, fontSize: '14px' }}
+				>
 					<CalendarMonthIcon
 						sx={{ fontSize: '16px', mr: 1, color: '#127F06' }}
 					/>
@@ -121,8 +133,8 @@ export default function projectDetails(props: IProps) {
 				</Typography>
 			</Box>
 
-			<Stack direction="row" spacing={2} sx={{ mt: 3 }}>
-				<Grid item xs={4}>
+			<Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ mt: 2 }}>
+				<Grid item xs={12}>
 					<Card
 						sx={{
 							mt: 0,
@@ -144,7 +156,7 @@ export default function projectDetails(props: IProps) {
 						</CardContent>
 					</Card>
 				</Grid>
-				<Grid item xs={4}>
+				<Grid item xs={12}>
 					<Card
 						sx={{
 							mt: 0,
@@ -166,7 +178,7 @@ export default function projectDetails(props: IProps) {
 					</Card>
 				</Grid>
 
-				<Grid item xs={4}>
+				<Grid item xs={12}>
 					<Card
 						sx={{
 							mx: 0,
@@ -191,11 +203,11 @@ export default function projectDetails(props: IProps) {
 
 			<Typography
 				variant="h4"
-				sx={{ fontWeight: 'bold', fontSize: '18px', pt: 5 }}
+				sx={{ fontWeight: 'bold', fontSize: '16px', pt: 5 }}
 			>
 				{formatter.format(needed ? needed : 0)} ₮ дэмжлэг авахаас
 			</Typography>
-			<Grid textAlign={'right'}>
+			<Grid textAlign="right">
 				<Typography>{percent}%</Typography>
 			</Grid>
 			<LinearProgress

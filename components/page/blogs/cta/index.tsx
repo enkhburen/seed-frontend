@@ -3,7 +3,7 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
 
-import CTAImage from 'public/assets/cta/cta-widget.jpg'
+import CTAImage from 'public/assets/cta/37556.jpg'
 
 export default function CTA() {
 	return (

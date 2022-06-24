@@ -1,15 +1,14 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { Formik, useFormik } from 'formik'
+import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import {
 	Box,
 	Button,
 	FormControl,
-	OutlinedInput,
 	Typography,
 	Container,
-	TextField
+	OutlinedInput
 } from '@mui/material'
 
 export default function Verify() {
@@ -92,15 +91,15 @@ export default function Verify() {
 					sx={{ widht: '300px', display: 'block', textAlign: 'center', py: 2 }}
 				>
 					{values.map((value: string, index: number) => (
-						<TextField
+						<OutlinedInput
 							key={index}
 							placeholder="-"
 							value={value}
 							onChange={(event) => handleChange(event, index)}
 							inputRef={inputRefs[index]}
 							sx={{
-								maxHeight: '40px',
-								maxWidth: '40px',
+								maxHeight: '42px',
+								maxWidth: '42px',
 								display: 'inline-block',
 								mr: 1,
 								overflow: 'hidden',

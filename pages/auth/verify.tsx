@@ -7,7 +7,7 @@ export default function VerifyPassword() {
 	return (
 		<PageLayout>
 			<Head>
-				<title>Баталгаажуулалт| Seed.mn</title>
+				<title>Баталгаажуулалт | Seed.mn</title>
 			</Head>
 			<Container sx={{ my: 10 }}>
 				<Verify />

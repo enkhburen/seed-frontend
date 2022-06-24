@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import * as React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import NumberFormat, { InputAttributes } from 'react-number-format'
 
 import {
 	Divider,
@@ -11,14 +12,57 @@ import {
 	Card,
 	CardContent,
 	IconButton,
-	Input
+	Input,
+	InputAdornment
 } from '@mui/material'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
-
 import ImageIcon from '@mui/icons-material/Image'
 
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
+
+interface State {
+	numberformat: string
+}
+
+interface CustomProps {
+	onChange: (event: { target: { name: string; value: string } }) => void
+	name: string
+}
+
+const NumberFormatCustom = React.forwardRef<
+	NumberFormat<InputAttributes>,
+	CustomProps
+>(function NumberFormatCustom(props, ref) {
+	const { onChange, ...other } = props
+
+	return (
+		<NumberFormat
+			{...other}
+			getInputRef={ref}
+			onValueChange={(values) => {
+				onChange({
+					target: {
+						name: props.name,
+						value: values.value
+					}
+				})
+			}}
+			thousandSeparator
+			isNumericString
+		/>
+	)
+})
 export default function EditBasics() {
+	const [value, setValue] = React.useState<Date | null>(new Date('2022-06'))
+	const handleDate = (newValue: Date | null) => {
+		setValue(newValue)
+	}
+
 	const router = useRouter()
 
 	const [title, setTitle] = useState('')
@@ -39,6 +83,17 @@ export default function EditBasics() {
 		}
 	}
 
+	const [values, setValues] = React.useState<State>({
+		numberformat: ''
+	})
+
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setValues({
+			...values,
+			[event.target.name]: event.target.value
+		})
+	}
+
 	return (
 		<Container>
 			<Box
@@ -53,6 +108,9 @@ export default function EditBasics() {
 					Хүмүүс таны төслийн талаар сурахад хялбар болго.
 				</Typography>
 			</Box>
+
+			{/* Project form section  */}
+
 			<Divider sx={{ my: 5 }} />
 			<Box>
 				<Grid container spacing={4}>
@@ -137,6 +195,9 @@ export default function EditBasics() {
 					</Grid>
 				</Grid>
 			</Box>
+
+			{/* Upload Image Section End */}
+
 			<Divider sx={{ my: 6 }} />
 			<Box>
 				<Grid container spacing={4}>
@@ -155,10 +216,17 @@ export default function EditBasics() {
 					</Grid>
 					<Grid item xs={12} md={8} sx={{ mt: 3 }}>
 						<TextField
-							label="Зорилгын хэмжээ (₮)"
+							label="Зорилгын хэмжээ"
 							name="numberformat"
+							InputProps={{
+								inputComponent: NumberFormatCustom as any,
+								startAdornment: (
+									<InputAdornment position="start">₮</InputAdornment>
+								)
+							}}
+							value={values.numberformat}
+							onChange={handleChange}
 							id="formatted-numberformat-input"
-							type="number"
 							required
 							fullWidth
 							variant="outlined"
@@ -181,7 +249,21 @@ export default function EditBasics() {
 							дараа өөрчлөх боломжгүй.
 						</Typography>
 					</Grid>
-					{/* <Grid item xs={8}></Grid> */}
+					<Grid item xs={8}>
+						<LocalizationProvider dateAdapter={AdapterDateFns}>
+							<DesktopDatePicker
+								label="Он | Сар"
+								views={['year', 'month']}
+								value={value}
+								onChange={handleDate}
+								minDate={new Date('2022-06-01')}
+								maxDate={new Date('2023-12-31')}
+								renderInput={(params) => (
+									<TextField fullWidth required {...params} />
+								)}
+							/>
+						</LocalizationProvider>
+					</Grid>
 				</Grid>
 			</Box>
 			<Box sx={{ mt: 5 }}>

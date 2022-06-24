@@ -1,10 +1,12 @@
 import * as React from 'react'
 
 import Container from '@mui/material/Container'
+import InputAdornment from '@mui/material/InputAdornment'
 import Typography from '@mui/material/Typography'
 import { Divider, Grid, TextField, Box, Button } from '@mui/material'
 import Rewards from 'components/page/project-details/rewards'
 import NumberFormat, { InputAttributes } from 'react-number-format'
+
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import DateFnsUtils from '@date-io/date-fns'
@@ -26,7 +28,7 @@ const NumberFormatCustom = React.forwardRef<
 		<NumberFormat
 			{...other}
 			getInputRef={ref}
-			onValueChange={(values: { value: any }) => {
+			onValueChange={(values) => {
 				onChange({
 					target: {
 						name: props.name,
@@ -36,7 +38,6 @@ const NumberFormatCustom = React.forwardRef<
 			}}
 			thousandSeparator
 			isNumericString
-			prefix="₮"
 		/>
 	)
 })
@@ -44,13 +45,16 @@ const NumberFormatCustom = React.forwardRef<
 interface State {
 	numberformat: string
 }
-
 export default function RewardsEdit() {
 	const [value, setValue] = React.useState<Date | null>(new Date('2022-06'))
 	const handleDate = (newValue: Date | null) => {
 		setValue(newValue)
 	}
-	const [values, setValues] = React.useState<State>({ numberformat: '1320' })
+
+	const [values, setValues] = React.useState<State>({
+		numberformat: ''
+	})
+
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setValues({
 			...values,
@@ -86,11 +90,14 @@ export default function RewardsEdit() {
 					<TextField
 						value={values.numberformat}
 						onChange={handleChange}
-						label="₮"
 						fullWidth
+						name="numberformat"
 						id="formatted-numberformat-input"
 						InputProps={{
-							inputComponent: NumberFormatCustom as any
+							inputComponent: NumberFormatCustom as any,
+							startAdornment: (
+								<InputAdornment position="start">₮</InputAdornment>
+							)
 						}}
 						variant="outlined"
 						size="small"

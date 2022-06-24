@@ -1,5 +1,5 @@
 import * as React from 'react'
-import * as Yup from 'yup'
+import { useState } from 'react'
 import {
 	Container,
 	MenuItem,
@@ -13,7 +13,6 @@ import {
 } from '@mui/material'
 import { Divider } from '@mui/material'
 import { useRouter } from 'next/router'
-import { useFormik } from 'formik'
 
 const categories = [
 	{
@@ -31,7 +30,6 @@ const categories = [
 ]
 export default function CategoryPage() {
 	const [category, setCategory] = React.useState('')
-
 	const handleChange = (event: SelectChangeEvent) => {
 		setCategory(event.target.value as string)
 	}
@@ -71,7 +69,7 @@ export default function CategoryPage() {
 							labelId="outlined-select-category"
 							label="Ангилал"
 							value={category}
-							inputProps={{ MenuProps: { disableScrollLock: true } }}
+							inputProps={{ MenuProps: { disableScrollLock: false } }}
 							onChange={handleChange}
 						>
 							{categories.map((option, index) => (

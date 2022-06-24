@@ -1,16 +1,20 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
-import Avatar from '@mui/material/Avatar'
+import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemText from '@mui/material/ListItemText'
 
-import DoneIcon from '@mui/icons-material/Done'
+import CheckIcon from '@mui/icons-material/Check'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
-import AboutGallery2 from 'public/assets/about/about-gallery-2.jpg'
-import MunkhtulgaImage from 'public/assets/author-thumbs/01.jpg'
+import AboutGallery2 from 'public/assets/about/home-about.jpg'
 
 export default function AboutUs() {
 	return (
@@ -28,30 +32,84 @@ export default function AboutUs() {
 				</Grid>
 				<Grid item xs={12} md={6} sm={12}>
 					<Typography variant="h4" gutterBottom>
-						<b>Бид хэн бэ?</b>
+						<b>Seed.mn гэж яадаг сайт вэ?</b>
 					</Typography>
-					<Typography variant="body1">
-						Хүмүүсийн оюун санааг тэтгэж урам зориг бэлэглэх уран бүтээлийн
-						санаануудыг бодит зүйл болгохын тулд технологи ашиглан олон нийтэд
-						хүртээмжтэйгээр шийдэх нь бидний шийдэл юм.
+					<Typography
+						variant="body1"
+						sx={{ fontSize: '15px', textAlign: 'justify', mt: 2 }}
+					>
+						Монголд авьяаслаг, чадварлаг, уран бүтээлч сэтгэлгээтэй залуучууд их
+						байдаг ч тэд өөрсдийн уран бүтээлийг санхүүгийн асуудлаас болж
+						төсөөллийнхөө дагуу бүтээж чаддаггүй. Залуучуудад бие биенийхээ уран
+						бүтээлийг дэмжих боломж олгож, Монгол контентонд хөрөнгө оруулалтын
+						болон контент эрх эзэмшлийн шинэ зах зээлийг блокчейн технологи дээр
+						суурилсан нээлттэй, шударга хэлбэрээр бүтээхийн тулд Seed.mn зорьж
+						ажиллаж байна.
 					</Typography>
 					<Card
 						sx={{
-							mt: 5,
+							mt: 3,
 							p: 3,
 							boxShadow: '0px 5px 15px rgba(0,0,0,0.4)',
 							bgcolor: '#127F06',
 							color: 'white'
 						}}
 					>
-						<CardContent>
-							<Typography variant="body1" sx={{ mb: 4 }}>
-								<DoneIcon sx={{ fontSize: '14px' }} /> "Авьяас бол төрөлхийн ур
-								чадвар. Хэн ч авьяастай төрдөггүй ч зарим нь үүнийгээ хөгжүүлэх
-								чин хүсэл эрмэлзэлтэй байдаг. Харин тэднийг зөв хүмүүжүүлэх л
-								хэрэгтэй"
-							</Typography>
-							<Grid container alignItems="center">
+						<Typography
+							variant="body2"
+							sx={{ display: 'inline-block', fontSize: '15px' }}
+						>
+							{/* <ArrowForwardIosIcon sx={{ fontSize: '12px' }} /> Сайтын туршилтын */}
+							Бета хувилбарт гишүүн болж бүртгүүлэх урилга авах хүсэлтэй бол{' '}
+							<Link href="#">
+								<a>
+									<Typography
+										variant="body2"
+										sx={{
+											display: 'inline-block',
+											fontWeight: 'bold',
+											fontSize: '15px',
+											textDecoration: 'underline'
+										}}
+									>
+										энд дарна уу.
+									</Typography>
+								</a>
+							</Link>
+						</Typography>
+						<Typography sx={{ mt: 1, fontSize: '15px' }}>
+							Бета хувилбарт бүртгүүлэхийн давуу тал:
+						</Typography>
+						<List>
+							<ListItem sx={{ py: 0 }}>
+								<ListItemText>
+									<Typography sx={{ fontSize: '14px' }} variant="body2">
+										<CheckIcon sx={{ fontSize: '12px', mr: 1 }} />
+										Бета гишүүдэд л олгогдох NFT badge.
+									</Typography>
+								</ListItemText>
+							</ListItem>
+
+							<ListItem sx={{ py: 0 }}>
+								<ListItemText>
+									<Typography sx={{ fontSize: '14px' }} variant="body2">
+										<CheckIcon sx={{ fontSize: '12px', mr: 1 }} />
+										Сайтын хамгийн анхны 3 төсөлд хөрөнгө оруулалт хийх эрх.
+									</Typography>
+								</ListItemText>
+							</ListItem>
+
+							<ListItem sx={{ py: 0 }}>
+								<ListItemText>
+									<Typography sx={{ fontSize: '14px' }} variant="body2">
+										<CheckIcon sx={{ fontSize: '12px', mr: 1 }} />
+										Анхны хөрөнгө оруулагч нарт олгогдох “merch”.
+									</Typography>
+								</ListItemText>
+							</ListItem>
+						</List>
+
+						{/* <Grid container alignItems="center">
 								<Grid item>
 									<Avatar alt="Munkhtulga CEO" src={MunkhtulgaImage.src} />
 								</Grid>
@@ -61,8 +119,7 @@ export default function AboutUs() {
 										Гүйцэтгэх захирал & Үүсгэн байгуулагч
 									</Typography>
 								</Grid>
-							</Grid>
-						</CardContent>
+							</Grid> */}
 					</Card>
 				</Grid>
 			</Grid>

@@ -28,8 +28,15 @@ export default function Blogs() {
 								{/* <Grid item xs={12}>
 									<NewsLatest />
 								</Grid> */}
-								<Grid item xs={12} md={12}>
+								{/* <Grid item xs={12} md={12}>
 									<PopularTags />
+								</Grid> */}
+								<Grid item xs={12} md={12}>
+									{/* төсөл оруулах хүмүүс CTA  */}
+									<CTA />
+								</Grid>
+								<Grid item xs={12} md={12}>
+									<CTA />
 								</Grid>
 								<Grid item xs={12} md={12}>
 									<CTA />

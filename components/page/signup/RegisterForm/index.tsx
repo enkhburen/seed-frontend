@@ -1,6 +1,8 @@
 import * as React from 'react'
 import axios from 'axios'
 import Link from 'next/link'
+import Router from 'next/router'
+import Head from 'next/head'
 
 import {
 	Box,
@@ -30,27 +32,8 @@ interface State {
 	showPassword: boolean
 }
 
-async function submitData(data: any) {
-	const newData = {
-		first_name: data.first_name,
-		last_name: data.last_name,
-		email: data.email,
-		phoneNumber: data.phoneNumber,
-		password: data.password
-	}
-
-	try {
-		const resp = await axios
-			.post('http://192.168.1.161:3000/auth/singup', newData)
-			.then((response) => {
-				console.log(response)
-			})
-		// console.log(newData)
-	} catch (err) {
-		alert(err)
-	}
-	// return { newData }
-}
+let creationStatus,
+	disabledSubmitButton = false
 
 export default function Register() {
 	const [values, setValues] = React.useState<State>({
@@ -82,6 +65,9 @@ export default function Register() {
 
 	return (
 		<Container maxWidth="xs" sx={{ minHeight: '70vh' }}>
+			<Head>
+				<title>Шинэ бүртгэл үүсгэх | SEED.MN</title>
+			</Head>
 			<Box
 				component="form"
 				noValidate
@@ -200,9 +186,9 @@ export default function Register() {
 					<Grid item xs={12} md={12}>
 						<Button
 							onClick={() => {
-								// console.log(values.first_name)
 								submitData(values)
 							}}
+							disabled={disabledSubmitButton == true ? true : false}
 							variant="contained"
 							size="large"
 							sx={{ fontSize: '14px', minWidth: '100%' }}
@@ -241,4 +227,32 @@ export default function Register() {
 			</Box>
 		</Container>
 	)
+}
+
+async function submitData(data: any) {
+	disabledSubmitButton = true
+	const newData = {
+		first_name: data.first_name,
+		last_name: data.last_name,
+		email: data.email,
+		phoneNumber: data.phoneNumber,
+		password: data.password
+	}
+
+	try {
+		const resp = await axios
+			.post('http://192.168.1.161:8000/auth/signup', newData)
+			.then((response) => {
+				console.log(response.data)
+				console.log(response.status)
+				creationStatus = response.status
+
+				if (creationStatus === 201) {
+					// Router.push('/')
+				}
+			})
+	} catch (err) {
+		disabledSubmitButton = false
+		alert(err)
+	}
 }

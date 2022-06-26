@@ -1,8 +1,5 @@
-import * as Yup from 'yup'
 import * as React from 'react'
 import { useRouter } from 'next/router'
-import { useFormik, Formik } from 'formik'
-//MUI
 import {
 	Box,
 	Typography,
@@ -58,7 +55,9 @@ export default function resetForm() {
 				>
 					Нууц үг шинэчлэх
 				</Typography>
-				<p>Дор хаяж 6 тэмдэгтийн урттай нууц үг оруулна уу.</p>
+				<Typography variant="body2">
+					Дор хаяж 6 тэмдэгтийн урттай нууц үг оруулна уу.
+				</Typography>
 
 				{/* Password Confirmation Section  */}
 

@@ -3,6 +3,8 @@ import Link from 'next/link'
 import Head from 'next/head'
 import Router from 'next/router'
 import axios, { AxiosError } from 'axios'
+import Cookies from 'universal-cookie'
+
 import {
 	Box,
 	FormControl,
@@ -30,11 +32,25 @@ interface State {
 	showPassword: boolean
 }
 
-export default function Register() {
+function clearConsole() {
+	if (window.console) {
+		console.clear()
+	}
+}
+export default function Register(): any {
+	const cookies = new Cookies()
+
+	React.useEffect(() => {
+		if (cookies.get('access_token') !== undefined) {
+			Router.push('/user/profile')
+		}
+	})
+
 	const [loading, setLoading] = React.useState<boolean>(false)
 	const [status, setStatus] = React.useState<string>('signup')
 	const [userExists, setUserExists] = React.useState<boolean>(false)
 	const [badResponse, setBadResponse] = React.useState<boolean>(false)
+	const [otpFail, setOtpFail] = React.useState<boolean>(false)
 
 	const [values, setValues] = React.useState<State>({
 		first_name: '',
@@ -70,7 +86,7 @@ export default function Register() {
 	) => {
 		event.preventDefault()
 	}
-
+	//otp
 	const [inputRefs, setInputRefs] = React.useState<any[]>([])
 	const [valuesOTP, setValuesOTP] = React.useState<string[]>([])
 	const inputLength: number = 6
@@ -98,6 +114,81 @@ export default function Register() {
 
 		setValuesOTP((value) => Array(inputLength).fill(''))
 	}, [])
+	// otp request
+	const submitData = async function () {
+		const newData = {
+			email: values.email
+		}
+		setUserExists(false)
+		setBadResponse(false)
+		setLoading(true)
+		try {
+			await axios
+				.post('http://localhost:8000/auth/message', newData)
+				.then((res) => {
+					console.log(res.status, res.data)
+					setStatus('otp')
+				})
+		} catch (error) {
+			setValues({ ...values, ['password']: '' })
+			axios.isAxiosError(error)
+			const err = error as AxiosError
+			const errStatus = err.response?.status || 0
+			// console.error(err.response?.status)
+			// user exists handling
+			if (errStatus === 401) {
+				setUserExists(true)
+			} //bad response handling
+			else if ((errStatus > 402 && errStatus < 500) || errStatus === 0) {
+				setBadResponse(true)
+				console.error('Алдаа гарлаа')
+			} else {
+				console.error('Алдаа unknown')
+			}
+		}
+		setLoading(false)
+		// clearConsole()
+	}
+	// creating user
+	const createUser = async function () {
+		setOtpFail(false)
+		setLoading(true)
+		const userData = {
+			first_name: values.first_name,
+			last_name: values.last_name,
+			email: values.email,
+			phoneNumber: values.phoneNumber,
+			password: values.password,
+			otp: parseInt(valuesOTP.join(''), 10)
+		}
+
+		// console.log(userData)
+		try {
+			await axios
+				.post('http://localhost:8000/auth/signup', userData)
+				.then((res) => {
+					setLoading(false)
+					console.log(res.status, res.data)
+					console.log('user created')
+					console.log(res.data.access_token)
+					cookies.set('access_token', res.data.access_token, { path: '/' })
+					Router.push('/user/profile')
+				})
+		} catch (error) {
+			axios.isAxiosError(error)
+			const err = error as AxiosError
+			const errStatus = err.response?.status || 0
+			if (errStatus === 400) {
+				setOtpFail(true)
+			} else if ((errStatus > 402 && errStatus < 500) || errStatus === 0) {
+				console.error('bad response')
+			} else {
+				console.error('Алдаа unknown')
+			}
+		}
+		setLoading(false)
+		// clearConsole()
+	}
 
 	{
 		if (status === 'signup') {
@@ -275,44 +366,8 @@ export default function Register() {
 							</Grid>
 							<Grid item xs={12} md={12}>
 								<Button
+									disabled={loading === true ? true : false}
 									onClick={() => {
-										async function submitData() {
-											const newData = {
-												email: values.email
-											}
-											setUserExists(false)
-											setBadResponse(false)
-											setLoading(true)
-											try {
-												await axios
-													.post('http://localhost:8000/auth/message', newData)
-													.then((res) => {
-														setLoading(false)
-														setStatus('otp')
-													})
-											} catch (error) {
-												setLoading(false)
-												setValues({ ...values, ['password']: '' })
-												axios.isAxiosError(error)
-												const err = error as AxiosError
-												const errStatus = err.response?.status || 0
-												// console.error(err.response?.status)
-												// user exists handling
-												if (errStatus === 401) {
-													setUserExists(true)
-												} //bad response handling
-												else if (
-													(errStatus > 402 && errStatus < 500) ||
-													errStatus === 0
-												) {
-													setBadResponse(true)
-													console.error('Алдаа гарлаа')
-												} else {
-													console.error('Алдаа unknown')
-												}
-											}
-										}
-
 										submitData()
 									}}
 									size="large"
@@ -383,7 +438,9 @@ export default function Register() {
 						sx={{
 							border: '1px solid rgba(0,0,0,0.1)',
 							mx: 'auto',
-							p: 5
+							px: 5,
+							py: { xs: 5, md: 15 },
+							textAlign: 'center'
 						}}
 					>
 						<Typography
@@ -414,6 +471,17 @@ export default function Register() {
 							</Typography>
 							-руу илгээсэн 6 оронтой баталгаажуулах кодыг оруулна уу.
 						</Typography>
+						{otpFail === true ? (
+							<Typography
+								variant="body2"
+								sx={{ color: 'red', textAlign: 'center', mt: 2 }}
+							>
+								Баталгаажуулах код буруу байна.
+							</Typography>
+						) : (
+							''
+						)}
+
 						<Box
 							sx={{
 								textAlign: 'center',
@@ -434,11 +502,18 @@ export default function Register() {
 									variant="outlined"
 								>
 									<OutlinedInput
+										inputProps={{
+											style: {
+												padding: '12px 5px',
+												textAlign: 'center'
+											}
+										}}
 										sx={{
 											maxHeight: '48px',
 											maxWidth: '48px',
 											textAlign: 'center',
-											fontSize: '14px'
+											fontSize: '14px',
+											border: otpFail === true ? '1px solid red' : ''
 										}}
 										autoFocus={index === 0 ? true : false}
 										placeholder="-"
@@ -450,50 +525,28 @@ export default function Register() {
 							))}
 						</Box>
 						<Button
+							disabled={loading === true ? true : false}
 							onClick={() => {
-								async function createUser() {
-									const userData = {
-										first_name: values.first_name,
-										last_name: values.last_name,
-										email: values.email,
-										phoneNumber: values.phoneNumber,
-										password: values.password,
-										otp: parseInt(valuesOTP.join(''), 10)
-									}
-
-									console.log(userData)
-									try {
-										await axios
-											.post('http://localhost:8000/auth/signup', userData)
-											.then((res) => {
-												console.log(res.data)
-												alert('user created')
-												// Router.push('/')
-											})
-									} catch (error) {
-										axios.isAxiosError(error)
-										const err = error as AxiosError
-										const errStatus = err.response?.status || 0
-										if (errStatus === 401) {
-										} else if (
-											(errStatus > 402 && errStatus < 500) ||
-											errStatus === 0
-										) {
-											console.error('bad response')
-										} else {
-											console.error('Алдаа unknown')
-										}
-									}
-								}
-
 								createUser()
 							}}
-							variant="contained"
-							fullWidth
-							size="medium"
-							sx={{ mb: 2, mt: 1 }}
+							size="large"
+							variant="outlined"
+							sx={{
+								width: '60%',
+								mt: 5,
+								backgroundColor: '#127F06',
+								color: 'white',
+								fontSize: '14px',
+								'&:hover': {
+									backgroundColor: '#005100'
+								}
+							}}
 						>
-							Баталгаажуулах
+							{loading === true ? (
+								<CircularProgress sx={{ color: 'white' }} size={24} />
+							) : (
+								'Баталгаажуулах'
+							)}
 						</Button>
 					</Box>
 				</Container>

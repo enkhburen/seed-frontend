@@ -1,32 +1,14 @@
 import React from 'react'
-import { useRouter } from 'next/router'
-import { Formik, useFormik } from 'formik'
-import * as Yup from 'yup'
 import {
 	Box,
 	Button,
 	FormControl,
 	OutlinedInput,
 	Typography,
-	Container,
-	TextField
+	Container
 } from '@mui/material'
 
 export default function Verify() {
-	const router = useRouter()
-	const formik = useFormik({
-		initialValues: {
-			OTP: ''
-		},
-		validationSchema: Yup.object({
-			OTP: Yup.string().required(
-				'Имэйл дээр тань ирсэн 6 оронтой тоог оруулна уу'
-			)
-		}),
-		onSubmit: () => {
-			router.push('/user/profile')
-		}
-	})
 	const [inputRefs, setInputRefs] = React.useState<any[]>([])
 	const [values, setValues] = React.useState<string[]>([])
 	const inputLength: number = 6
@@ -71,11 +53,9 @@ export default function Verify() {
 					py: 3,
 					px: 2
 				}}
-				onSubmit={formik.handleSubmit}
 			>
 				<Typography
 					variant="h4"
-					component="h1"
 					textAlign="center"
 					fontWeight="bold"
 					sx={{
@@ -84,31 +64,46 @@ export default function Verify() {
 				>
 					Имэйлээ шалгана уу!
 				</Typography>
-				<Typography variant="h5" textAlign="center" sx={{ fontSize: '1rem' }}>
-					example@gmail.com руу илгээсэн 6 оронтой баталгаажуулах кодыг оруулна
-					уу.
+				<Typography
+					variant="body2"
+					textAlign="center"
+					sx={{ fontSize: '1rem' }}
+				>
+					email state руу илгээсэн 6 оронтой баталгаажуулах кодыг оруулна уу.
 				</Typography>
-				<FormControl
-					sx={{ widht: '300px', display: 'block', textAlign: 'center', py: 2 }}
+				<Box
+					sx={{
+						textAlign: 'center',
+						display: 'flex',
+						py: 2,
+						alignItems: 'center',
+						justifyContent: 'center'
+					}}
 				>
 					{values.map((value: string, index: number) => (
-						<TextField
+						<FormControl
 							key={index}
-							placeholder="-"
-							value={value}
-							onChange={(event) => handleChange(event, index)}
-							inputRef={inputRefs[index]}
 							sx={{
-								maxHeight: '40px',
-								maxWidth: '40px',
 								display: 'inline-block',
 								mr: 1,
-								overflow: 'hidden',
 								mt: 2
 							}}
-						/>
+							variant="outlined"
+						>
+							<OutlinedInput
+								sx={{
+									maxHeight: '48px',
+									maxWidth: '48px',
+									textAlign: 'center'
+								}}
+								placeholder="-"
+								value={value}
+								onChange={(event) => handleChange(event, index)}
+								inputRef={inputRefs[index]}
+							/>
+						</FormControl>
 					))}
-				</FormControl>
+				</Box>
 			</Box>
 			<Button
 				variant="contained"

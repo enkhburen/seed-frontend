@@ -1,6 +1,7 @@
 import * as React from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
+import Router from 'next/router'
 import axios, { AxiosError } from 'axios'
 import {
 	Box,
@@ -19,8 +20,6 @@ import {
 import CircularProgress from '@mui/material/CircularProgress'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import { ConstructionOutlined } from '@mui/icons-material'
-import { responsiveProperty } from '@mui/material/styles/cssUtils'
 
 interface State {
 	first_name: string
@@ -29,7 +28,6 @@ interface State {
 	phoneNumber: string
 	password: string
 	showPassword: boolean
-	otp: number
 }
 
 export default function Register() {
@@ -44,12 +42,19 @@ export default function Register() {
 		email: '',
 		phoneNumber: '',
 		password: '',
-		showPassword: false,
-		otp: 0
+		showPassword: false
 	})
+	const [valid, setValid] = React.useState<boolean>(false)
 
+	const cyrillic = new RegExp(
+		/^[аАбБвВгГдДеЕёЁжЖзЗиИйЙкКлЛмМнНоОөӨпПрРсСтТуУүҮфФхХцЦчЧшШщЩъЪьЬыЫьЬэЭюЮяЯ]+$/
+	)
+
+	const number = new RegExp('[0-9]')
 	const handleChange =
 		(prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+			// setValid(reg.test(event.target.value))
+			// console.log(valid)
 			setValues({ ...values, [prop]: event.target.value })
 		}
 
@@ -82,10 +87,6 @@ export default function Register() {
 
 		if (inputLength > index + 1 && event.target.value !== '')
 			inputRefs[index + 1].current.focus()
-	}
-
-	const handleVerify = () => {
-		const value: string = valuesOTP.join('')
 	}
 
 	React.useEffect(() => {
@@ -154,6 +155,7 @@ export default function Register() {
 										type="text"
 										value={values.first_name}
 										onChange={handleChange('first_name')}
+										error={!valid}
 										inputComponent="input"
 									/>
 								</FormControl>
@@ -275,21 +277,18 @@ export default function Register() {
 								<Button
 									onClick={() => {
 										async function submitData() {
+											const newData = {
+												email: values.email
+											}
 											setUserExists(false)
 											setBadResponse(false)
 											setLoading(true)
 											try {
 												await axios
-													.post(
-														'http://localhost:3001/auth/emailSend',
-														values.email
-													)
+													.post('http://localhost:8000/auth/message', newData)
 													.then((res) => {
 														setLoading(false)
 														setStatus('otp')
-														setValues({ ...values, ['otp']: res.data })
-														//test for otp
-														console.log('OTP: ' + values.otp)
 													})
 											} catch (error) {
 												setLoading(false)
@@ -451,7 +450,44 @@ export default function Register() {
 							))}
 						</Box>
 						<Button
-							type="submit"
+							onClick={() => {
+								async function createUser() {
+									const userData = {
+										first_name: values.first_name,
+										last_name: values.last_name,
+										email: values.email,
+										phoneNumber: values.phoneNumber,
+										password: values.password,
+										otp: parseInt(valuesOTP.join(''), 10)
+									}
+
+									console.log(userData)
+									try {
+										await axios
+											.post('http://localhost:8000/auth/signup', userData)
+											.then((res) => {
+												console.log(res.data)
+												alert('user created')
+												// Router.push('/')
+											})
+									} catch (error) {
+										axios.isAxiosError(error)
+										const err = error as AxiosError
+										const errStatus = err.response?.status || 0
+										if (errStatus === 401) {
+										} else if (
+											(errStatus > 402 && errStatus < 500) ||
+											errStatus === 0
+										) {
+											console.error('bad response')
+										} else {
+											console.error('Алдаа unknown')
+										}
+									}
+								}
+
+								createUser()
+							}}
 							variant="contained"
 							fullWidth
 							size="medium"

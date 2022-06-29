@@ -15,8 +15,7 @@ import {
 	Divider,
 	Container,
 	InputAdornment,
-	OutlinedInput,
-	InputLabel
+	TextField
 } from '@mui/material'
 
 import CircularProgress from '@mui/material/CircularProgress'
@@ -32,11 +31,14 @@ interface State {
 	showPassword: boolean
 }
 
-function clearConsole() {
-	if (window.console) {
-		console.clear()
-	}
+interface Validation {
+	valid_first_name: boolean
+	valid_last_name: boolean
+	valid_email: boolean
+	valid_phone_number: boolean
+	valid_password: boolean
 }
+
 export default function Register(): any {
 	const cookies = new Cookies()
 
@@ -51,6 +53,7 @@ export default function Register(): any {
 	const [userExists, setUserExists] = React.useState<boolean>(false)
 	const [badResponse, setBadResponse] = React.useState<boolean>(false)
 	const [otpFail, setOtpFail] = React.useState<boolean>(false)
+	const [emptyField, setEmptyField] = React.useState<boolean>(false)
 
 	const [values, setValues] = React.useState<State>({
 		first_name: '',
@@ -60,17 +63,57 @@ export default function Register(): any {
 		password: '',
 		showPassword: false
 	})
-	const [valid, setValid] = React.useState<boolean>(false)
+	const [valid, setValid] = React.useState<Validation>({
+		valid_first_name: true,
+		valid_last_name: true,
+		valid_email: true,
+		valid_phone_number: true,
+		valid_password: true
+	})
 
 	const cyrillic = new RegExp(
 		/^[аАбБвВгГдДеЕёЁжЖзЗиИйЙкКлЛмМнНоОөӨпПрРсСтТуУүҮфФхХцЦчЧшШщЩъЪьЬыЫьЬэЭюЮяЯ]+$/
 	)
+	const email = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+	const number = new RegExp(/^[0-9]{8}$/)
+	const password = new RegExp(
+		/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/
+	)
 
-	const number = new RegExp('[0-9]')
 	const handleChange =
 		(prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-			// setValid(reg.test(event.target.value))
+			var regType = event.target.name
+			var validInput: string = ''
+			var reg = new RegExp(/$/)
+
+			switch (regType) {
+				case 'first_name':
+					validInput = 'valid_first_name'
+					reg = cyrillic
+					break
+				case 'last_name':
+					validInput = 'valid_last_name'
+					reg = cyrillic
+					break
+				case 'email':
+					validInput = 'valid_email'
+					reg = email
+					break
+				case 'phone_number':
+					validInput = 'valid_phone_number'
+					reg = number
+					break
+				case 'password':
+					validInput = 'valid_password'
+					reg = password
+					break
+				default:
+					break
+			}
 			// console.log(valid)
+			event.target.value !== ''
+				? setValid({ ...valid, [validInput]: reg.test(event.target.value) })
+				: ''
 			setValues({ ...values, [prop]: event.target.value })
 		}
 
@@ -103,8 +146,6 @@ export default function Register(): any {
 
 		if (inputLength > index + 1 && event.target.value !== '')
 			inputRefs[index + 1].current.focus()
-
-		console.log()
 	}
 
 	React.useEffect(() => {
@@ -116,40 +157,62 @@ export default function Register(): any {
 
 		setValuesOTP((value) => Array(inputLength).fill(''))
 	}, [])
+
+	const checkEmpty = (e: any) => {
+		if (e.target.value !== '') {
+			return true
+		} else {
+			return false
+		}
+	}
 	// otp request
 	const submitData = async function () {
-		const newData = {
-			email: values.email
-		}
-		setUserExists(false)
-		setBadResponse(false)
-		setLoading(true)
-		try {
-			await axios
-				.post('http://localhost:8000/auth/message', newData)
-				.then((res) => {
-					console.log(res.status, res.data)
-					setStatus('otp')
-				})
-		} catch (error) {
-			setValues({ ...values, ['password']: '' })
-			axios.isAxiosError(error)
-			const err = error as AxiosError
-			const errStatus = err.response?.status || 0
-			// console.error(err.response?.status)
-			// user exists handling
-			if (errStatus === 401) {
-				setUserExists(true)
-			} //bad response handling
-			else if ((errStatus > 402 && errStatus < 500) || errStatus === 0) {
-				setBadResponse(true)
-				console.error('Алдаа гарлаа')
-			} else {
-				console.error('Алдаа unknown')
+		if (
+			valid.valid_first_name &&
+			valid.valid_last_name &&
+			valid.valid_password &&
+			valid.valid_email &&
+			valid.valid_phone_number &&
+			values.email &&
+			values.first_name &&
+			values.last_name &&
+			values.password &&
+			values.phoneNumber
+		) {
+			const newData = {
+				email: values.email
 			}
+			setLoading(true)
+			setUserExists(false)
+			setBadResponse(false)
+			try {
+				await axios
+					.post('http://localhost:8000/auth/message', newData)
+					.then((res) => {
+						console.log(res.status, res.data)
+						setStatus('otp')
+					})
+			} catch (error) {
+				setValues({ ...values, ['password']: '' })
+				axios.isAxiosError(error)
+				const err = error as AxiosError
+				const errStatus = err.response?.status || 0
+				// console.error(err.response?.status)
+				// user exists handling
+				if (errStatus === 401) {
+					setUserExists(true)
+				} //bad response handling
+				else if ((errStatus > 402 && errStatus < 500) || errStatus === 0) {
+					setBadResponse(true)
+					console.error('Алдаа гарлаа')
+				} else {
+					console.error('Алдаа unknown')
+				}
+			}
+			setLoading(false)
+		} else {
+			setEmptyField(true)
 		}
-		setLoading(false)
-		// clearConsole()
 	}
 	// creating user
 	const createUser = async function () {
@@ -189,7 +252,6 @@ export default function Register(): any {
 			}
 		}
 		setLoading(false)
-		// clearConsole()
 	}
 
 	if (status === 'signup') {
@@ -213,16 +275,23 @@ export default function Register(): any {
 						px: 4
 					}}
 				>
-					<Typography variant="h4" component="h1" sx={{ mb: 4 }}>
+					<Typography variant="h4" component="h1" sx={{ mb: 2 }}>
 						Бүртгүүлэх
+					</Typography>
+					<Typography
+						variant="caption"
+						component="p"
+						sx={{ mb: 2, color: '#888' }}
+					>
+						Овог нэрийг криллээр бичнэ үү.
 					</Typography>
 					<Grid container spacing={2}>
 						<Grid item xs={12} md={6}>
-							<FormControl sx={{ mb: 1 }} variant="outlined">
-								<InputLabel htmlFor="last_name" sx={{ fontSize: '14px' }}>
-									Овог
-								</InputLabel>
-								<OutlinedInput
+							<FormControl sx={{ mb: 1 }}>
+								<TextField
+									InputLabelProps={{
+										shrink: true
+									}}
 									sx={{ fontSize: '14px' }}
 									id="last_name"
 									name="last_name"
@@ -230,16 +299,19 @@ export default function Register(): any {
 									value={values.last_name}
 									type="text"
 									onChange={handleChange('last_name')}
-									inputComponent="input"
+									error={emptyField || !valid.valid_last_name}
+									variant="outlined"
+									helperText="Криллээр бичнэ үү"
+									required
 								/>
 							</FormControl>
 						</Grid>
 						<Grid item xs={12} md={6}>
-							<FormControl sx={{ mb: 1 }} variant="outlined">
-								<InputLabel htmlFor="first_name" sx={{ fontSize: '14px' }}>
-									Нэр
-								</InputLabel>
-								<OutlinedInput
+							<FormControl sx={{ mb: 1 }}>
+								<TextField
+									InputLabelProps={{
+										shrink: true
+									}}
 									sx={{ fontSize: '14px' }}
 									id="first_name"
 									name="first_name"
@@ -247,30 +319,34 @@ export default function Register(): any {
 									type="text"
 									value={values.first_name}
 									onChange={handleChange('first_name')}
-									error={!valid}
-									inputComponent="input"
+									error={emptyField || !valid.valid_first_name}
+									variant="outlined"
+									helperText="Криллээр бичнэ үү"
+									required
 								/>
 							</FormControl>
 						</Grid>
 						<Grid item xs={12} md={12}>
-							<FormControl sx={{ mb: 1, minWidth: '100%' }} variant="outlined">
-								<InputLabel htmlFor="email" sx={{ fontSize: '14px' }}>
-									И-мэйл
-								</InputLabel>
-								<OutlinedInput
-									sx={{
-										fontSize: '14px',
-										borderBottom:
-											userExists === true || badResponse === true
-												? '2px solid red'
-												: 'none'
+							<FormControl sx={{ mb: 1, minWidth: '100%' }}>
+								<TextField
+									InputLabelProps={{
+										shrink: true
 									}}
+									sx={{
+										fontSize: '14px'
+									}}
+									error={emptyField || !valid.valid_email}
+									helperText={
+										userExists === true ? 'Хэрэглэгч бүртгэлтэй байна' : ''
+									}
+									variant="outlined"
+									required={true}
 									id="email"
+									name="email"
 									label="И-мэйл"
 									type="email"
 									value={values.email}
 									onChange={handleChange('email')}
-									inputComponent="input"
 								/>
 							</FormControl>
 							{userExists === true ? (
@@ -285,12 +361,16 @@ export default function Register(): any {
 							)}
 						</Grid>
 						<Grid item xs={12} md={12}>
-							<FormControl sx={{ mb: 1, minWidth: '100%' }} variant="outlined">
-								<InputLabel htmlFor="phone_number">Утасны дугаар</InputLabel>
-								<OutlinedInput
-									startAdornment={
-										<InputAdornment position="start">+976</InputAdornment>
-									}
+							<FormControl sx={{ mb: 1, minWidth: '100%' }}>
+								<TextField
+									InputLabelProps={{
+										shrink: true
+									}}
+									InputProps={{
+										startAdornment: (
+											<InputAdornment position="start">+976</InputAdornment>
+										)
+									}}
 									sx={{
 										fontSize: '14px',
 										borderBottom:
@@ -303,17 +383,22 @@ export default function Register(): any {
 									value={values.phoneNumber}
 									onChange={handleChange('phoneNumber')}
 									label="Утасны дугаар"
-									inputComponent="input"
+									error={
+										emptyField === true || !valid.valid_phone_number
+											? true
+											: false
+									}
+									variant="outlined"
 									required
 								/>
 							</FormControl>
 						</Grid>
 						<Grid item xs={12} md={12}>
-							<FormControl sx={{ mb: 1, minWidth: '100%' }} variant="outlined">
-								<InputLabel htmlFor="password" sx={{ fontSize: '14px' }}>
-									Нууц үг
-								</InputLabel>
-								<OutlinedInput
+							<FormControl sx={{ mb: 1, minWidth: '100%' }}>
+								<TextField
+									InputLabelProps={{
+										shrink: true
+									}}
 									sx={{
 										fontSize: '14px',
 										borderBottom:
@@ -321,27 +406,33 @@ export default function Register(): any {
 									}}
 									id="password"
 									name="password"
-									inputComponent="input"
 									type={values.showPassword ? 'text' : 'password'}
 									value={values.password}
 									onChange={handleChange('password')}
-									endAdornment={
-										<InputAdornment position="end">
-											<IconButton
-												aria-label="toggle password visibility"
-												onClick={handleClickShowPassword}
-												onMouseDown={handleMouseDownPassword}
-												edge="end"
-											>
-												{values.showPassword ? (
-													<VisibilityOff />
-												) : (
-													<Visibility />
-												)}
-											</IconButton>
-										</InputAdornment>
-									}
+									InputProps={{
+										endAdornment: (
+											<InputAdornment position="end">
+												<IconButton
+													aria-label="toggle password visibility"
+													onClick={handleClickShowPassword}
+													onMouseDown={handleMouseDownPassword}
+													edge="end"
+												>
+													{values.showPassword ? (
+														<VisibilityOff />
+													) : (
+														<Visibility />
+													)}
+												</IconButton>
+											</InputAdornment>
+										)
+									}}
 									label="Нууц үг"
+									error={
+										emptyField === true || !valid.valid_password ? true : false
+									}
+									variant="outlined"
+									helperText="Дор хаяж нэг том, нэг жижиг, нэг тоо агуулсан байхыг анхаарна уу. "
 									required
 								/>
 								{badResponse === true ? (
@@ -354,48 +445,21 @@ export default function Register(): any {
 								) : (
 									''
 								)}
+								{emptyField === true ? (
+									<Typography
+										variant="body2"
+										sx={{ color: 'red', textAlign: 'center', mt: 2 }}
+									>
+										Мэдээллээ бүрэн зөв бөглөнө үү!
+									</Typography>
+								) : (
+									''
+								)}
 							</FormControl>
 						</Grid>
 						<Grid item xs={12} md={12}>
 							<Button
 								onClick={() => {
-									async function submitData() {
-										const newData = {
-											email: values.email
-										}
-										setUserExists(false)
-										setBadResponse(false)
-										setLoading(true)
-										try {
-											await axios
-												.post('http://localhost:8000/auth/message', newData)
-												.then((res) => {
-													setLoading(false)
-													setStatus('otp')
-												})
-										} catch (error) {
-											setLoading(false)
-											setValues({ ...values, ['password']: '' })
-											axios.isAxiosError(error)
-											const err = error as AxiosError
-											const errStatus = err.response?.status || 0
-											// console.error(err.response?.status)
-											// user exists handling
-											if (errStatus === 401) {
-												setUserExists(true)
-											} //bad response handling
-											else if (
-												(errStatus > 402 && errStatus < 500) ||
-												errStatus === 0
-											) {
-												setBadResponse(true)
-												console.error('Алдаа гарлаа')
-											} else {
-												console.error('Алдаа unknown')
-											}
-										}
-									}
-
 									submitData()
 								}}
 								size="large"
@@ -516,7 +580,7 @@ export default function Register(): any {
 								}}
 								variant="outlined"
 							>
-								<OutlinedInput
+								<TextField
 									sx={{
 										maxHeight: '48px',
 										maxWidth: '48px',
@@ -534,41 +598,6 @@ export default function Register(): any {
 					</Box>
 					<Button
 						onClick={() => {
-							async function createUser() {
-								const userData = {
-									first_name: values.first_name,
-									last_name: values.last_name,
-									email: values.email,
-									phoneNumber: values.phoneNumber,
-									password: values.password,
-									otp: parseInt(valuesOTP.join(''), 10)
-								}
-
-								console.log(userData)
-								try {
-									await axios
-										.post('http://localhost:8000/auth/signup', userData)
-										.then((res) => {
-											console.log(res.data)
-											alert('user created')
-											// Router.push('/')
-										})
-								} catch (error) {
-									axios.isAxiosError(error)
-									const err = error as AxiosError
-									const errStatus = err.response?.status || 0
-									if (errStatus === 401) {
-									} else if (
-										(errStatus > 402 && errStatus < 500) ||
-										errStatus === 0
-									) {
-										console.error('bad response')
-									} else {
-										console.error('Алдаа unknown')
-									}
-								}
-							}
-
 							createUser()
 						}}
 						variant="contained"

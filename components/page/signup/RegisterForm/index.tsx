@@ -187,7 +187,7 @@ export default function Register(): any {
 			setBadResponse(false)
 			try {
 				await axios
-					.post('http://localhost:8000/auth/message', newData)
+					.post('http://192.168.1.2:8000/auth/message', newData)
 					.then((res) => {
 						console.log(res.status, res.data)
 						setStatus('otp')
@@ -230,7 +230,7 @@ export default function Register(): any {
 		// console.log(userData)
 		try {
 			await axios
-				.post('http://localhost:8000/auth/signup', userData)
+				.post('http://192.168.1.2:8000/auth/signup', userData)
 				.then((res) => {
 					setLoading(false)
 					console.log(res.status, res.data)
@@ -497,7 +497,7 @@ export default function Register(): any {
 							</a>
 						</Link>
 					</Typography>
-					<Divider sx={{ fontSize: '12px', mt: 1 }}>Эсвэл</Divider>
+					<Divider sx={{ fontSize: '12px', mt: 2 }} />
 					<Typography variant="subtitle1" sx={{ mt: 2, fontSize: '11px' }}>
 						Таныг робот биш болохыг батлахын тулд энэ хуудас reCAPTCHA-р
 						хамгаалагдсан.

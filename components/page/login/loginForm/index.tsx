@@ -1,5 +1,6 @@
 import * as React from 'react'
 import Head from 'next/head'
+import Link from 'next/link'
 import axios, { AxiosError } from 'axios'
 import Router from 'next/router'
 import Cookies from 'universal-cookie'
@@ -20,6 +21,8 @@ import FormControl from '@mui/material/FormControl'
 import TextField from '@mui/material/TextField'
 import Container from '@mui/material/Container'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
+
+const host = 'http://localhost:8000'
 
 interface State {
 	email: string
@@ -98,8 +101,8 @@ export default function LoginForm(): any {
 	const [loading, setLoading] = React.useState<boolean>(false)
 	const [status, setStatus] = React.useState<string>('login')
 	const [badResponse, setBadResponse] = React.useState<boolean>(false)
-	const [otpFail, setOtpFail] = React.useState<boolean>(false)
 	const [emptyField, setEmptyField] = React.useState<boolean>(false)
+	const [otpFail, setOtpFail] = React.useState<boolean>(false)
 	const [loginStatus, setLoginStatus] = React.useState<boolean>(false)
 	const [userExists, setUserExists] = React.useState<boolean>(false)
 	//OTP screen page
@@ -129,13 +132,6 @@ export default function LoginForm(): any {
 		setValuesOTP((value) => Array(inputLength).fill(''))
 	}, [])
 
-	/* async function () {
-		const LoginEmail = {
-			email: values.email
-		}
-		axios.post('https://192.168.1.2:8000:auth/login', LoginEmail)
-		.then(res){res.data = OTP, res.status = 201 }
-	} */
 	//request otp
 	const submitData = async function () {
 		if (values.email && values.password) {
@@ -146,12 +142,10 @@ export default function LoginForm(): any {
 			setUserExists(false)
 			setBadResponse(false)
 			try {
-				await axios
-					.post('http://192.168.1.2:8000/auth/message', newData)
-					.then((res) => {
-						console.log((res.status = 201), res.data)
-						setStatus('otp')
-					})
+				await axios.post(host + '/auth/message', newData).then((res) => {
+					console.log(res.data)
+					setStatus('otp')
+				})
 			} catch (error) {
 				setValues({ ...values, ['password']: '' })
 				axios.isAxiosError(error)
@@ -172,22 +166,6 @@ export default function LoginForm(): any {
 			setEmptyField(true)
 		}
 	}
-	/* 	const login = () => {
-		axios
-			.post('http://localhost:3001/auth/login', {
-				email: values.email,
-				password: values.password
-			})
-			.then((response) => {
-				if (response.data.message) {
-					setLoginStatus(false)
-				} else {
-					localStorage.setItem('token', response.data.token)
-					setLoginStatus(true)
-				}
-			})
-	} */
-
 	//User Login
 	const userLogin = async function () {
 		setOtpFail(false)
@@ -198,16 +176,10 @@ export default function LoginForm(): any {
 			otp: parseInt(valuesOTP.join(''), 10)
 		}
 		try {
-			await axios
-				.post('http://192.168.1.2:8000/auth/message', userData)
-				.then((res) => {
-					setLoading(false)
-					console.log(res.status, res.data)
-					console.log('login successful')
-					console.log(res.data.access_token)
-					cookies.set('access_token', res.data.access_token, { path: '/' })
-					Router.push('/user/profile')
-				})
+			await axios.post(host + '/auth/signin', userData).then((res) => {
+				setLoading(false)
+				cookies.set('access_token', res.data.access_token, { path: '/' })
+			})
 		} catch (error) {
 			axios.isAxiosError(error)
 			const err = error as AxiosError
@@ -254,6 +226,7 @@ export default function LoginForm(): any {
 							value={values.email}
 							onChange={handleChange('email')}
 							id="email"
+							name="email"
 							type="email"
 							error={emptyField || !valid.valid_email}
 							label="И мэйл"
@@ -312,17 +285,7 @@ export default function LoginForm(): any {
 							'Нэвтрэх'
 						)}
 					</Button>
-					{badResponse === true ? (
-						<Typography
-							variant="body2"
-							sx={{ color: 'red', textAlign: 'center', mt: 2 }}
-						>
-							Бүртгэл үүсгэхэд алдаа гарлаа!
-						</Typography>
-					) : (
-						''
-					)}
-					{emptyField === true ? (
+					{emptyField || badResponse ? (
 						<Typography
 							variant="body2"
 							sx={{ color: 'red', textAlign: 'center', mt: 2 }}
@@ -355,14 +318,17 @@ export default function LoginForm(): any {
 						>
 							Шинээр бүртгүүлэх бол?
 						</Typography>
-						<Typography
-							variant="body1"
-							color="primary"
-							component="a"
-							sx={{ fontSize: '14px' }}
-						>
-							&nbsp;Энд дар.
-						</Typography>
+						<Link href="/auth/signup">
+							<a>
+								<Typography
+									variant="body1"
+									color="primary"
+									sx={{ fontSize: '14px', textDecoration: 'underline' }}
+								>
+									&nbsp;Энд дар.
+								</Typography>
+							</a>
+						</Link>
 					</Box>
 				</Box>
 			</Container>

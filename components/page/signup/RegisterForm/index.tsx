@@ -22,6 +22,8 @@ import CircularProgress from '@mui/material/CircularProgress'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
+const host = 'http://localhost:8000'
+
 interface State {
 	first_name: string
 	last_name: string
@@ -186,12 +188,10 @@ export default function Register(): any {
 			setUserExists(false)
 			setBadResponse(false)
 			try {
-				await axios
-					.post('http://192.168.1.2:8000/auth/message', newData)
-					.then((res) => {
-						console.log(res.status, res.data)
-						setStatus('otp')
-					})
+				await axios.post(host + '/auth/message', newData).then((res) => {
+					console.log(res.status, res.data)
+					setStatus('otp')
+				})
 			} catch (error) {
 				setValues({ ...values, ['password']: '' })
 				axios.isAxiosError(error)
@@ -229,16 +229,14 @@ export default function Register(): any {
 
 		// console.log(userData)
 		try {
-			await axios
-				.post('http://192.168.1.2:8000/auth/signup', userData)
-				.then((res) => {
-					setLoading(false)
-					console.log(res.status, res.data)
-					console.log('user created')
-					console.log(res.data.access_token)
-					cookies.set('access_token', res.data.access_token, { path: '/' })
-					Router.push('/user/profile')
-				})
+			await axios.post(host + '/auth/signup', userData).then((res) => {
+				setLoading(false)
+				console.log(res.status, res.data)
+				console.log('user created')
+				console.log(res.data.access_token)
+				cookies.set('access_token', res.data.access_token, { path: '/' })
+				window.location.reload()
+			})
 		} catch (error) {
 			axios.isAxiosError(error)
 			const err = error as AxiosError
@@ -432,7 +430,7 @@ export default function Register(): any {
 										emptyField === true || !valid.valid_password ? true : false
 									}
 									variant="outlined"
-									helperText="Дор хаяж нэг том, нэг жижиг, нэг тоо агуулсан байхыг анхаарна уу. "
+									helperText="Дор хаяж нэг том, нэг жижиг үсэг, нэг тоо агуулсан байхыг анхаарна уу. "
 									required
 								/>
 								{badResponse === true ? (

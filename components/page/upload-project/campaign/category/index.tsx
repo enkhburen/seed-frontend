@@ -12,8 +12,6 @@ import {
 	FormControl
 } from '@mui/material'
 import { Divider } from '@mui/material'
-import { useRouter } from 'next/router'
-import { useFormik } from 'formik'
 
 const categories = [
 	{

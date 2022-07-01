@@ -14,20 +14,6 @@ import Box from '@mui/material/Box'
 
 export default function forgotForm() {
 	const router = useRouter()
-	const formik = useFormik({
-		initialValues: {
-			email: ''
-		},
-		validationSchema: Yup.object({
-			email: Yup.string()
-				.required('Имэйл оруулах шаардлагатай')
-				.max(255)
-				.email('Имэйл буруу байна')
-		}),
-		onSubmit: () => {
-			router.push('/auth/verify')
-		}
-	})
 
 	return (
 		<Container maxWidth="xs" sx={{ minHeight: '58.5vh', my: 10 }}>
@@ -41,7 +27,6 @@ export default function forgotForm() {
 					py: 3,
 					px: 4
 				}}
-				onSubmit={formik.handleSubmit}
 			>
 				<Typography
 					variant="h5"
@@ -68,17 +53,11 @@ export default function forgotForm() {
 							my: 2
 						}}
 						id="email"
-						error={Boolean(formik.touched.email && formik.errors.email)}
-						helperText={formik.touched.email && formik.errors.email}
-						onBlur={formik.handleBlur}
-						onChange={formik.handleChange}
-						value={formik.values.email}
 						label="И мэйл"
 						variant="outlined"
 						size="small"
 					/>
 					<Button
-						disabled={formik.isSubmitting}
 						type="submit"
 						variant="contained"
 						size="large"

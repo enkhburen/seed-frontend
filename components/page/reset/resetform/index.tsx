@@ -14,25 +14,6 @@ const numericRegex = /(?=.*[0-9])/
 
 export default function resetForm() {
 	const router = useRouter()
-	const formik = useFormik({
-		initialValues: {
-			password: '',
-			passwordConfirm: ''
-		},
-		validationSchema: Yup.object({
-			password: Yup.string()
-				.required('Нууц үг оруулна уу')
-				.min(8, 'Дор хаяж 8 тэмдэгт агуулсан байх ёстой')
-				.matches(numericRegex, 'Тоо агуулсан байх ёстой!')
-				.matches(uppercaseRegex, 'Багадаа 1 том үсэг агуулсан байх ёстой!'),
-			passwordConfirm: Yup.string()
-				.oneOf([Yup.ref('нууц үг'), null], 'Нууц үг таарахгүй байна')
-				.required('Нууц үг хийх шаардлагатай')
-		}),
-		onSubmit: () => {
-			router.push('/')
-		}
-	})
 
 	return (
 		<Container maxWidth="sm">
@@ -46,7 +27,6 @@ export default function resetForm() {
 					py: 3,
 					px: 5
 				}}
-				onSubmit={formik.handleSubmit}
 			>
 				<Typography
 					variant="h3"
@@ -64,11 +44,6 @@ export default function resetForm() {
 				<FormControl sx={{ mb: 2 }} fullWidth>
 					<TextField
 						name="password"
-						error={Boolean(formik.touched.password && formik.errors.password)}
-						onBlur={formik.handleBlur}
-						onChange={formik.handleChange}
-						helperText={formik.touched.password && formik.errors.password}
-						value={formik.values.password}
 						type="password"
 						size="small"
 						label="Нууц үг"
@@ -80,25 +55,10 @@ export default function resetForm() {
 						size="small"
 						type="password"
 						label="Нууц үг"
-						error={Boolean(
-							formik.touched.passwordConfirm && formik.touched.passwordConfirm
-						)}
-						onChange={formik.handleChange}
-						onBlur={formik.handleBlur}
-						value={formik.values.passwordConfirm}
-						helperText={
-							formik.touched.passwordConfirm && formik.errors.passwordConfirm
-						}
 					/>
 				</FormControl>
 
-				<Button
-					type="submit"
-					fullWidth
-					variant="contained"
-					color="primary"
-					disabled={formik.isSubmitting}
-				>
+				<Button type="submit" fullWidth variant="contained" color="primary">
 					Хадгалах
 				</Button>
 			</Box>

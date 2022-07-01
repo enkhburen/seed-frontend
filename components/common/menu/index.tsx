@@ -1,6 +1,7 @@
 import * as React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import Router from 'next/router'
 import { useRouter } from 'next/router'
 import Cookies from 'universal-cookie'
 import MenuButton from './components/MenuButton'
@@ -97,7 +98,7 @@ export default function NavigationMenu(): any {
 	const logOut = () => {
 		cookies.remove('access_token', { path: '/' })
 		setIsLogged(false)
-		window.location.reload()
+		Router.push('/')
 	}
 
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)

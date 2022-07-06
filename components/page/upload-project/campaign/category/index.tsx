@@ -8,9 +8,21 @@ import {
 	Select,
 	SelectChangeEvent,
 	Button,
-	FormControl
+	FormControl,
+	TextField,
+	Grid,
+	Card,
+	CardContent,
+	IconButton,
+	Input
 } from '@mui/material'
 import { Divider } from '@mui/material'
+import ImageIcon from '@mui/icons-material/Image'
+
+interface IProps {
+	currentPage?: number
+	cate?: string
+}
 
 const categories = [
 	{
@@ -26,11 +38,15 @@ const categories = [
 		title: 'Бусад'
 	}
 ]
-export default function CategoryPage() {
-	const [category, setCategory] = React.useState('')
+export default function CategoryPage(props: IProps): any {
+	let { currentPage, cate } = props
+	const [page, setPage] = React.useState<number>(currentPage)
+	const [category, setCategory] = React.useState('category')
 
 	const handleChange = (event: SelectChangeEvent) => {
 		setCategory(event.target.value as string)
+		setPage(page + 1)
+		console.log(page)
 	}
 
 	return (

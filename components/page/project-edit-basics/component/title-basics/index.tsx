@@ -23,10 +23,10 @@ import ImageIcon from '@mui/icons-material/Image'
 export default function EditBasics() {
 	const router = useRouter()
 
-	const [title, setTitle] = useState('')
-	const [subtitle, setSubtitle] = useState('')
-	const [titleError, setTitleError] = useState('false')
-	const [subtitleError, setSubtitleError] = useState('false')
+	const [title, setTitle] = React.useState<string>('')
+	const [subtitle, setSubtitle] = React.useState<string>('')
+	const [titleError, setTitleError] = React.useState<string>('false')
+	const [subtitleError, setSubtitleError] = React.useState<string>('false')
 
 	const handleSubmit = (e: { preventDefault: () => void }) => {
 		e.preventDefault()

@@ -87,7 +87,6 @@ export default function Register(): any {
 			var regType = event.target.name
 			var validInput: string = ''
 			var reg = new RegExp(/$/)
-
 			switch (regType) {
 				case 'first_name':
 					validInput = 'valid_first_name'

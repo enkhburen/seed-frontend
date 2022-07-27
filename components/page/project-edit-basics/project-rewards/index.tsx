@@ -5,11 +5,10 @@ import Typography from '@mui/material/Typography'
 import { Divider, Grid, TextField, Box, Button } from '@mui/material'
 import Rewards from 'components/page/project-details/rewards'
 import NumberFormat, { InputAttributes } from 'react-number-format'
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
-import { LocalizationProvider } from '@mui/x-date-pickers'
-// import DateFnsUtils from '@date-io/date-fns'
+// import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
+// import { LocalizationProvider } from '@mui/x-date-pickers'
 
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+// import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 
 interface CustomProps {
 	onChange: (event: { target: { name: string; value: string } }) => void

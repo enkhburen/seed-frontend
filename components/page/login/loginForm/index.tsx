@@ -98,337 +98,169 @@ export default function LoginForm(): any {
 	}
 
 	const [loading, setLoading] = React.useState<boolean>(false)
-	const [status, setStatus] = React.useState<string>('login')
 	const [badResponse, setBadResponse] = React.useState<boolean>(false)
 	const [emptyField, setEmptyField] = React.useState<boolean>(false)
-	const [otpFail, setOtpFail] = React.useState<boolean>(false)
-	const [loginStatus, setLoginStatus] = React.useState<boolean>(false)
-	const [userExists, setUserExists] = React.useState<boolean>(false)
-	//OTP screen page
-	const [inputRefs, setInputRefs] = React.useState<any[]>([])
-	const [valuesOTP, setValuesOTP] = React.useState<string[]>([])
-	const inputLength: number = 6
 
-	const handleChangeOTP = (event: any, index: number) => {
-		event.preventDefault()
-
-		if (event.target.value.length > 1) return
-
-		let updatedValue = [...valuesOTP]
-		updatedValue[index] = event.target.value
-		setValuesOTP(updatedValue)
-		if (inputLength > index + 1 && event.target.value !== '')
-			inputRefs[index + 1].current.focus()
-	}
-
-	React.useEffect(() => {
-		setInputRefs((inputRef) =>
-			Array(inputLength)
-				.fill(null)
-				.map((_, i) => inputRef[i] || React.createRef())
-		)
-
-		setValuesOTP((value) => Array(inputLength).fill(''))
-	}, [])
-
-	//request otp
-	const submitData = async function () {
-		if (values.email && values.password) {
-			const newData = {
-				email: values.email
-			}
+	//User Login
+	const userLogin = async function () {
+		if (valid.valid_email && valid.valid_password) {
 			setLoading(true)
-			setUserExists(false)
-			setBadResponse(false)
+			const userData = {
+				email: values.email,
+				password: values.password
+			}
 			try {
-				await axios.post(host + '/auth/message', newData).then((res) => {
-					console.log(res.data)
-					setStatus('otp')
+				await axios.post(host + '/auth/signin', userData).then((res) => {
+					setLoading(false)
+					cookies.set('access_token', res.data.access_token, { path: '/' })
 				})
 			} catch (error) {
-				setValues({ ...values, ['password']: '' })
 				axios.isAxiosError(error)
 				const err = error as AxiosError
 				const errStatus = err.response?.status || 0
-
-				if (errStatus === 401) {
-					setUserExists(true)
-				} else if ((errStatus > 402 && errStatus < 500) || errStatus === 0) {
+				if (errStatus === 400) {
 					setBadResponse(true)
-					console.error('Алдаа гарлаа')
+				} else if (errStatus === 404) {
+					setBadResponse(true)
 				} else {
-					console.error('Алдаа unknown')
+					console.log('unknown error')
 				}
 			}
 			setLoading(false)
 		} else {
-			setEmptyField(true)
+			setBadResponse(true)
 		}
-	}
-	//User Login
-	const userLogin = async function () {
-		setOtpFail(false)
-		setLoading(true)
-		const userData = {
-			email: values.email,
-			password: values.password,
-			otp: parseInt(valuesOTP.join(''), 10)
-		}
-		try {
-			await axios.post(host + '/auth/signin', userData).then((res) => {
-				setLoading(false)
-				cookies.set('access_token', res.data.access_token, { path: '/' })
-			})
-		} catch (error) {
-			axios.isAxiosError(error)
-			const err = error as AxiosError
-			const errStatus = err.response?.status || 0
-			if (errStatus === 400) {
-				setOtpFail(true)
-			} else if ((errStatus > 402 && errStatus < 500) || errStatus === 0) {
-				console.error('bad response')
-			} else {
-				console.error('dddd unknown')
-			}
-		}
-		setLoading(false)
 	}
 
-	if (status === 'login') {
-		return (
-			<Container maxWidth="xs" sx={{ minHeight: '60vh' }}>
-				<Head>
-					<title>
-						{status === 'login'
-							? 'Нэвтрэх | SEED.MN'
-							: 'Бүртгэл баталгаажуулах | SEED.MN'}
-					</title>
-				</Head>
-				<Box
-					autoComplete="off"
-					component="form"
-					noValidate
-					sx={{
-						border: '0.5px solid rgba(0,0,0,0.1)',
-						py: 2,
-						px: 4,
-						mt: 'auto'
-					}}
-				>
-					<Typography variant="h4" sx={{ my: 2 }}>
-						Нэвтрэх
-					</Typography>
-					<FormControl sx={{ mb: 2, fontSize: '9px' }} fullWidth>
-						<TextField
-							sx={{ fontSize: '14px' }}
-							required={true}
-							value={values.email}
-							onChange={handleChange('email')}
-							id="email"
-							name="email"
-							type="email"
-							error={emptyField || !valid.valid_email}
-							label="И мэйл"
-							variant="outlined"
-							InputLabelProps={{
-								shrink: true
-							}}
-						/>
-					</FormControl>
-					<FormControl sx={{ mb: 4 }} fullWidth variant="outlined">
-						<TextField
-							InputLabelProps={{
-								shrink: true
-							}}
-							sx={{ fonSize: '14px' }}
-							id="password"
-							name="password"
-							type={values.showPassword ? 'text' : 'password'}
-							value={values.password}
-							onChange={handleChange('password')}
-							InputProps={{
-								endAdornment: (
-									<InputAdornment position="end">
-										<IconButton
-											aria-label="toggle password visibility"
-											onClick={handleClickShowPassword}
-											onMouseDown={handleMouseDownPassword}
-											edge="end"
-										>
-											{values.showPassword ? <VisibilityOff /> : <Visibility />}
-										</IconButton>
-									</InputAdornment>
-								)
-							}}
-							variant="outlined"
-							error={
-								emptyField === true || !valid.valid_password ? true : false
-							}
-							label="Нууц үг"
-							helperText="Том жижиг үсэг, нэг тоо оруулсан байх ёстой"
-							required
-						/>
-					</FormControl>
-					<Button
-						onClick={() => {
-							submitData()
-						}}
-						variant="contained"
-						size="large"
-						fullWidth
-						sx={{ fontSize: '12px' }}
-					>
-						{loading === true ? (
-							<CircularProgress sx={{ color: 'white ' }} size={24} />
-						) : (
-							'Нэвтрэх'
-						)}
-					</Button>
-					{emptyField || badResponse ? (
-						<Typography
-							variant="body2"
-							sx={{ color: 'red', textAlign: 'center', mt: 2 }}
-						>
-							Имэйл эсвэл нууц үг буруу байна.
-						</Typography>
-					) : (
-						''
-					)}
-					<Grid
-						container
-						alignItems="center"
-						justifyContent="space-between"
-						display="flex"
-					>
-						<Box sx={{ mt: 1 }}>
-							<Checkbox />
-							<Typography variant="caption">Сануулах</Typography>
-						</Box>
-						<Typography component="a" sx={{ fontSize: '12px', mt: 1 }}>
-							Нууц үгээ мартсан уу?
-						</Typography>
-					</Grid>
-					<Divider sx={{ my: 2, fontSize: '14px' }}>Эсвэл</Divider>
-					<Box textAlign="center">
-						<Typography
-							variant="body1"
-							component="span"
-							sx={{ fontSize: '14px' }}
-						>
-							Шинээр бүртгүүлэх бол?
-						</Typography>
-						<Link href="/auth/signup">
-							<a>
-								<Typography
-									variant="body1"
-									color="primary"
-									sx={{ fontSize: '14px', textDecoration: 'underline' }}
-								>
-									&nbsp;Энд дар.
-								</Typography>
-							</a>
-						</Link>
-					</Box>
-				</Box>
-			</Container>
-		)
-	} else if (status === 'otp') {
-		return (
-			<Container
-				maxWidth="sm"
+	return (
+		<Container maxWidth="xs" sx={{ minHeight: '60vh' }}>
+			<Head>
+				<title>Нэвтрэх | SEED.MN</title>
+			</Head>
+			<Box
+				autoComplete="off"
+				component="form"
+				noValidate
 				sx={{
-					minHeight: '68vh',
-					display: 'flex',
-					justifyContent: 'center',
-					alignItems: 'center'
+					border: '0.5px solid rgba(0,0,0,0.1)',
+					py: 2,
+					px: 4,
+					mt: 'auto'
 				}}
 			>
-				<Box
-					component="form"
-					noValidate
-					autoComplete="off"
-					sx={{
-						border: '1px solid rgba(0,0,0,0.1)',
-						mx: 'auto',
-						p: 5
-					}}
-				>
-					<Typography
-						variant="h4"
-						textAlign="center"
-						fontWeight="bold"
-						sx={{
-							mb: 2
+				<Typography variant="h4" sx={{ my: 2 }}>
+					Нэвтрэх
+				</Typography>
+				<FormControl sx={{ mb: 2, fontSize: '9px' }} fullWidth>
+					<TextField
+						sx={{ fontSize: '14px' }}
+						required={true}
+						value={values.email}
+						onChange={handleChange('email')}
+						id="email"
+						name="email"
+						type="email"
+						error={emptyField || !valid.valid_email}
+						label="И мэйл"
+						variant="outlined"
+						InputLabelProps={{
+							shrink: true
 						}}
-					>
-						Имэйлээ шалгана уу!
-					</Typography>
+					/>
+				</FormControl>
+				<FormControl sx={{ mb: 4 }} fullWidth variant="outlined">
+					<TextField
+						InputLabelProps={{
+							shrink: true
+						}}
+						sx={{ fonSize: '14px' }}
+						id="password"
+						name="password"
+						type={values.showPassword ? 'text' : 'password'}
+						value={values.password}
+						onChange={handleChange('password')}
+						InputProps={{
+							endAdornment: (
+								<InputAdornment position="end">
+									<IconButton
+										aria-label="toggle password visibility"
+										onClick={handleClickShowPassword}
+										onMouseDown={handleMouseDownPassword}
+										edge="end"
+									>
+										{values.showPassword ? <VisibilityOff /> : <Visibility />}
+									</IconButton>
+								</InputAdornment>
+							)
+						}}
+						variant="outlined"
+						error={emptyField === true || !valid.valid_password ? true : false}
+						label="Нууц үг"
+						helperText="Том жижиг үсэг, нэг тоо оруулсан байх ёстой"
+						required
+					/>
+				</FormControl>
+				<Button
+					onClick={() => {
+						userLogin()
+					}}
+					variant="contained"
+					size="large"
+					fullWidth
+					sx={{ fontSize: '12px' }}
+				>
+					{loading === true ? (
+						<CircularProgress sx={{ color: 'white ' }} size={24} />
+					) : (
+						'Нэвтрэх'
+					)}
+				</Button>
+				{emptyField || badResponse ? (
 					<Typography
 						variant="body2"
-						textAlign="center"
+						sx={{ color: 'red', textAlign: 'center', mt: 2 }}
+					>
+						Имэйл эсвэл нууц үг буруу байна.
+					</Typography>
+				) : (
+					''
+				)}
+				<Grid
+					container
+					alignItems="center"
+					justifyContent="space-between"
+					display="flex"
+				>
+					<Box sx={{ mt: 1 }}>
+						<Checkbox />
+						<Typography variant="caption">Сануулах</Typography>
+					</Box>
+					<Typography component="a" sx={{ fontSize: '12px', mt: 1 }}>
+						Нууц үгээ мартсан уу?
+					</Typography>
+				</Grid>
+				<Divider sx={{ my: 2, fontSize: '14px' }}>Эсвэл</Divider>
+				<Box textAlign="center">
+					<Typography
+						variant="body1"
+						component="span"
 						sx={{ fontSize: '14px' }}
 					>
-						<Typography
-							variant="caption"
-							sx={{
-								fontWeight: 'bold',
-								display: 'inline-block',
-								fontSize: '14px',
-								mr: '3px'
-							}}
-						>
-							{values.email}
-						</Typography>
-						-руу илгээсэн 6 оронтой баталгаажуулах кодыг оруулна уу.
+						Шинээр бүртгүүлэх бол?
 					</Typography>
-					<Box
-						sx={{
-							textAlign: 'center',
-							display: 'flex',
-							py: 2,
-							alignItems: 'center',
-							justifyContent: 'center'
-						}}
-					>
-						{valuesOTP.map((value: string, index: number) => (
-							<FormControl
-								key={index}
-								sx={{
-									display: 'inline-block',
-									mr: 1,
-									mt: 2
-								}}
-								variant="outlined"
+					<Link href="/auth/signup">
+						<a>
+							<Typography
+								variant="body1"
+								color="primary"
+								sx={{ fontSize: '14px', textDecoration: 'underline' }}
 							>
-								<TextField
-									sx={{
-										maxHeight: '48px',
-										maxWidth: '48px',
-										textAlign: 'center',
-										fontSize: '14px'
-									}}
-									autoFocus={index === 0 ? true : false}
-									placeholder="-"
-									value={value}
-									onChange={(event) => handleChangeOTP(event, index)}
-									inputRef={inputRefs[index]}
-								/>
-							</FormControl>
-						))}
-					</Box>
-					<Button
-						onClick={() => {
-							userLogin()
-						}}
-						variant="contained"
-						fullWidth
-						size="medium"
-						sx={{ mb: 2, mt: 1 }}
-					>
-						Баталгаажуулах
-					</Button>
+								&nbsp;Энд дар.
+							</Typography>
+						</a>
+					</Link>
 				</Box>
-			</Container>
-		)
-	}
+			</Box>
+		</Container>
+	)
 }

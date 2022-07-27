@@ -181,14 +181,15 @@ export default function Register(): any {
 			values.password &&
 			values.phoneNumber
 		) {
-			const newData = {
-				email: values.email
+			const otpData = {
+				email: values.email,
+				phoneNumber: values.phoneNumber
 			}
 			setLoading(true)
 			setUserExists(false)
 			setBadResponse(false)
 			try {
-				await axios.post(host + '/auth/message', newData).then((res) => {
+				await axios.post(host + '/auth/message', otpData).then((res) => {
 					console.log(res.status, res.data)
 					setStatus('otp')
 				})
@@ -202,11 +203,11 @@ export default function Register(): any {
 				if (errStatus === 401) {
 					setUserExists(true)
 				} //bad response handling
-				else if ((errStatus > 402 && errStatus < 500) || errStatus === 0) {
+				else if (errStatus === 400) {
 					setBadResponse(true)
-					console.error('Алдаа гарлаа')
+					console.error(err.response?.data)
 				} else {
-					console.error('Алдаа unknown')
+					console.error(err.response?.data)
 				}
 			}
 			setLoading(false)
@@ -331,7 +332,9 @@ export default function Register(): any {
 										shrink: true
 									}}
 									sx={{
-										fontSize: '14px'
+										fontSize: '14px',
+										borderBottom:
+											badResponse === true ? '2px solid red' : 'none'
 									}}
 									error={emptyField || !valid.valid_email}
 									helperText={

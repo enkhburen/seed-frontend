@@ -1,14 +1,38 @@
+import * as React from 'react'
 import Box from '@mui/material/Box'
 import Avatar from '@mui/material/Avatar'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
-import Skeleton from '@mui/material/Skeleton'
+import Cookies from 'universal-cookie'
+import axios, { AxiosError } from 'axios'
+
+const host = 'http://localhost:8000'
 
 export default function ProfileInfo() {
-	const name = 'Билгүүтэй'
-	const imgSrc = '/assets/author-thumbs/image1.jpg'
-	const text1 = '12 төсөл дэмжсэн'
-	const text2 = 'Sample text'
+	const cookies = new Cookies()
+	const [name, setName] = React.useState()
+	const [imgSrc, setImgSrc] = React.useState()
+
+	const token = cookies.get('access_token')
+
+	let text1 = '12 төсөл дэмжсэн'
+	let text2 = 'Sample text'
+
+	const getUserData = async function () {
+		try {
+			await axios.get(host + '/user/profile/' + token).then((res) => {
+				setName(res.data.first_name)
+				res.data.profile_pic !== null ? setImgSrc(res.data.profile_pic) : ''
+			})
+		} catch (error) {
+			axios.isAxiosError(error)
+			const err = error as AxiosError
+			const errStatus = err.response?.status
+			console.log(err)
+		}
+	}
+
+	getUserData()
 
 	return (
 		<Box sx={{ textAlign: 'center' }}>

@@ -33,6 +33,9 @@ import LogoutIcon from '@mui/icons-material/Logout'
 
 import SeedLogoBlack from 'public/assets/logo/seed_logo_black.svg'
 import { Button } from '@mui/material'
+import axios, { AxiosError } from 'axios'
+
+const host = 'http://localhost:8000'
 
 const menus = [
 	{
@@ -69,7 +72,7 @@ const dropDownMenu = [
 		text: 'Тохиргоо'
 	},
 	{
-		url: '/campaign/category',
+		url: '/campaign/create',
 		icon: <AddIcon sx={{ color: '#555', mr: 1 }} />,
 		text: 'Төсөл үүсгэх'
 	},
@@ -86,9 +89,12 @@ const dropDownMenu = [
 ]
 
 export default function NavigationMenu(): any {
+	const [isLogged, setIsLogged] = React.useState<boolean>(false)
+	const [profile, setProfile] = React.useState()
 	const cookies = new Cookies()
 	const router = useRouter()
 
+	const token = cookies.get('access_token')
 	React.useEffect(() => {
 		if (cookies.get('access_token') !== undefined) {
 			setIsLogged(true)
@@ -105,7 +111,6 @@ export default function NavigationMenu(): any {
 	const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
 		null
 	)
-	const [isLogged, setIsLogged] = React.useState<boolean>(false)
 	const [open, setOpen] = React.useState<boolean>(false)
 
 	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -148,6 +153,23 @@ export default function NavigationMenu(): any {
 
 		prevOpen.current = open
 	}, [open])
+
+	const getUserData = async function () {
+		try {
+			await axios.get(host + '/user/profile/' + token).then((res) => {
+				res.data.profile_pic !== null ? setProfile(res.data.profile_pic) : ''
+			})
+		} catch (error) {
+			axios.isAxiosError(error)
+			const err = error as AxiosError
+			const errStatus = err.response?.status
+			// console.log(err)
+		}
+	}
+
+	{
+		isLogged ? getUserData() : ''
+	}
 
 	return (
 		<AppBar
@@ -217,7 +239,7 @@ export default function NavigationMenu(): any {
 									>
 										<Avatar
 											alt="Sample profile"
-											src="/assets/author-thumbs/post-author.jpg"
+											src={profile}
 											sx={{ width: '48px', height: '48px' }}
 										/>
 										<ArrowDropDownIcon />
@@ -353,51 +375,53 @@ export default function NavigationMenu(): any {
 								</a>
 							</Link>
 						</Typography>
-
-						<Box sx={{ flexGrow: 0 }}>
-							<Tooltip title="Хувийн тохиргоо">
-								<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-									<Avatar
-										alt="Sample User"
-										src="/assets/author-thumbs/post-author.jpg"
-									/>
-								</IconButton>
-							</Tooltip>
-							<Menu
-								sx={{ mt: '45px' }}
-								id="menu-appbar"
-								anchorEl={anchorElUser}
-								anchorOrigin={{
-									vertical: 'top',
-									horizontal: 'right'
-								}}
-								keepMounted
-								transformOrigin={{
-									vertical: 'top',
-									horizontal: 'right'
-								}}
-								open={Boolean(anchorElUser)}
-								onClose={handleCloseUserMenu}
-							>
-								{dropDownMenu.map((setting) => {
-									return (
-										<Link href={setting.url} key={setting.text}>
-											<a>
-												<MenuItem
-													onClick={handleCloseUserMenu}
-													sx={{ fontSize: '14px', width: '200px' }}
-												>
-													{setting.icon}
-													<Typography variant="body2">
-														{setting.text}
-													</Typography>
-												</MenuItem>
-											</a>
-										</Link>
-									)
-								})}
-							</Menu>
-						</Box>
+						{isLogged === true ? (
+							<Box sx={{ flexGrow: 0 }}>
+								<Tooltip title="Хувийн тохиргоо">
+									<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+										<Avatar alt="Sample User" src={profile} />
+									</IconButton>
+								</Tooltip>
+								<Menu
+									sx={{ mt: '45px' }}
+									id="menu-appbar"
+									anchorEl={anchorElUser}
+									anchorOrigin={{
+										vertical: 'top',
+										horizontal: 'right'
+									}}
+									keepMounted
+									transformOrigin={{
+										vertical: 'top',
+										horizontal: 'right'
+									}}
+									open={Boolean(anchorElUser)}
+									onClose={handleCloseUserMenu}
+								>
+									{dropDownMenu.map((setting) => {
+										return (
+											<Link href={setting.url} key={setting.text}>
+												<a>
+													<MenuItem
+														onClick={handleCloseUserMenu}
+														sx={{ fontSize: '14px', width: '200px' }}
+													>
+														{setting.icon}
+														<Typography variant="body2">
+															{setting.text}
+														</Typography>
+													</MenuItem>
+												</a>
+											</Link>
+										)
+									})}
+								</Menu>
+							</Box>
+						) : (
+							<Button variant="outlined" color="primary" href="/auth/login">
+								НЭВТРЭХ
+							</Button>
+						)}
 					</Toolbar>
 				</Box>
 			</Container>

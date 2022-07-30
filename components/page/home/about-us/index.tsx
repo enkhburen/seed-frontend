@@ -18,7 +18,7 @@ import AboutGallery2 from 'public/assets/about/home-about.jpg'
 
 export default function AboutUs() {
 	return (
-		<Container component="main">
+		<Container>
 			<Grid
 				container
 				spacing={7}
@@ -61,20 +61,18 @@ export default function AboutUs() {
 						>
 							{/* <ArrowForwardIosIcon sx={{ fontSize: '12px' }} /> Сайтын туршилтын */}
 							Бета хувилбарт гишүүн болж бүртгүүлэх урилга авах хүсэлтэй бол{' '}
-							<Link href="#">
-								<a>
-									<Typography
-										variant="body2"
-										sx={{
-											display: 'inline-block',
-											fontWeight: 'bold',
-											fontSize: '15px',
-											textDecoration: 'underline'
-										}}
-									>
-										энд дарна уу.
-									</Typography>
-								</a>
+							<Link href="/">
+								<Typography
+									variant="caption"
+									sx={{
+										display: 'inline-block',
+										fontWeight: 'bold',
+										fontSize: '15px',
+										textDecoration: 'underline'
+									}}
+								>
+									<a>энд дарна уу.</a>
+								</Typography>
 							</Link>
 						</Typography>
 						<Typography sx={{ mt: 1, fontSize: '15px' }}>

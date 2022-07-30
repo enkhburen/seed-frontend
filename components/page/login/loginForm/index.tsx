@@ -60,7 +60,6 @@ export default function LoginForm(): any {
 	const password = new RegExp(
 		/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/
 	)
-
 	//Show and Hide password function
 	const handleChange =
 		(prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {

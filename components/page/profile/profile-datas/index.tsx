@@ -22,8 +22,14 @@ function ProfileDashboard() {
 				Хянах самбар
 			</Typography>
 			<Grid container justifyContent="center">
-				{array.map((_) => (
-					<Grid item lg={3} md={3} sx={{ display: 'inline-block', m: 2 }}>
+				{array.map((_, index) => (
+					<Grid
+						item
+						key={index}
+						lg={3}
+						md={3}
+						sx={{ display: 'inline-block', m: 2 }}
+					>
 						<Stack spacing={1}>
 							<Skeleton variant="text" width={210} />
 							<Skeleton variant="circular" width={40} height={40} />

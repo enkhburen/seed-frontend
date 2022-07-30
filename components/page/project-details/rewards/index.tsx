@@ -80,7 +80,7 @@ export default function projectDetails() {
 				}}
 				variant="contained"
 			>
-				Энэ Урамшууллыг Сонгох
+				Энэ урамшууллыг сонгох
 				<ArrowRightAltIcon
 					sx={{
 						fontSize: '22px'

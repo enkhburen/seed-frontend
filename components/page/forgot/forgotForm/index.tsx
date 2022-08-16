@@ -21,7 +21,7 @@ interface State {
 	password: string
 }
 
-const host = 'localhost:8000'
+const host = 'http://localhost:8000'
 
 export default function forgotForm(): any {
 	const cookies = new Cookies()

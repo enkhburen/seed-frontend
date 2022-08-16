@@ -39,8 +39,6 @@ interface State {
 	file: any
 	goal: number
 	date: any
-	pledges: any
-	money: string
 }
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -54,6 +52,8 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 export default function CategoryPage(): any {
 	const cookies = new Cookies()
 	const [name, setName] = React.useState()
+	const [email, setEmail] = React.useState()
+	const [phone, setPhone] = React.useState()
 
 	const token = cookies.get('access_token')
 
@@ -68,6 +68,8 @@ export default function CategoryPage(): any {
 		try {
 			await axios.get(host + '/user/profile/' + token).then((res) => {
 				setName(res.data.first_name)
+				setEmail(res.data.email)
+				setPhone(res.data.phoneNumber)
 			})
 		} catch (error) {
 			axios.isAxiosError(error)
@@ -82,10 +84,10 @@ export default function CategoryPage(): any {
 		subtitle: '',
 		file: null,
 		goal: 0,
-		date: '',
-		pledges: [],
-		money: ''
+		date: ''
 	})
+
+	const [pledges, setPledges] = React.useState([])
 	const [pageNumber, setPageNumber] = React.useState(0)
 
 	const handleInputChanges = (prop: keyof State) => (event: any) => {
@@ -104,10 +106,43 @@ export default function CategoryPage(): any {
 		const formData = new FormData()
 
 		formData.append('file', values.file, values.file.name)
+		const datas = {
+			title: values.title,
+			description: values.subtitle,
+			start_date: new Date().toISOString().slice(0, 10),
+			end_date: values.date,
+			target_goal: Number(values.goal),
+			category: values.category,
+			email: email,
+			phoneNumber: phone || '',
+			address: '',
+			pledge_objects: [
+				{ title: 'asd', amount: 123, description: '123', arrival_date: '123' }
+			],
+			assets: formData.get('file')
+		}
 
-		console.log(values.file)
+		console.log(token, datas)
 
 		e.preventDefault()
+
+		const submitData = async function () {
+			try {
+				await axios
+					.post(host + '/project/upload', datas, {
+						headers: { Authorization: `Bearer ${token}` }
+					})
+					.then((res) => {
+						console.log(res)
+					})
+			} catch (error) {
+				axios.isAxiosError(error)
+				const err = error as AxiosError
+				console.error(err)
+			}
+		}
+
+		submitData()
 	}
 
 	if (pageNumber === 0) {
@@ -155,16 +190,16 @@ export default function CategoryPage(): any {
 								inputProps={{ MenuProps: { disableScrollLock: true } }}
 								sx={{ fontSize: '14px' }}
 							>
-								<MenuItem value="Дуу" sx={{ fontSize: '14px' }}>
+								<MenuItem value="song" sx={{ fontSize: '14px' }}>
 									Дуу
 								</MenuItem>
-								<MenuItem value="Кино" sx={{ fontSize: '14px' }}>
+								<MenuItem value="movie" sx={{ fontSize: '14px' }}>
 									Кино
 								</MenuItem>
-								<MenuItem value="Технологи" sx={{ fontSize: '14px' }}>
+								{/* <MenuItem value="Технологи" sx={{ fontSize: '14px' }}>
 									Технологи
-								</MenuItem>
-								<MenuItem value="Бусад" sx={{ fontSize: '14px' }}>
+								</MenuItem> */}
+								<MenuItem value="other" sx={{ fontSize: '14px' }}>
 									Бусад
 								</MenuItem>
 							</Select>
@@ -243,6 +278,7 @@ export default function CategoryPage(): any {
 								fullWidth
 								required
 								onChange={handleInputChanges('title')}
+								value={values.title}
 							/>
 							<TextField
 								InputLabelProps={{ shrink: true }}
@@ -253,6 +289,7 @@ export default function CategoryPage(): any {
 								multiline
 								fullWidth
 								rows={3}
+								value={values.subtitle}
 							/>
 						</Grid>
 					</Grid>
@@ -337,6 +374,7 @@ export default function CategoryPage(): any {
 								fullWidth
 								variant="outlined"
 								onChange={handleInputChanges('goal')}
+								value={values.goal}
 							/>
 						</Grid>
 					</Grid>
@@ -391,7 +429,7 @@ export default function CategoryPage(): any {
 								sx={{ fontSize: '12px' }}
 								onClick={() => {
 									setPageNumber(pageNumber + 1)
-									console.log(values)
+									console.log(values, pledges)
 								}}
 								variant="contained"
 							>
@@ -425,11 +463,16 @@ export default function CategoryPage(): any {
 							Гарчиг
 						</Typography>
 						<TextField
-							id="rewards-title"
+							name="pledges"
 							variant="outlined"
 							fullWidth
 							required
 							size="small"
+							// value={pledges[0].title}
+							// onChange={(event) => {
+							// 	pledges[0].title = event.target.value
+							// 	setPledges({ ...pledges })
+							// }}
 						/>
 						<Divider sx={{ my: 5 }} />
 						<Typography
@@ -440,10 +483,14 @@ export default function CategoryPage(): any {
 						</Typography>
 						<TextField
 							InputLabelProps={{ shrink: true }}
-							value={values.money}
+							type="number"
+							// value={pledges[0].amount}
+							// onChange={(event) => {
+							// 	pledges[0].amount = Number(event.target.value)
+							// 	setPledges({ ...pledges })
+							// }}
 							label="₮"
 							fullWidth
-							id="formatted-numberformat-input"
 							variant="outlined"
 							size="small"
 						/>
@@ -454,7 +501,17 @@ export default function CategoryPage(): any {
 						>
 							Тайлбар
 						</Typography>
-						<TextField id="rewards-description" rows={4} multiline fullWidth />
+						<TextField
+							id="rewards-description"
+							rows={4}
+							multiline
+							fullWidth
+							// value={pledges[0].description}
+							// onChange={(event) => {
+							// 	pledges[0].description = event.target.value
+							// 	setPledges({ ...pledges })
+							// }}
+						/>
 						<Divider sx={{ my: 5 }} />
 						<Typography
 							variant="body2"
@@ -466,9 +523,16 @@ export default function CategoryPage(): any {
 							Give yourself plenty of time. It's better to deliver to backers
 							ahead of schedule than behind.
 						</Typography>
-						<Box sx={{ mt: 4 }}></Box>
+						<Input
+							type="date"
+							// value={pledges[0].arrival_date}
+							// onChange={(event) => {
+							// 	pledges[0].arrival_date = event.target.value.toString()
+							// 	setPledges({ ...pledges })
+							// }}
+						/>
 						<Divider sx={{ my: 7 }} />
-						<Typography
+						{/* <Typography
 							variant="body2"
 							sx={{ mb: 1, fontSize: '14px', fontWeight: 'bold' }}
 						>
@@ -485,7 +549,7 @@ export default function CategoryPage(): any {
 							type="number"
 							size="small"
 							fullWidth
-						/>
+						/> */}
 					</Grid>
 					<Grid item xs={12} md={4} sx={{ mt: 4 }}>
 						<Rewards />
@@ -515,7 +579,7 @@ export default function CategoryPage(): any {
 								sx={{ fontSize: '12px' }}
 								onClick={() => {
 									setPageNumber(pageNumber + 1)
-									console.log(values)
+									console.log(values, pledges)
 								}}
 								variant="contained"
 							>
@@ -592,7 +656,7 @@ export default function CategoryPage(): any {
 								sx={{ fontSize: '12px' }}
 								onClick={() => {
 									setPageNumber(pageNumber + 1)
-									console.log(values)
+									console.log(values, pledges)
 								}}
 								variant="contained"
 								type="submit"
@@ -698,8 +762,8 @@ export default function CategoryPage(): any {
 						<Grid item>
 							<Button
 								sx={{ fontSize: '12px' }}
-								onClick={() => {
-									console.log(values)
+								onClick={(event) => {
+									handleSubmit(event)
 								}}
 								variant="contained"
 								type="submit"

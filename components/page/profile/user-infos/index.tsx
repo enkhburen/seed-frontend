@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
 import Cookies from 'universal-cookie'
 import axios, { AxiosError } from 'axios'
+import Router from 'next/router'
 
 const host = 'http://localhost:8000'
 
@@ -21,8 +22,13 @@ export default function ProfileInfo() {
 	const getUserData = async function () {
 		try {
 			await axios.get(host + '/user/profile/' + token).then((res) => {
-				setName(res.data.first_name)
-				res.data.profile_pic !== null ? setImgSrc(res.data.profile_pic) : ''
+				if (res.data.message !== 'jwt expired') {
+					setName(res.data.first_name)
+					res.data.profile_pic !== null ? setImgSrc(res.data.profile_pic) : ''
+				} else {
+					cookies.remove('access_token', { path: '/' })
+					console.log('expired', cookies.get('access_token'))
+				}
 			})
 		} catch (error) {
 			axios.isAxiosError(error)
@@ -33,6 +39,12 @@ export default function ProfileInfo() {
 	}
 
 	getUserData()
+
+	React.useEffect(() => {
+		if (cookies.get('access_token') === undefined) {
+			Router.push('/auth/login')
+		}
+	})
 
 	return (
 		<Box sx={{ textAlign: 'center' }}>

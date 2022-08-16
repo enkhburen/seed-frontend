@@ -95,17 +95,42 @@ export default function NavigationMenu(): any {
 	const router = useRouter()
 
 	const token = cookies.get('access_token')
-	React.useEffect(() => {
-		if (cookies.get('access_token') !== undefined) {
-			setIsLogged(true)
-		}
-	})
 
 	const logOut = () => {
 		cookies.remove('access_token', { path: '/' })
 		setIsLogged(false)
-		Router.push('/')
+		window.location.reload()
 	}
+	React.useEffect(() => {
+		if (cookies.get('access_token') !== undefined) {
+			setIsLogged(true)
+		}
+		const getUserData = async function () {
+			try {
+				await axios.get(host + '/user/profile/' + token).then((res) => {
+					if (res.data.message !== 'jwt expired') {
+						res.data.profile_pic !== null
+							? setProfile(res.data.profile_pic)
+							: ''
+					} else {
+						setIsLogged(false)
+						cookies.remove('access_token')
+						logOut()
+					}
+				})
+			} catch (error) {
+				axios.isAxiosError(error)
+				const err = error as AxiosError
+				const errStatus = err.response?.status
+				console.log(err)
+			}
+
+			// if (err) {
+			// } else {
+			isLogged ? getUserData() : ''
+			// }
+		}
+	})
 
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
 	const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
@@ -153,23 +178,6 @@ export default function NavigationMenu(): any {
 
 		prevOpen.current = open
 	}, [open])
-
-	const getUserData = async function () {
-		try {
-			await axios.get(host + '/user/profile/' + token).then((res) => {
-				res.data.profile_pic !== null ? setProfile(res.data.profile_pic) : ''
-			})
-		} catch (error) {
-			axios.isAxiosError(error)
-			const err = error as AxiosError
-			const errStatus = err.response?.status
-			// console.log(err)
-		}
-	}
-
-	{
-		isLogged ? getUserData() : ''
-	}
 
 	return (
 		<AppBar
